@@ -3,25 +3,27 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package BUS;
-
-import java.util.ArrayList;
+package GUI;
 
 import DTO.KhachHang;
+import BUS.KhachHangBUS;
 import DAO.KhachHangDAO;
 
 /**
  *
- * @author tuan gh
+ * @author Massan
  */
-public class KhachHangBUS
-{
-    
-	public ArrayList<KhachHang> m_listKhachHang;
-
-	public KhachHangBUS()
+public class Test {
+	
+	public static void main(String[] args)
 	{
+		KhachHangBUS khBUS = new KhachHangBUS();
+		
+		KhachHang kh = khBUS.m_listKhachHang.get(0);
+		kh.setTen("Van Thanh");
+		
 		KhachHangDAO khDAO = new KhachHangDAO();
-		m_listKhachHang = khDAO.load();
+		khDAO.edit(kh);
 	}
+	
 }
