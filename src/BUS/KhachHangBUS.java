@@ -16,7 +16,7 @@ import DAO.KhachHangDAO;
  */
 public class KhachHangBUS
 {
-    
+    // ok
 	public ArrayList<KhachHang> m_listKhachHang;
 
 	public KhachHangBUS()
