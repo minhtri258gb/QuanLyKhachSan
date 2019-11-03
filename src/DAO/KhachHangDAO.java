@@ -72,7 +72,7 @@ public class KhachHangDAO
 		DB.disconnect();
 	}
 
-	public void delete(String makh)
+	public void delete(int makh)
 	{
 		Database DB = new Database();
 		DB.connect();
@@ -93,12 +93,10 @@ public class KhachHangDAO
 		sql += "', `gioitinh` = '"				+kh.getGioiTinh();
 		sql += "', `ngaysinh` = '"				+kh.getNgaySinh();
 		sql += "', `sdt` = '"					+kh.getSoDienThoai();
-		sql += "', `email` = '"					+kh.getEmail();
+		sql += "', `email` = '"				+kh.getEmail();
 		sql += "', `cmnd` = '"					+kh.getCMND();
 		sql += "', `quoctich` = '"				+kh.getQuocTich();
 		sql += "' WHERE `KhachHang`.`makh` = "	+kh.getMaKH()+";";
-		
-		System.out.print(sql);
 		
 		DB.update(sql);
 		DB.disconnect();
