@@ -5,30 +5,34 @@
  */
 package DTO;
 
+import java.util.Date;
+
 /**
  *
- * @author tuan gh
+ * @author Massan
  */
-public class KhachHang
+public class NhanVien
 {
-	private final int m_makh;
+	private final int m_manv;
 	private String m_ho;
 	private String m_ten;
-	private int m_gioitinh;
-	private String m_ngaysinh;
+	private byte m_gioitinh;
+	private Date m_ngaysinh;
 	private int m_sdt;
 	private String m_email;
-	private int m_cmnd;
-	private String m_quoctich;
+	private Date m_ngayvao;
+	private String m_chucvu;
+	private int m_luong;
 
-	public KhachHang(int m_makh)
+	
+	public NhanVien(int manv)
 	{
-		this.m_makh = m_makh;
+		this.m_manv = manv;
 	}
 
-	public int getMaKH()
+	public int getMaNV()
 	{
-		return m_makh;
+		return m_manv;
 	}
 
 	public String getHo()
@@ -40,7 +44,7 @@ public class KhachHang
 	{
 		m_ho = ho;
 	}
-	
+
 	public String getTen()
 	{
 		return m_ten;
@@ -50,38 +54,37 @@ public class KhachHang
 	{
 		m_ten = ten;
 	}
-	
-	// 1: nu; 0: nam
-	public int getGioiTinh()
+
+	public byte getGioiTinh()
 	{
 		return m_gioitinh;
 	}
 
-	public void setGioiTinh(int gioitinh)
+	public void setGioiTinh(byte gioitinh)
 	{
 		m_gioitinh = gioitinh;
 	}
-	
-	public String getNgaySinh()
+
+	public Date getNgaySinh()
 	{
 		return m_ngaysinh;
 	}
 
-	public void setNgaySinh(String ngaysinh)
+	public void setNgaySinh(Date ngaysinh)
 	{
 		m_ngaysinh = ngaysinh;
 	}
-	
-	public int getSoDienThoai()
+
+	public int getSDT()
 	{
 		return m_sdt;
 	}
 
-	public void setSoDienThoai(int sdt)
+	public void setSDT(int sdt)
 	{
 		m_sdt = sdt;
 	}
-	
+
 	public String getEmail()
 	{
 		return m_email;
@@ -91,25 +94,35 @@ public class KhachHang
 	{
 		m_email = email;
 	}
-	
-	public int getCMND()
+
+	public Date getNgayVao()
 	{
-		return m_cmnd;
+		return m_ngayvao;
 	}
 
-	public void setCMND(int cmnd)
+	public void setNgayVao(Date ngayvao)
 	{
-		m_cmnd = cmnd;
-	}
-	
-	public String getQuocTich()
-	{
-		return m_quoctich;
+		m_ngayvao = ngayvao;
 	}
 
-	public void setQuocTich(String quoctich)
+	public String getChucVu()
 	{
-		m_quoctich = quoctich;
+		return m_chucvu;
+	}
+
+	public void setChucVu(String chucvu)
+	{
+		m_chucvu = chucvu;
+	}
+
+	public int getLuong()
+	{
+		return m_luong;
+	}
+
+	public void setLuong(int luong)
+	{
+		m_luong = luong;
 	}
 	
 }
