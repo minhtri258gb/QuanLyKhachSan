@@ -48,6 +48,35 @@ public class TaiKhoanDAO
 		return l_TaiKhoan;
 	}
 	
+	public TaiKhoan get(String tentk)
+	{
+		Database DB = new Database();
+		DB.connect();
+
+		ResultSet rs = DB.execution("SELECT * FROM TaiKhoan WHERE tentk='"+tentk+"';");
+		
+		try
+		{
+			while(rs.next())
+			{
+				TaiKhoan kh = new TaiKhoan(rs.getString(1));
+				kh.setMatkhau(rs.getString(2));
+				kh.setMaNV(rs.getInt(3));
+				kh.setQuyen(rs.getByte(4));
+				DB.disconnect();
+				return kh;
+			}
+		}
+		catch(SQLException e)
+		{
+			System.out.println("[TaiKhoanDAO:load] error sql: "+e);
+		}
+		
+		DB.disconnect();
+		
+		return null;
+	}
+	
 	public void add(TaiKhoan tk)
 	{
 		Database DB = new Database();

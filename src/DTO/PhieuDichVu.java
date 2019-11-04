@@ -14,7 +14,7 @@ public class PhieuDichVu
 	private final int m_mapdv;
 	private final int m_madv;
 	private String m_ngaydat;
-	private short m_soluong;
+	private int m_soluong;
 	
 	
 	public PhieuDichVu(int mapdv, int madv)
@@ -43,12 +43,12 @@ public class PhieuDichVu
 		m_ngaydat = ngaydat;
 	}
 
-	public short getSoLuong()
+	public int getSoLuong()
 	{
 		return m_soluong;
 	}
 
-	public void setSoLuong(short soluong)
+	public void setSoLuong(int soluong)
 	{
 		m_soluong = soluong;
 	}
