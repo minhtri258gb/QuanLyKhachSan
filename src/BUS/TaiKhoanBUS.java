@@ -27,19 +27,20 @@ public class TaiKhoanBUS
 		return m_user;
 	}
 	
-	public static boolean login(String tentk, String matkhau)
+	public static TaiKhoan login(String tentk, String matkhau)
 	{
 		TaiKhoanDAO tkDAO = new TaiKhoanDAO();
 		
-		TaiKhoan tk = tkDAO.get(tentk);
+		TaiKhoan tk = tkDAO.get(tentk,matkhau);
 		
-		if(tk != null && tk.getMatkhau() == matkhau)
+		if(tk != null)
 		{
 			m_user = tk;
-			return true;
+			return tk;
 		}
-		
-		return false;
+                else{
+		return null;
+                }
 	}
 	
 	public static void logout()
