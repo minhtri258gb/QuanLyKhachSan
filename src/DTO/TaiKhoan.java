@@ -11,21 +11,24 @@ package DTO;
  */
 public class TaiKhoan
 {
-	private final String m_tentk;
+	private  String m_tentk;
 	private String m_matkhau;
 	private int m_manv;
-	private byte m_quyen;
+	private int m_quyen;
 
 	
-	public TaiKhoan(String tentk)
+	public TaiKhoan()
 	{
-		m_tentk = tentk;
 	}
 
 	public String getTenTK()
 	{
 		return m_tentk;
 	}
+        public void set_tentk(String tentk)
+        {
+            this.m_tentk=tentk;
+        }
 
 	public String getMatkhau()
 	{
@@ -47,12 +50,12 @@ public class TaiKhoan
 		m_manv = manv;
 	}
 
-	public byte getQuyen()
+	public int getQuyen()
 	{
 		return m_quyen;
 	}
 
-	public void setQuyen(byte quyen)
+	public void setQuyen(int quyen)
 	{
 		m_quyen = quyen;
 	}

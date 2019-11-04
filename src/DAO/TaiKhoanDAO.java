@@ -30,11 +30,11 @@ public class TaiKhoanDAO
 		{
 			while(rs.next())
 			{
-				TaiKhoan kh = new TaiKhoan(rs.getString(1));
-
-				kh.setMatkhau(rs.getString(2));
-				kh.setMaNV(rs.getInt(3));
-				kh.setQuyen(rs.getByte(4));
+				TaiKhoan kh = new TaiKhoan();
+                                kh.setMaNV(rs.getInt(2));
+                                kh.set_tentk(rs.getString(3));
+				kh.setMatkhau(rs.getString(4));
+				kh.setQuyen( rs.getInt(5));
 				l_TaiKhoan.add(kh);
 			}
 		}
@@ -48,24 +48,25 @@ public class TaiKhoanDAO
 		return l_TaiKhoan;
 	}
 	
-	public TaiKhoan get(String tentk)
+	public TaiKhoan get(String tentk,String mk)
 	{
 		Database DB = new Database();
 		DB.connect();
 
-		ResultSet rs = DB.execution("SELECT * FROM TaiKhoan WHERE tentk='"+tentk+"';");
+		ResultSet rs = DB.execution("SELECT * FROM TaiKhoan WHERE tentk='"+tentk+"' and "+"matkhau='"+mk+"'");
 		
 		try
 		{
 			while(rs.next())
 			{
-				TaiKhoan kh = new TaiKhoan(rs.getString(1));
-				kh.setMatkhau(rs.getString(2));
-				kh.setMaNV(rs.getInt(3));
-				kh.setQuyen(rs.getByte(4));
-				DB.disconnect();
+				TaiKhoan kh = new TaiKhoan();
+                                kh.setMaNV(rs.getInt(2));
+                                kh.set_tentk(rs.getString(3));
+				kh.setMatkhau(rs.getString(4));
+				kh.setQuyen( rs.getInt(5));
 				return kh;
 			}
+                        DB.disconnect();
 		}
 		catch(SQLException e)
 		{
