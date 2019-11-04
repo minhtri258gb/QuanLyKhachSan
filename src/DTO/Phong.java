@@ -5,8 +5,6 @@
  */
 package DTO;
 
-import java.util.ArrayList;
-
 /**
  *
  * @author Massan
@@ -17,7 +15,6 @@ public class Phong
 	private int m_maloaiphg;
 	private String m_tinhtrang;
 	private int m_gia;
-	public ArrayList<ChiTietPhong> l_chitiet;
 	
 
 	public Phong(int maphg)

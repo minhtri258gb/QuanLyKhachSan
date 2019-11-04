@@ -5,8 +5,6 @@
  */
 package DTO;
 
-import java.util.Date;
-
 /**
  *
  * @author Massan
@@ -17,10 +15,10 @@ public class NhanVien
 	private String m_ho;
 	private String m_ten;
 	private byte m_gioitinh;
-	private Date m_ngaysinh;
+	private String m_ngaysinh;
 	private int m_sdt;
 	private String m_email;
-	private Date m_ngayvao;
+	private String m_ngayvao;
 	private String m_chucvu;
 	private int m_luong;
 
@@ -65,12 +63,12 @@ public class NhanVien
 		m_gioitinh = gioitinh;
 	}
 
-	public Date getNgaySinh()
+	public String getNgaySinh()
 	{
 		return m_ngaysinh;
 	}
 
-	public void setNgaySinh(Date ngaysinh)
+	public void setNgaySinh(String ngaysinh)
 	{
 		m_ngaysinh = ngaysinh;
 	}
@@ -95,12 +93,12 @@ public class NhanVien
 		m_email = email;
 	}
 
-	public Date getNgayVao()
+	public String getNgayVao()
 	{
 		return m_ngayvao;
 	}
 
-	public void setNgayVao(Date ngayvao)
+	public void setNgayVao(String ngayvao)
 	{
 		m_ngayvao = ngayvao;
 	}

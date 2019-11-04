@@ -5,8 +5,6 @@
  */
 package DTO;
 
-import java.time.LocalDate;
-
 /**
  *
  * @author Massan
@@ -15,8 +13,8 @@ public class PhieuThuePhong
 {
 	private final int m_maptp;
 	private final int m_maphg;
-	private LocalDate m_ngayden;
-	private LocalDate m_ngaydi;
+	private String m_ngayden;
+	private String m_ngaydi;
 	
 	
 	public PhieuThuePhong(int maptp, int maphg)
@@ -35,22 +33,22 @@ public class PhieuThuePhong
 		return m_maphg;
 	}
 
-	public LocalDate getNgayDen()
+	public String getNgayDen()
 	{
 		return m_ngayden;
 	}
 
-	public void setNgayDen(LocalDate ngayden)
+	public void setNgayDen(String ngayden)
 	{
 		m_ngayden = ngayden;
 	}
 
-	public LocalDate getNgayDi()
+	public String getNgayDi()
 	{
 		return m_ngaydi;
 	}
 
-	public void setNgayDi(LocalDate ngaydi)
+	public void setNgayDi(String ngaydi)
 	{
 		m_ngaydi = ngaydi;
 	}
