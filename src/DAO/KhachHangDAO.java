@@ -19,7 +19,7 @@ public class KhachHangDAO
 {
 	public ArrayList<KhachHang> load()
 	{
-		ArrayList<KhachHang> listKhachHang = new ArrayList<KhachHang>();
+		ArrayList<KhachHang> listKhachHang = new ArrayList<>();
 		
 		Database DB = new Database();
 		DB.connect();
@@ -46,7 +46,7 @@ public class KhachHangDAO
 		catch(SQLException e)
 		{
 			System.out.println("[KhachHangDAO:load] error sql: "+e);
-        }
+		}
 		
 		DB.disconnect();
 		
@@ -100,6 +100,192 @@ public class KhachHangDAO
 		
 		DB.update(sql);
 		DB.disconnect();
+	}
+	
+	public int getNewID()
+	{
+		Database DB = new Database();
+		DB.connect();
+
+		ResultSet rs = DB.execution("SELECT MAX(makh) FROM KhachHang");
+		
+		try
+		{
+			while(rs.next())
+			{
+				int newid = rs.getInt(1) + 1;
+				DB.disconnect();
+				return newid;
+			}
+		}
+		catch(SQLException e)
+		{
+			System.out.println("[KhachHangDAO:load] error sql: "+e);
+		}
+		
+		DB.disconnect();
+		
+		return -1;
+	}
+	
+	public ArrayList<KhachHang> find(String ho, String ten, int gioitinh, String ngaysinh)
+	{
+		ArrayList<KhachHang> l_khachhang = new ArrayList<>();
+		
+		Database DB = new Database();
+		DB.connect();
+
+		String sql = "SELECT * FROM KhachHang WHERE ";
+		
+		if(!ho.isEmpty())
+			sql += "ho='" + ho + "' AND";
+		if(!ten.isEmpty())
+			sql += "ten='" + ten + "' AND";
+		if(gioitinh >= 0)
+			sql += "gioitinh='" + gioitinh + "' AND";
+		if(ngaysinh.length() == 10)
+			sql += "ngaysinh='" + ngaysinh + "' AND";
+		
+		sql = sql.substring(0, sql.length() - 4);
+		
+		ResultSet rs = DB.execution(sql);
+		
+		try
+		{
+			while(rs.next())
+			{
+				KhachHang kh = new KhachHang(rs.getInt(1));
+
+				kh.setHo(rs.getString(2));
+				kh.setTen(rs.getString(3));
+				kh.setGioiTinh(rs.getInt(4));
+				kh.setNgaySinh(rs.getString(5));
+				kh.setSoDienThoai(rs.getInt(6));
+				kh.setEmail(rs.getString(7));
+				kh.setCMND(rs.getInt(8));
+				kh.setQuocTich(rs.getString(9));
+				l_khachhang.add(kh);
+			}
+		}
+		catch(SQLException e)
+		{
+			System.out.println("[KhachHangDAO:find] error sql: "+e);
+		}
+		
+		DB.disconnect();
+		
+		return l_khachhang;
+	}
+
+	public KhachHang find_sdt(int sdt)
+	{
+		Database DB = new Database();
+		DB.connect();
+
+		ResultSet rs = DB.execution("SELECT * FROM KhachHang WHERE sdt="+sdt);
+		
+		try
+		{
+			while(rs.next())
+			{
+				KhachHang kh = new KhachHang(rs.getInt(1));
+
+				kh.setHo(rs.getString(2));
+				kh.setTen(rs.getString(3));
+				kh.setGioiTinh(rs.getInt(4));
+				kh.setNgaySinh(rs.getString(5));
+				kh.setSoDienThoai(rs.getInt(6));
+				kh.setEmail(rs.getString(7));
+				kh.setCMND(rs.getInt(8));
+				kh.setQuocTich(rs.getString(9));
+				
+				DB.disconnect();
+				
+				return kh;
+			}
+		}
+		catch(SQLException e)
+		{
+			System.out.println("[KhachHangDAO:find] error sql: "+e);
+		}
+		
+		DB.disconnect();
+		
+		return null;
+	}
+
+	public KhachHang find_cmnd(int cmnd)
+	{
+		Database DB = new Database();
+		DB.connect();
+
+		ResultSet rs = DB.execution("SELECT * FROM KhachHang WHERE cmnd="+cmnd);
+		
+		try
+		{
+			while(rs.next())
+			{
+				KhachHang kh = new KhachHang(rs.getInt(1));
+
+				kh.setHo(rs.getString(2));
+				kh.setTen(rs.getString(3));
+				kh.setGioiTinh(rs.getInt(4));
+				kh.setNgaySinh(rs.getString(5));
+				kh.setSoDienThoai(rs.getInt(6));
+				kh.setEmail(rs.getString(7));
+				kh.setCMND(rs.getInt(8));
+				kh.setQuocTich(rs.getString(9));
+				
+				DB.disconnect();
+				
+				return kh;
+			}
+		}
+		catch(SQLException e)
+		{
+			System.out.println("[KhachHangDAO:find] error sql: "+e);
+		}
+		
+		DB.disconnect();
+		
+		return null;
+	}
+
+	public KhachHang find_email(String email)
+	{
+		Database DB = new Database();
+		DB.connect();
+
+		ResultSet rs = DB.execution("SELECT * FROM KhachHang WHERE email="+email);
+		
+		try
+		{
+			while(rs.next())
+			{
+				KhachHang kh = new KhachHang(rs.getInt(1));
+
+				kh.setHo(rs.getString(2));
+				kh.setTen(rs.getString(3));
+				kh.setGioiTinh(rs.getInt(4));
+				kh.setNgaySinh(rs.getString(5));
+				kh.setSoDienThoai(rs.getInt(6));
+				kh.setEmail(rs.getString(7));
+				kh.setCMND(rs.getInt(8));
+				kh.setQuocTich(rs.getString(9));
+				
+				DB.disconnect();
+				
+				return kh;
+			}
+		}
+		catch(SQLException e)
+		{
+			System.out.println("[KhachHangDAO:find] error sql: "+e);
+		}
+		
+		DB.disconnect();
+		
+		return null;
 	}
 
 }

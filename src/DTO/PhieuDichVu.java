@@ -5,8 +5,6 @@
  */
 package DTO;
 
-import java.time.LocalDate;
-
 /**
  *
  * @author Massan
@@ -15,7 +13,7 @@ public class PhieuDichVu
 {
 	private final int m_mapdv;
 	private final int m_madv;
-	private LocalDate m_ngaydat;
+	private String m_ngaydat;
 	private short m_soluong;
 	
 	
@@ -35,12 +33,12 @@ public class PhieuDichVu
 		return m_madv;
 	}
 	
-	public LocalDate getNgayDat()
+	public String getNgayDat()
 	{
 		return m_ngaydat;
 	}
 
-	public void setNgayDat(LocalDate ngaydat)
+	public void setNgayDat(String ngaydat)
 	{
 		m_ngaydat = ngaydat;
 	}

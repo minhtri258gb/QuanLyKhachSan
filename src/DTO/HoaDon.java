@@ -6,7 +6,6 @@
 package DTO;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 
 /**
@@ -18,7 +17,7 @@ public class HoaDon
 	private final int m_mahd;
 	private final int m_makh;
 	private final int m_manv;
-	private Date m_ngaylap;
+	private String m_ngaylap;
 	private int m_tongtien;
 	public ArrayList<ChiTietHoaDon> l_chitiet;
 	
@@ -45,12 +44,12 @@ public class HoaDon
 		return m_manv;
 	}
 	
-	public Date getNgayLap()
+	public String getNgayLap()
 	{
 		return m_ngaylap;
 	}
 	
-	public void setNgayLap(Date date)
+	public void setNgayLap(String date)
 	{
 		m_ngaylap = date;
 	}

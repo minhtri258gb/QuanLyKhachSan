@@ -32,7 +32,7 @@ public class HoaDonDAO
 			{
 				HoaDon hd = new HoaDon(rs.getInt(1), rs.getInt(2), rs.getInt(3));
 
-				hd.setNgayLap(rs.getDate(4));
+				hd.setNgayLap(rs.getString(4));
 				hd.setTongtien(rs.getInt(5));
 				l_hoadon.add(hd);
 			}
@@ -83,5 +83,19 @@ public class HoaDonDAO
 		DB.update(sql);
 		DB.disconnect();
 	}
-
+	
+	public HoaDon getFromMaKH(int makh)
+	{
+		// TODO
+		System.out.print("[HoaDon:getFromMaKH] noitice: chua lam");
+		return null;
+	}
+	
+	public HoaDon getFromMaPhg(int maphg)
+	{
+		// TODO
+		System.out.print("[HoaDon:getFromMaPhg] noitice: chua lam");
+		return null;
+	}
+	
 }

@@ -35,10 +35,10 @@ public class NhanVienDAO
 				nv.setHo(rs.getString(2));
 				nv.setTen(rs.getString(3));
 				nv.setGioiTinh(rs.getByte(4));
-				nv.setNgaySinh(rs.getDate(5));
+				nv.setNgaySinh(rs.getString(5));
 				nv.setSDT(rs.getInt(6));
 				nv.setEmail(rs.getString(3));
-				nv.setNgayVao(rs.getDate(5));
+				nv.setNgayVao(rs.getString(5));
 				nv.setChucVu(rs.getString(3));
 				nv.setLuong(rs.getInt(6));
 				l_nhanvien.add(nv);
