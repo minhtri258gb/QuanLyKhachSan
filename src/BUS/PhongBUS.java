@@ -5,6 +5,14 @@
  */
 package BUS;
 
+import DAO.ChiTietHoaDonDAO;
+import DAO.HoaDonDAO;
+import DAO.PhieuThuePhongDAO;
+import DTO.ChiTietHoaDon;
+import DTO.HoaDon;
+import DTO.PhieuThuePhong;
+import Tools.DateUtil;
+
 /**
  *
  * @author Massan
@@ -13,32 +21,60 @@ public class PhongBUS
 {
 	public void datPhong(int makh, int[] maphgs)
 	{
-		// get id nhan vien
-		// tao hoa don
+		HoaDonDAO hdDAO = new HoaDonDAO();
 		
+		int manv = TaiKhoanBUS.getUser().getMaNV();
+		int mahd = hdDAO.getNewID();
+		
+		HoaDon hd = new HoaDon(mahd, makh, manv);
+		hd.setNgayLap(DateUtil.getCurDate());
+		hd.setTongtien(0);
+		
+		ChiTietHoaDonDAO cthdDAO = new ChiTietHoaDonDAO();
+		PhieuThuePhongDAO ptpDAO = new PhieuThuePhongDAO();
+		
+		int macthd = cthdDAO.getNewID();
+		int maptp = ptpDAO.getNewID();
 		for(int i=0; i<maphgs.length; i++)
 		{
-			// tao chi tiet hoa don
-			// tao phieu dat phong
+			PhieuThuePhong ptp = new PhieuThuePhong(maptp);
+			ptp.setMaPhg(maphgs[i]);
+			ptp.setNgayDen(DateUtil.getCurDate());
+			ptp.setNgayDi("");
+			
+			ChiTietHoaDon cthd = new ChiTietHoaDon(macthd);
+			cthd.setPhieuThuePhong(ptp);
+			cthd.setPhieuDichVu(null);
+			cthd.setThanhtien(0);
+			
+			hd.l_chitiet.add(cthd);
+			
+			macthd++;
+			maptp++;
+			
+			ptpDAO.add(ptp);
+			cthdDAO.add(cthd, mahd);
 		}
 		
-		// link
-		
-		// luu database
+		hdDAO.add(hd);
 	}
 	
 	public void doiPhong(int makh, int maphg_old, int maphg_new)
 	{
-		// get hoa don
-		// HoaDonBUS.getFromMaKH(makh)
+		HoaDonDAO hdDAO = new HoaDonDAO();
+		PhieuThuePhongDAO ptpDAO = new PhieuThuePhongDAO();
 		
-		// get chi tiet hoa don co maptp == phieu thue phong co maphg == maphg_old
-		// hoadon.findCT_withMaPHG(maphg_old)
+		HoaDon hd = hdDAO.getFromMaPhg(maphg_old);
 		
-		// update old = new
-		// cthd.phieuthuephong.maphg = maphg_new
-		
-		// update database
-		// PhieuThuePhongDAO.update(phieuthuephong)
+		for(ChiTietHoaDon cthd : hd.l_chitiet)
+		{
+			PhieuThuePhong ptp = cthd.getPhieuThuePhong();
+			if(ptp.getMaPHG() == maphg_old)
+			{
+				ptp.setMaPhg(maphg_new);
+				ptpDAO.edit(ptp);
+				break;
+			}
+		}
 	}
 }

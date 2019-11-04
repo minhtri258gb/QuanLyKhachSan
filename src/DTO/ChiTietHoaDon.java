@@ -22,7 +22,7 @@ public class ChiTietHoaDon
 		m_macthd = macthd;
 	}
 
-	public int getMacthd()
+	public int getMaCTHD()
 	{
 		return m_macthd;
 	}
@@ -42,7 +42,7 @@ public class ChiTietHoaDon
 		return m_pdv;
 	}
 
-	public void setMapdv(PhieuDichVu pdv)
+	public void setPhieuDichVu(PhieuDichVu pdv)
 	{
 		m_pdv = pdv;
 	}

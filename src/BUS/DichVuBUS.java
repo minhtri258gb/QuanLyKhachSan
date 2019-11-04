@@ -27,6 +27,11 @@ public class DichVuBUS
 			chitiethoadon -> (cthd -> phieudatphong)
 			chitiethoadon -> (create new phieudichvu)
 		
+		
+		SELECT column_names
+		FROM table_name
+		WHERE column_name IS NOT NULL;
+		
 		*/
 		
 		// get hoadon from maphg

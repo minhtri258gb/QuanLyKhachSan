@@ -19,7 +19,7 @@ public class DichVuDAO
 {
 	public ArrayList<DichVu> load()
 	{
-		ArrayList<DichVu> l_dichvu = new ArrayList<DichVu>();
+		ArrayList<DichVu> l_dichvu = new ArrayList<>();
 		
 		Database DB = new Database();
 		DB.connect();
@@ -85,4 +85,30 @@ public class DichVuDAO
 		DB.disconnect();
 	}
 
+	public int getGia(int madv)
+	{
+		Database DB = new Database();
+		DB.connect();
+
+		ResultSet rs = DB.execution("SELECT gia FROM DichVu WHERE madv="+madv);
+		
+		try
+		{
+			while(rs.next())
+			{
+				int gia = rs.getInt(1);
+				DB.disconnect();
+				return gia;
+			}
+		}
+		catch(SQLException e)
+		{
+			System.out.println("[DichVuDAO:getGia] error sql: "+e);
+		}
+		
+		DB.disconnect();
+		
+		return 0;
+	}
+	
 }

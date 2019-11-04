@@ -5,7 +5,15 @@
  */
 package BUS;
 
+import DAO.ChiTietHoaDonDAO;
+import DAO.DichVuDAO;
+import DAO.HoaDonDAO;
+import DAO.PhieuThuePhongDAO;
+import DAO.PhongDAO;
+import DTO.ChiTietHoaDon;
 import DTO.HoaDon;
+import DTO.PhieuThuePhong;
+import Tools.DateUtil;
 
 /**
  *
@@ -15,27 +23,46 @@ public class HoaDonBUS
 {
 	public void traPhong(int makh)
 	{
-		// get hoa don
-		// get all chi tiet hoa don
-		// get all phieu dat phong
-		// moi phieu dat phong them vao ngay di
-		// update database
+		HoaDonDAO hdDAO = new HoaDonDAO();
+		ChiTietHoaDonDAO cthdDAO = new ChiTietHoaDonDAO();
+		PhieuThuePhongDAO ptpDAO = new PhieuThuePhongDAO();
+		
+		HoaDon hd = hdDAO.getFromMaKH(makh);
+		hd.l_chitiet = cthdDAO.get(hd.getMaHD());
+		
+		for(ChiTietHoaDon cthd : hd.l_chitiet)
+		{
+			PhieuThuePhong ptp = cthd.getPhieuThuePhong();
+			ptp.setNgayDi(DateUtil.getCurDate());
+			ptpDAO.edit(ptp);
+		}
 	}
 	
 	public void thanhToan(int makh)
 	{
-		// get hoa don
-		// for(ChiTietHoaDon cthd : hd.l_chitiet)
-		// {
-			// get all chi tiet hoa don
-			// gia = cthd -> phieuthuephong ->  phong -> loaiphong -> gia
-			// gia += cthd -> phieudichvu ->  dichvu -> gia
-			// chitiethoadon.thanhtien = gia;
-			// hd.tongtien += gia
-			// update cthd in database
-		// }
+		HoaDonDAO hdDAO = new HoaDonDAO();
+		ChiTietHoaDonDAO cthdDAO = new ChiTietHoaDonDAO();
+		PhongDAO phgDAO = new PhongDAO();
+		DichVuDAO dvDAO = new DichVuDAO();
 		
-		// update hoa don
+		HoaDon hd = hdDAO.getFromMaKH(makh);
+		hd.l_chitiet = cthdDAO.get(hd.getMaHD());
+		
+		for(ChiTietHoaDon cthd : hd.l_chitiet)
+		{
+			int gia = phgDAO.getGia(cthd.getPhieuThuePhong().getMaPHG());
+			
+			if(cthd.getPhieuDichVu() != null)
+				gia += dvDAO.getGia(cthd.getPhieuDichVu().getMaDV());
+			
+			cthd.setThanhtien(gia);
+			
+			hd.setTongtien(hd.getTongtien() + gia);
+			
+			cthdDAO.edit(cthd);
+		}
+		
+		hdDAO.edit(hd);
 	}
 	
 }

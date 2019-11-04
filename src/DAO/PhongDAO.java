@@ -20,7 +20,7 @@ public class PhongDAO
 	
 	public ArrayList<Phong> load()
 	{
-		ArrayList<Phong> l_dichvu = new ArrayList<Phong>();
+		ArrayList<Phong> l_dichvu = new ArrayList<>();
 		
 		Database DB = new Database();
 		DB.connect();
@@ -87,4 +87,30 @@ public class PhongDAO
 		DB.disconnect();
 	}
 
+	public int getGia(int maphg)
+	{
+		Database DB = new Database();
+		DB.connect();
+
+		ResultSet rs = DB.execution("SELECT l.gia FROM Phong p, LoaiPhong lp WHERE lp.malphg=p.malphg AND p.maphg="+maphg);
+		
+		try
+		{
+			while(rs.next())
+			{
+				int gia = rs.getInt(1);
+				DB.disconnect();
+				return gia;
+			}
+		}
+		catch(SQLException e)
+		{
+			System.out.println("[DichVuDAO:load] error sql: "+e);
+		}
+		
+		DB.disconnect();
+		
+		return 0;
+	}
+	
 }

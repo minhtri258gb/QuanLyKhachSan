@@ -12,15 +12,14 @@ package DTO;
 public class PhieuThuePhong
 {
 	private final int m_maptp;
-	private final int m_maphg;
+	private int m_maphg;
 	private String m_ngayden;
 	private String m_ngaydi;
 	
 	
-	public PhieuThuePhong(int maptp, int maphg)
+	public PhieuThuePhong(int maptp)
 	{
 		m_maptp = maptp;
-		m_maphg = maphg;
 	}
 	
 	public int getMaPTP()
@@ -31,6 +30,11 @@ public class PhieuThuePhong
 	public int getMaPHG()
 	{
 		return m_maphg;
+	}
+
+	public void setMaPhg(int maphg)
+	{
+		m_maphg = maphg;
 	}
 
 	public String getNgayDen()
