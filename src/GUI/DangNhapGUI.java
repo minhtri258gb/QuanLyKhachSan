@@ -35,8 +35,8 @@ import javax.swing.border.TitledBorder;
 
     
 public class DangNhapGUI extends JFrame{	
-	JTextField txtTaiKhoan,txtMatKhau;
-	JButton btnDangNhap,btnThoat;
+	public static JTextField txtTaiKhoan,txtMatKhau;
+	 JButton btnDangNhap,btnThoat;
 	public DangNhapGUI(String title) {
 		super(title);
 		addControl();

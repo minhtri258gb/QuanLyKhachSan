@@ -9,6 +9,11 @@ import java.util.ArrayList;
 
 import DTO.KhachHang;
 import DAO.KhachHangDAO;
+import java.util.List;
+import java.util.Vector;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -16,7 +21,7 @@ import DAO.KhachHangDAO;
  */
 public class KhachHangBUS
 {
-	public ArrayList<KhachHang> m_listKhachHang;
+	public static ArrayList<KhachHang> m_listKhachHang;
 	public KhachHang m_selected;
 
 	
@@ -27,8 +32,41 @@ public class KhachHangBUS
 		
 		m_selected = null;
 	}
+        public static void LoadTable(JTable tbl, List list){
+        List<KhachHang> dskh = list;
+        String[] columnNames = {"Mã kh","Họ","Tên","Giới tính","Ngày sinh","SĐT","Email","CMNN","Quốc tịch"};
+        Object[][] data = new Object[dskh.size()][9];
+        int i = 0;
+        for (KhachHang kh : dskh) {
+            data[i][0] = i;
+            data[i][1] = kh.getHo();
+            data[i][2] = kh.getTen();
+            if(kh.getGioiTinh()==0)
+            {
+                data[i][3] = "nam";
+            }
+            else{
+                data[i][3] = "nữ";
+            }
+            
+            data[i][4] = kh.getNgaySinh();
+            data[i][5] = kh.getSoDienThoai();
+            data[i][6] = kh.getEmail();
+            data[i][7] = kh.getCMND();
+            data[i][8] = kh.getQuocTich();
+            
+            i++;
+        }
+        TableModel tableModel = new DefaultTableModel(data, columnNames);
+        tbl.setModel(tableModel);
+    }
+    
+    public static void HienThongkh(JTable tbl) throws Exception {
+        ArrayList<KhachHang> dskh = KhachHangDAO.load();
+        LoadTable(tbl, dskh);
+    }
 	
-	public void add(String ho, String ten, int gioitinh, String ngaysinh, int sdt, String email, int cmnd, String quoctich)
+	public static void add(String ho, String ten, int gioitinh, String ngaysinh, int sdt, String email, int cmnd, String quoctich)
 	{
 		KhachHangDAO khDAO = new KhachHangDAO();
 		
