@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package BUS;
+import DTO.*;
+import DAO.*;
 
 /**
  *
@@ -11,5 +13,10 @@ package BUS;
  */
 public class NhanVienBUS
 {
-	
+	public static NhanVien getnvbylogin(String username,String password)
+        {
+            
+           NhanVien nvlogin= DAO.NhanVienDAO.getnvbylogin(username, password);
+            return nvlogin;
+        }
 }

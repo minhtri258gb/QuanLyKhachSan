@@ -31,9 +31,10 @@ public class Database
 
 		try
 		{
+                    Class.forName("com.mysql.jdbc.Driver");
 			String url = "jdbc:mysql://localhost:3306/"+databaseName+"?useUnicode=true&characterEncoding=UTF-8";
 			conn = DriverManager.getConnection(url, username, password);
-			Class.forName("com.mysql.jdbc.Driver");
+			
 			stmt = conn.createStatement();
 		}
 		catch(SQLException | ClassNotFoundException e)

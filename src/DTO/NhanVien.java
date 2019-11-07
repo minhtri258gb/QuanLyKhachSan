@@ -14,7 +14,7 @@ public class NhanVien
 	private final int m_manv;
 	private String m_ho;
 	private String m_ten;
-	private byte m_gioitinh;
+	private int m_gioitinh;
 	private String m_ngaysinh;
 	private int m_sdt;
 	private String m_email;
@@ -53,12 +53,12 @@ public class NhanVien
 		m_ten = ten;
 	}
 
-	public byte getGioiTinh()
+	public int getGioiTinh()
 	{
 		return m_gioitinh;
 	}
 
-	public void setGioiTinh(byte gioitinh)
+	public void setGioiTinh(int gioitinh)
 	{
 		m_gioitinh = gioitinh;
 	}

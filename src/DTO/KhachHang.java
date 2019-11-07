@@ -26,6 +26,21 @@ public class KhachHang
 		this.m_makh = m_makh;
 	}
 
+    public KhachHang(int m_makh, String m_ho, String m_ten, int m_gioitinh, String m_ngaysinh, int m_sdt, String m_email, int m_cmnd, String m_quoctich) {
+        this.m_makh = m_makh;
+        this.m_ho = m_ho;
+        this.m_ten = m_ten;
+        this.m_gioitinh = m_gioitinh;
+        this.m_ngaysinh = m_ngaysinh;
+        this.m_sdt = m_sdt;
+        this.m_email = m_email;
+        this.m_cmnd = m_cmnd;
+        this.m_quoctich = m_quoctich;
+    }
+
+   
+        
+
 	public int getMaKH()
 	{
 		return m_makh;

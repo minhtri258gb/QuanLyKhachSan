@@ -5,7 +5,15 @@
  */
 package GUI;
 
+import BUS.KhachHangBUS;
+import BUS.NhanVienBUS;
+import DAO.KhachHangDAO;
+import DAO.NhanVienDAO;
+import DTO.KhachHang;
+import DTO.NhanVien;
 import Tools.DateUtil;
+import java.text.SimpleDateFormat;  
+import java.util.Date; 
 
 /**
  *
@@ -13,9 +21,12 @@ import Tools.DateUtil;
  */
 public class Test {
 	
-	public static void main(String[] args)
-	{
-//		System.out.println(DateUtil.getCurDate());
-	}
-	
+	 
+  
+public static void main(String[] args) {  
+    NhanVien ab=(NhanVien) NhanVienBUS.getnvbylogin("nv1", "123");
+    System.out.println(ab.getMaNV()); 
+}  
 }
+	
+

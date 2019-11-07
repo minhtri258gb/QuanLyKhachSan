@@ -17,7 +17,7 @@ import DTO.KhachHang;
  */
 public class KhachHangDAO
 {
-	public ArrayList<KhachHang> load()
+	public static ArrayList<KhachHang> load()
 	{
 		ArrayList<KhachHang> listKhachHang = new ArrayList<>();
 		
@@ -67,7 +67,7 @@ public class KhachHangDAO
 		sql += kh.getEmail()+"', '";
 		sql += kh.getCMND()+"', '";
 		sql += kh.getQuocTich()+"');";
-		
+		          System.out.println(sql);
 		DB.update(sql);
 		DB.disconnect();
 	}
@@ -102,7 +102,7 @@ public class KhachHangDAO
 		DB.disconnect();
 	}
 	
-	public int getNewID()
+	public static int getNewID()
 	{
 		Database DB = new Database();
 		DB.connect();

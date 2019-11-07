@@ -53,7 +53,42 @@ public class NhanVienDAO
 		
 		return l_nhanvien;
 	}
-	
+	public static NhanVien getnvbylogin(String username,String password)
+        {
+            NhanVien nv=null;
+            Database DB = new Database();
+            DB.connect();
+            String sql="SELECT n.manv, n.ho, n.ten ,n.gioitinh, n.sdt, n.ngaysinh,n.email, n.ngayvao, n.chucvu,n.luong "
+                    + "From nhanvien n ,taikhoan t "
+                    + "where n.manv=t.manv and t.tentk='"+username+"' and t.matkhau='"+password+"'";
+            ResultSet rs = DB.execution(sql);
+            try
+		{
+			while(rs.next())
+			{
+				 nv = new NhanVien(rs.getInt(1));
+
+				nv.setHo(rs.getString(2));
+				nv.setTen(rs.getString(3));
+				nv.setGioiTinh(rs.getInt(4));
+				nv.setNgaySinh(rs.getString(5));
+				nv.setSDT(rs.getInt(6));
+				nv.setEmail(rs.getString(7));
+				nv.setNgayVao(rs.getString(8));
+				nv.setChucVu(rs.getString(9));
+                                nv.setLuong(rs.getInt(10));				
+			}
+		}
+		catch(SQLException e)
+		{
+                        
+			System.out.println("[KhachHangDAO:find] error sql: "+e);
+                       
+		}
+		
+		DB.disconnect();
+                return nv;
+        }
 	public void add(NhanVien nv)
 	{
 		Database DB = new Database();
