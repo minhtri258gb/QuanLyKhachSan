@@ -19,6 +19,7 @@ import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -77,6 +78,20 @@ public class DangNhapGUI extends JFrame{
 		pnMatKhau.add(lblMatKhau);
 		pnMatKhau.add(txtMatKhau);
 		pnDangNhap.add(pnMatKhau);
+                
+                txtMatKhau.addKeyListener(new java.awt.event.KeyAdapter() {
+                    public void keyPressed(java.awt.event.KeyEvent evt) {
+                        try {
+                            if(evt.getKeyCode() == 10)
+                            {
+                                AutomaticallyClosedMsgBox(1500, "Đang đăng nhập...");
+                                xuLyDangNhap();
+                            }
+                       } catch (SQLException ex) {
+                           Logger.getLogger(DangNhapGUI.class.getName()).log(Level.SEVERE, null, ex);
+                       }
+                    }
+                });
 		
 		JPanel pnButton=new JPanel();
 		pnButton.setLayout(new FlowLayout(FlowLayout.CENTER));
@@ -97,6 +112,7 @@ public class DangNhapGUI extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
                             try {
+                                 AutomaticallyClosedMsgBox(1500, "Đang đăng nhập...");
                                 xuLyDangNhap();
                             } catch (SQLException ex) {
                                 Logger.getLogger(DangNhapGUI.class.getName()).log(Level.SEVERE, null, ex);
@@ -115,29 +131,55 @@ public class DangNhapGUI extends JFrame{
 	}
 	protected void xuLyDangNhap() throws SQLException  {
 		
-		TaiKhoan tk=TaiKhoanBUS.login(txtTaiKhoan.getText(), txtMatKhau.getText());
-		if (tk==null) {
-			JOptionPane.showMessageDialog(null, "Đăng nhập thất bại ");
-		}else {
+		if(TaiKhoanBUS.login(txtTaiKhoan.getText(), txtMatKhau.getText()))
+		{
                     this.dispose();
-                    if (tk.getQuyen()==1) {
+                    if (TaiKhoanBUS.getUser().getQuyen()==1)
+                    {
                         QuanLyGUI ql=new QuanLyGUI();
                         ql.setVisible(true);
-                        
-                    }else{
+                    }
+                    else
+                    {
                         LeTanGUI nv= new LeTanGUI();
+                        nv.settkdn(TaiKhoanBUS.getUser().getMaNV());
+                        //System.out.println(tk.getMaNV());
                         nv.setVisible(true);
-                        
                     }
 		}
+                else
+                {
+                    ThongBao.noitice("Đăng nhập thất bại ");
+                }
 	}
+        public void AutomaticallyClosedMsgBox(long time, String text) {
+        JOptionPane jop = new JOptionPane();
+        jop.setMessageType(JOptionPane.INFORMATION_MESSAGE);
+        jop.setMessage(text);
+        JDialog dialog = jop.createDialog(null, "Thông báo");
+
+        // Set timer
+        new Thread(() -> {
+            try {
+                Thread.sleep(time);
+            } catch (InterruptedException e) {
+                System.out.println(e);
+            }
+            dialog.dispose();
+        }).start();
+
+        dialog.setVisible(true);
+    }
 
 	public void showWindow() {
+                this.setTitle("quản lý khách sạn");
 		this.setSize(350, 250);
 		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 	}
+
+    
 
 }
 

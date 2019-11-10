@@ -13,10 +13,10 @@ import DAO.*;
  */
 public class NhanVienBUS
 {
-	public static NhanVien getnvbylogin(String username,String password)
+	public static NhanVien getnvbyMa(int manv)
         {
             
-           NhanVien nvlogin= DAO.NhanVienDAO.getnvbylogin(username, password);
+           NhanVien nvlogin= DAO.NhanVienDAO.getnvbyMa(manv);
             return nvlogin;
         }
 }

@@ -35,14 +35,13 @@ public class PhongDAO
 
 				phg.setMaloaiphg(rs.getInt(2));
 				phg.setTinhtrang(rs.getString(3));
-				phg.setGia(rs.getInt(4));
 				// TODO List CHITIET
 				l_dichvu.add(phg);
 			}
 		}
 		catch(SQLException e)
 		{
-			System.out.println("[DichVuDAO:load] error sql: "+e);
+			System.out.println("[PhongDAO:load] error sql: "+e);
 		}
 		
 		DB.disconnect();
@@ -55,10 +54,9 @@ public class PhongDAO
 		Database DB = new Database();
 		DB.connect();
 		
-		String sql = "INSERT INTO Phong (maloaiphg, tinhtrang, gia) VALUES ('";
+		String sql = "INSERT INTO Phong (maloaiphg, tinhtrang) VALUES ('";
 		sql += phg.getMaloaiphg()+"', '";
 		sql += phg.getTinhtrang()+"', '";
-		sql += phg.getGia()+"');";
 		
 		DB.update(sql);
 		DB.disconnect();
@@ -80,37 +78,10 @@ public class PhongDAO
 		String sql = "UPDATE Phong SET ";
 		sql += "maloaiphg='"				+phg.getMaloaiphg();
 		sql += "', tinhtrang='"			+phg.getTinhtrang();
-		sql += "', gia='"					+phg.getGia();
 		sql += "' WHERE Phong.maphg = "	+phg.getMaphg()+";";
 		
 		DB.update(sql);
 		DB.disconnect();
 	}
 
-	public int getGia(int maphg)
-	{
-		Database DB = new Database();
-		DB.connect();
-
-		ResultSet rs = DB.execution("SELECT l.gia FROM Phong p, LoaiPhong lp WHERE lp.malphg=p.malphg AND p.maphg="+maphg);
-		
-		try
-		{
-			while(rs.next())
-			{
-				int gia = rs.getInt(1);
-				DB.disconnect();
-				return gia;
-			}
-		}
-		catch(SQLException e)
-		{
-			System.out.println("[DichVuDAO:load] error sql: "+e);
-		}
-		
-		DB.disconnect();
-		
-		return 0;
-	}
-	
 }

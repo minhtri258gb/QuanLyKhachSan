@@ -5,6 +5,8 @@
  */
 package GUI;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Massan
@@ -13,8 +15,7 @@ public class ThongBao
 {
 	public static void noitice(String message)
 	{
-		// display pop up menu
-		System.out.print(message);
+                JOptionPane.showMessageDialog(null, message);
 	}
 	
 	public static void error(String message)

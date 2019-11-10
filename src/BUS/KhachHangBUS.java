@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import DTO.KhachHang;
 import DAO.KhachHangDAO;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.JTable;
@@ -89,7 +90,7 @@ public class KhachHangBUS
 		khDAO.delete(makh);
 	}
 	
-	public void edit(int makh, String ho, String ten, int gioitinh, String ngaysinh, int sdt, String email, int cmnd, String quoctich)
+	public static void edit(int makh, String ho, String ten, int gioitinh, String ngaysinh, int sdt, String email, int cmnd, String quoctich)
 	{
 		KhachHang kh = new KhachHang(makh);
 		kh.setHo(ho);
@@ -160,5 +161,8 @@ public class KhachHangBUS
 		
 		return listKH;
 	}
-	
+	public static void TimKiemkh(JTable tbl, String info) throws SQLException{
+        List<KhachHang> dskhtk= DAO.KhachHangDAO.TimKiemkhachhang(info);
+        LoadTable(tbl, dskhtk);
+    }
 }

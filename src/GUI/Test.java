@@ -12,8 +12,12 @@ import DAO.NhanVienDAO;
 import DTO.KhachHang;
 import DTO.NhanVien;
 import Tools.DateUtil;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;  
+import java.util.ArrayList;
 import java.util.Date; 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -24,8 +28,13 @@ public class Test {
 	 
   
 public static void main(String[] args) {  
-    NhanVien ab=(NhanVien) NhanVienBUS.getnvbylogin("nv1", "123");
-    System.out.println(ab.getMaNV()); 
+    
+    try {
+        ArrayList<KhachHang> a= KhachHangDAO.TimKiemkhachhang("1");
+        System.out.println(a.size());
+    } catch (SQLException ex) {
+        Logger.getLogger(Test.class.getName()).log(Level.SEVERE, null, ex);
+    }
 }  
 }
 	

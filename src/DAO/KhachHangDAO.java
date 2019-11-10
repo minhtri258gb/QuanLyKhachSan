@@ -287,5 +287,44 @@ public class KhachHangDAO
 		
 		return null;
 	}
+           public static ArrayList TimKiemkhachhang(String info) throws SQLException{
+               ArrayList<KhachHang> findkh =new ArrayList();
+               
+        String sql="select * from khachhang where makh like '%"+info+"%' or ho like N'%"+info+"%' or ten like N'%"+info+"%' or ngaysinh like N'%"+info+"%' or sdt like '%"+info+"%' or email like N'%"+info+"%' or cmnd like '%"+info+"%'" ;
+        Database DB = new Database();
+		DB.connect();
+
+		ResultSet rs = DB.execution(sql);
+		
+		try
+		{
+			while(rs.next())
+			{
+				KhachHang kh = new KhachHang(rs.getInt(1));
+
+				kh.setHo(rs.getString(2));
+				kh.setTen(rs.getString(3));
+				kh.setGioiTinh(rs.getInt(4));
+				kh.setNgaySinh(rs.getString(5));
+				kh.setSoDienThoai(rs.getInt(6));
+				kh.setEmail(rs.getString(7));
+				kh.setCMND(rs.getInt(8));
+				kh.setQuocTich(rs.getString(9));
+				
+				//DB.disconnect();
+				
+				findkh.add(kh);
+			}
+                        //return findkh;
+		}
+		catch(SQLException e)
+		{
+			System.out.println("[KhachHangDAO:find] error sql: "+e);
+		}
+		
+		DB.disconnect();
+		
+		return findkh;
+    }
 
 }
