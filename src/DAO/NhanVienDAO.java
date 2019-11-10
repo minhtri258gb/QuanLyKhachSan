@@ -53,14 +53,14 @@ public class NhanVienDAO
 		
 		return l_nhanvien;
 	}
-	public static NhanVien getnvbylogin(String username,String password)
+	public static NhanVien getnvbyMa(int manv)
         {
             NhanVien nv=null;
             Database DB = new Database();
             DB.connect();
-            String sql="SELECT n.manv, n.ho, n.ten ,n.gioitinh, n.sdt, n.ngaysinh,n.email, n.ngayvao, n.chucvu,n.luong "
-                    + "From nhanvien n ,taikhoan t "
-                    + "where n.manv=t.manv and t.tentk='"+username+"' and t.matkhau='"+password+"'";
+            String sql="SELECT *"
+                    + "From nhanvien n"
+                    + "where n.manv='"+manv+"'";
             ResultSet rs = DB.execution(sql);
             try
 		{

@@ -14,7 +14,6 @@ public class Phong
 	private final int m_maphg;
 	private int m_maloaiphg;
 	private String m_tinhtrang;
-	private int m_gia;
 	
 
 	public Phong(int maphg)
@@ -47,14 +46,4 @@ public class Phong
 		m_tinhtrang = tinhtrang;
 	}
 
-	public int getGia()
-	{
-		return m_gia;
-	}
-
-	public void setGia(int gia)
-	{
-		m_gia = gia;
-	}
-	
 }

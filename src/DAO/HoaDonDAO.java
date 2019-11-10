@@ -58,7 +58,6 @@ public class HoaDonDAO
 		sql += hd.getMaNV()+"', '";
 		sql += hd.getNgayLap()+"', '";
 		sql += hd.getTongtien()+"');";
-		          System.out.println(sql);
 		DB.update(sql);
 		DB.disconnect();
 	}

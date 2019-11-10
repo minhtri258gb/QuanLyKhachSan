@@ -48,7 +48,7 @@ public class TaiKhoanDAO
 		return l_TaiKhoan;
 	}
 	
-	public TaiKhoan get(String tentk,String mk)
+	public static TaiKhoan get(String tentk,String mk)
 	{
 		Database DB = new Database();
 		DB.connect();
@@ -60,10 +60,10 @@ public class TaiKhoanDAO
 			while(rs.next())
 			{
 				TaiKhoan kh = new TaiKhoan();
-                                kh.setMaNV(rs.getInt(2));
-                                kh.set_tentk(rs.getString(3));
-				kh.setMatkhau(rs.getString(4));
-				kh.setQuyen( rs.getInt(5));
+                                kh.setMaNV(rs.getInt(1));
+                                kh.set_tentk(rs.getString(2));
+				kh.setMatkhau(rs.getString(3));
+				kh.setQuyen( rs.getInt(4));
 				return kh;
 			}
                         DB.disconnect();

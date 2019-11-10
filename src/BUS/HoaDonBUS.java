@@ -40,29 +40,29 @@ public class HoaDonBUS
 	
 	public void thanhToan(int makh)
 	{
-		HoaDonDAO hdDAO = new HoaDonDAO();
-		ChiTietHoaDonDAO cthdDAO = new ChiTietHoaDonDAO();
-		PhongDAO phgDAO = new PhongDAO();
-		DichVuDAO dvDAO = new DichVuDAO();
-		
-		HoaDon hd = hdDAO.getFromMaKH(makh);
-		hd.l_chitiet = cthdDAO.get(hd.getMaHD());
-		
-		for(ChiTietHoaDon cthd : hd.l_chitiet)
-		{
-			int gia = phgDAO.getGia(cthd.getPhieuThuePhong().getMaPHG());
-			
-			if(cthd.getPhieuDichVu() != null)
-				gia += dvDAO.getGia(cthd.getPhieuDichVu().getMaDV());
-			
-			cthd.setThanhtien(gia);
-			
-			hd.setTongtien(hd.getTongtien() + gia);
-			
-			cthdDAO.edit(cthd);
-		}
-		
-		hdDAO.edit(hd);
+//		HoaDonDAO hdDAO = new HoaDonDAO();
+//		ChiTietHoaDonDAO cthdDAO = new ChiTietHoaDonDAO();
+//		PhongDAO phgDAO = new PhongDAO();
+//		DichVuDAO dvDAO = new DichVuDAO();
+//		
+//		HoaDon hd = hdDAO.getFromMaKH(makh);
+//		hd.l_chitiet = cthdDAO.get(hd.getMaHD());
+//		
+//		for(ChiTietHoaDon cthd : hd.l_chitiet)
+//		{
+//			int gia = phgDAO.getGia(cthd.getPhieuThuePhong().getMaPHG());
+//			
+//			if(cthd.getPhieuDichVu() != null)
+//				gia += dvDAO.getGia(cthd.getPhieuDichVu().getMaDV());
+//			
+//			cthd.setThanhtien(gia);
+//			
+//			hd.setTongtien(hd.getTongtien() + gia);
+//			
+//			cthdDAO.edit(cthd);
+//		}
+//		
+//		hdDAO.edit(hd);
 	}
 	
 }
