@@ -97,7 +97,6 @@ public class KhachHangDAO
 		sql += "', `cmnd` = '"					+kh.getCMND();
 		sql += "', `quoctich` = '"				+kh.getQuocTich();
 		sql += "' WHERE `KhachHang`.`makh` = "	+kh.getMaKH()+";";
-		
 		DB.update(sql);
 		DB.disconnect();
 	}

@@ -9,7 +9,9 @@ import BUS.PhongBUS;
 import DTO.LoaiPhong;
 import DTO.Phong;
 import java.util.ArrayList;
+import javax.swing.JComboBox;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
@@ -47,17 +49,13 @@ public class PhongGUI
         PhongBUS phgBUS = new PhongBUS();
         
         ArrayList<Integer> maphgs = new ArrayList<Integer>();
-        
-        int[] selectedRows = tbl.getSelectedRows();
         TableModel mdl = tbl.getModel();
-        
-        
-        
+        int[] selectedRows = tbl.getSelectedRows();         
         for(int row : selectedRows)
-            
-            System.out.println(String.valueOf(mdl.getValueAt(row, 0)));
-//            maphgs.add(Integer.valueOf());
-        
+        {
+            int maphg=Integer.valueOf(String.valueOf(mdl.getValueAt(row, 0)));           
+           maphgs.add(maphg);
+        }
         phgBUS.datPhong(makh, maphgs);
     }
 }

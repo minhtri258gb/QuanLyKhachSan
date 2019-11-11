@@ -1,0 +1,6 @@
+hoadon=hoadonBUS.gethdbykh(makh)
+
+hd: ds cthd
+cthd: ptp va pdv
+tinhthanhtien_cthd
+tong+=tinhthanhtien_cthd
