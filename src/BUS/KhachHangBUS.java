@@ -23,15 +23,13 @@ import javax.swing.table.TableModel;
 public class KhachHangBUS
 {
 	public static ArrayList<KhachHang> m_listKhachHang;
-	public KhachHang m_selected;
+	
 
 	
 	public KhachHangBUS()
 	{
 		KhachHangDAO khDAO = new KhachHangDAO();
-		m_listKhachHang = khDAO.load();
-		
-		m_selected = null;
+		m_listKhachHang = khDAO.load();		
 	}
         public static void LoadTable(JTable tbl, List list){
         List<KhachHang> dskh = list;
@@ -39,7 +37,7 @@ public class KhachHangBUS
         Object[][] data = new Object[dskh.size()][9];
         int i = 0;
         for (KhachHang kh : dskh) {
-            data[i][0] = i;
+            data[i][0] = kh.getMaKH();
             data[i][1] = kh.getHo();
             data[i][2] = kh.getTen();
             if(kh.getGioiTinh()==0)
@@ -165,4 +163,29 @@ public class KhachHangBUS
         List<KhachHang> dskhtk= DAO.KhachHangDAO.TimKiemkhachhang(info);
         LoadTable(tbl, dskhtk);
     }
+        public static void LoadTablekhdp(JTable tbl,String inf) throws SQLException{
+        ArrayList<KhachHang> dskh = DAO.KhachHangDAO.TimKiemkhachhang(inf); 
+     
+        String[] columnNames = {"Mã kh","Họ","Tên","CMNN"};
+        Object[][] data = new Object[dskh.size()][4];
+        int i = 0;
+        for (KhachHang kh : dskh) {
+            data[i][0] = kh.getMaKH();
+            data[i][1] = kh.getHo();
+            data[i][2] = kh.getTen();  
+            data[i][3] = kh.getCMND();
+
+            
+            i++;
+        }
+        TableModel tableModel = new DefaultTableModel(data, columnNames);
+        tbl.setModel(tableModel);
+    }
+              public static KhachHang getkhbyid(int makh)
+        {
+            for(KhachHang kh:m_listKhachHang)
+                if(kh.getMaKH()==makh)
+                    return kh;
+            return null;
+        }
 }

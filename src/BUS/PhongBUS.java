@@ -30,6 +30,15 @@ public class PhongBUS
         PhongDAO phgDAO = new PhongDAO();
         return phgDAO.load();
     }
+    public Phong getphgbyid(int maphg)
+    {
+        for(Phong phg:this.load())
+        {
+            if(phg.getMaphg()== maphg)
+                return phg;
+        }
+        return null;
+    }
     
     public ArrayList<LoaiPhong> loadLPhg()
     {
@@ -39,23 +48,21 @@ public class PhongBUS
     
 	public void datPhong(int makh, ArrayList<Integer> maphgs)
 	{
-		HoaDonDAO hdDAO = new HoaDonDAO();
-		
+	//tao hoa don	
+                HoaDonDAO hdDAO = new HoaDonDAO();
 		int manv = TaiKhoanBUS.getUser().getMaNV();
 		int mahd = hdDAO.getNewID();
-		
 		HoaDon hd = new HoaDon(mahd, makh, manv);
 		hd.setNgayLap(DateUtil.getCurDate());
 		hd.setTongtien(0);
-		
+                //tao chi tiet hoa don va phieu thue phong
 		ChiTietHoaDonDAO cthdDAO = new ChiTietHoaDonDAO();
 		PhieuThuePhongDAO ptpDAO = new PhieuThuePhongDAO();
-		
 		int macthd = cthdDAO.getNewID();
-		int maptp = ptpDAO.getNewID();
-                
-		for(int i=0; i<maphgs.size(); i++)
+		int maptp = ptpDAO.getNewID();                
+		for(int i=0;i<maphgs.size();i++)
 		{
+                    
                     PhieuThuePhong ptp = new PhieuThuePhong(maptp);
                     ptp.setMaPhg(maphgs.get(i));
                     ptp.setNgayDen(DateUtil.getCurDate());
@@ -66,16 +73,16 @@ public class PhongBUS
                     cthd.setPhieuDichVu(null);
                     cthd.setThanhtien(0);
 
-                    hd.l_chitiet.add(cthd);
+//                    hd.l_chitiet=new ArrayList();
+//                    hd.l_chitiet.add(cthd);
 
                     macthd++;
                     maptp++;
-			
-//			ptpDAO.add(ptp);
-//			cthdDAO.add(cthd, mahd);
+			                 System.out.println(cthd.getPhieuThuePhong().getMaPTP());
+                    //ptpDAO.add(ptp);
+                    //cthdDAO.add(cthd, mahd);
 		}
-		
-//		hdDAO.add(hd);
+		//hdDAO.add(hd);
                 ThongBao.noitice("Đặt phòng thành công");
 	}
 	

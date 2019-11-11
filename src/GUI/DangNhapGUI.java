@@ -142,7 +142,6 @@ public class DangNhapGUI extends JFrame{
                     else
                     {
                         LeTanGUI nv= new LeTanGUI();
-                        nv.settkdn(TaiKhoanBUS.getUser().getMaNV());
                         //System.out.println(tk.getMaNV());
                         nv.setVisible(true);
                     }

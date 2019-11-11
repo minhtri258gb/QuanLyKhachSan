@@ -5,8 +5,11 @@
  */
 package Tools;
 		
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date; 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -64,4 +67,14 @@ public class DateUtil
 	{
 		return Integer.parseInt(date.substring(6, 10));
 	}
+        
+        public static Date convert(String date)
+        {
+            try {
+                return new SimpleDateFormat("dd-MM-yyyy").parse(date);
+            } catch (ParseException ex) {
+                Logger.getLogger(DateUtil.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return null;
+        }
 }

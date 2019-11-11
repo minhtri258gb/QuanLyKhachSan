@@ -73,8 +73,7 @@ public class ChiTietHoaDonDAO
 		String sql = "INSERT INTO ChiTietHoaDon (mahd, maptp, mapdv, thanhtien) VALUES ('";
 		sql += mahd+"', '";
 		sql += cthd.getPhieuThuePhong().getMaPTP()+"', '";
-		sql += cthd.getPhieuDichVu().getMaPDV()+"', '0');";
-		
+		sql += cthd.getPhieuDichVu().getMaPDV()+"', '0');";               
 		DB.update(sql);
 		DB.disconnect();
 	}
