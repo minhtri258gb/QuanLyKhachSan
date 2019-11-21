@@ -1,8 +1,10 @@
 package GUI;
 
+import BUS.HoaDonBUS;
 import BUS.KhachHangBUS;
 import BUS.PhongBUS;
 import BUS.TaiKhoanBUS;
+import DTO.HoaDon;
 import DTO.KhachHang;
 import DTO.Phong;
 import Tools.DateUtil;
@@ -15,10 +17,16 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableCellRenderer;
+import org.jfree.data.DataUtilities;
+
 public class LeTanGUI extends javax.swing.JFrame {
+
+    public static LeTanGUI it;
+
     public LeTanGUI() throws SQLException {
         initComponents();
         this.pack();
+        it = this;
         setLocationRelativeTo(null);
         setExtendedState(this.MAXIMIZED_BOTH);
         txttennvlogin.setText(TaiKhoanBUS.getUser().getTenTK());
@@ -27,7 +35,7 @@ public class LeTanGUI extends javax.swing.JFrame {
         //jScrollPane2.setSize(1000, 400);
         //End Tabquanlykhachhang 
         //Begin  tabquanlythuephong 
-        
+
         //End Tabquanlythuephong
         //Begin  tabquanlythuedichvu
         //code here
@@ -47,9 +55,22 @@ public class LeTanGUI extends javax.swing.JFrame {
             System.out.println("Error in LeTanGUI: " + ex.getMessage());
         }
     }
+
     public void enabledFrame() {
         this.setEnabled(true);
     }
+
+    public String getmakhdatphong() {
+        return txtmakhdp.getText();
+    }
+
+    public String getmaphgcandatdv() {
+        int row = tbldanhsachdadat.getSelectedRow();
+        String maphg = tbldanhsachdadat.getValueAt(row, 0).toString();
+        return maphg;
+
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -111,9 +132,6 @@ public class LeTanGUI extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         tblkh = new javax.swing.JTable();
         tabdatphong = new javax.swing.JPanel();
-        jLabel12 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tblphong = new javax.swing.JTable();
         jPanel10 = new javax.swing.JPanel();
         jLabel37 = new javax.swing.JLabel();
         jLabel38 = new javax.swing.JLabel();
@@ -137,24 +155,28 @@ public class LeTanGUI extends javax.swing.JFrame {
         txtmakhdp = new javax.swing.JTextField();
         jLabel41 = new javax.swing.JLabel();
         txtsdtdp = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
         txttimkhdp = new javax.swing.JTextField();
         jScrollPane4 = new javax.swing.JScrollPane();
         tblkhdp = new javax.swing.JTable();
         jLabel42 = new javax.swing.JLabel();
         jLabel43 = new javax.swing.JLabel();
         txtsophongdangdat = new javax.swing.JTextField();
-        jPanel6 = new javax.swing.JPanel();
-        tablaphoadon = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblhoadon = new javax.swing.JTable();
+        btntatcaphg = new javax.swing.JButton();
+        btnphgtrong = new javax.swing.JButton();
+        btnphongdangthue = new javax.swing.JButton();
+        jLabel45 = new javax.swing.JLabel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblphong = new javax.swing.JTable();
+        btnphongdangsua = new javax.swing.JButton();
+        btndoiphong = new javax.swing.JButton();
+        bntdatdichvu = new javax.swing.JButton();
+        btntraphong = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Lễ Tân");
         setBackground(new java.awt.Color(255, 195, 191));
         setName("frmNhanVien"); // NOI18N
-        setPreferredSize(new java.awt.Dimension(1650, 1080));
 
         jPanel3.setBackground(new java.awt.Color(255, 233, 226));
         jPanel3.setPreferredSize(new java.awt.Dimension(1159, 614));
@@ -590,9 +612,9 @@ public class LeTanGUI extends javax.swing.JFrame {
                 .addGroup(tabquanlykhachhangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel27)
                     .addComponent(txttimkienkhachhang, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(19, 19, 19))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(70, 70, 70))
         );
 
         tabletan.addTab("Quản lý khách hàng", tabquanlykhachhang);
@@ -605,28 +627,6 @@ public class LeTanGUI extends javax.swing.JFrame {
                 tabdatphongMouseClicked(evt);
             }
         });
-
-        jLabel12.setBackground(new java.awt.Color(255, 233, 226));
-        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(83, 58, 255));
-        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel12.setText("Quản Lý Phòng");
-        jLabel12.setOpaque(true);
-
-        tblphong.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-
-            }
-        ));
-        tblphong.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblphongMouseClicked(evt);
-            }
-        });
-        jScrollPane2.setViewportView(tblphong);
 
         jPanel10.setBackground(new java.awt.Color(240, 255, 182));
         jPanel10.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 51, 255), 2));
@@ -680,7 +680,7 @@ public class LeTanGUI extends javax.swing.JFrame {
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addGap(83, 83, 83)
                         .addComponent(btndatphong)))
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -709,13 +709,10 @@ public class LeTanGUI extends javax.swing.JFrame {
 
         tbldanhsachdadat.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Mã phòng", "số người", "ngày đặt", "giá"
             }
         ));
         jScrollPane6.setViewportView(tbldanhsachdadat);
@@ -737,8 +734,6 @@ public class LeTanGUI extends javax.swing.JFrame {
         jLabel36.setText("Mã khách hàng:");
 
         jLabel41.setText("SDT:");
-
-        jButton1.setText("đổi phòng");
 
         txttimkhdp.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -775,22 +770,19 @@ public class LeTanGUI extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel28, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel29, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE))
-                            .addComponent(jLabel36)
-                            .addComponent(jLabel41, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel43, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtmakhdp, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtsophongdangdat, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
-                            .addComponent(txtsdtdp)
-                            .addComponent(txttenkhdp)
-                            .addComponent(txthokhdp))))
+                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel28, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel29, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE))
+                    .addComponent(jLabel36)
+                    .addComponent(jLabel41, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel43, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtmakhdp, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtsophongdangdat, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
+                    .addComponent(txtsdtdp)
+                    .addComponent(txttenkhdp)
+                    .addComponent(txthokhdp))
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -799,9 +791,9 @@ public class LeTanGUI extends javax.swing.JFrame {
                         .addComponent(txttimkhdp, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(39, 39, 39))))
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(248, 248, 248)
                 .addComponent(jLabel35, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -837,13 +829,82 @@ public class LeTanGUI extends javax.swing.JFrame {
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel43)
                             .addComponent(txtsophongdangdat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(21, 21, 21)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(25, 25, 25))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(33, 33, 33))))
         );
+
+        btntatcaphg.setText("tất cả");
+        btntatcaphg.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btntatcaphgActionPerformed(evt);
+            }
+        });
+
+        btnphgtrong.setText("Phòng trống");
+        btnphgtrong.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnphgtrongActionPerformed(evt);
+            }
+        });
+
+        btnphongdangthue.setText("Phòng đang thuê");
+        btnphongdangthue.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnphongdangthueActionPerformed(evt);
+            }
+        });
+
+        jLabel45.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel45.setForeground(new java.awt.Color(83, 58, 255));
+        jLabel45.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel45.setText("danh sách phòng đang đặt");
+
+        tblphong.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        tblphong.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblphongMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tblphong);
+
+        jScrollPane5.setViewportView(jScrollPane2);
+
+        btnphongdangsua.setText("Phòng đang sửa");
+        btnphongdangsua.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnphongdangsuaActionPerformed(evt);
+            }
+        });
+
+        btndoiphong.setText("đổi phòng");
+        btndoiphong.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btndoiphongActionPerformed(evt);
+            }
+        });
+
+        bntdatdichvu.setText("đặt dịch vụ");
+        bntdatdichvu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bntdatdichvuActionPerformed(evt);
+            }
+        });
+
+        btntraphong.setText("Trả Phòng");
+        btntraphong.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btntraphongActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout tabdatphongLayout = new javax.swing.GroupLayout(tabdatphong);
         tabdatphong.setLayout(tabdatphongLayout);
@@ -851,102 +912,69 @@ public class LeTanGUI extends javax.swing.JFrame {
             tabdatphongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tabdatphongLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(tabdatphongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(31, 31, 31)
                 .addGroup(tabdatphongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 795, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 795, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(11, Short.MAX_VALUE))
-            .addGroup(tabdatphongLayout.createSequentialGroup()
-                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 1162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(tabdatphongLayout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(btntatcaphg)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnphgtrong)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnphongdangthue)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnphongdangsua)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(tabdatphongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tabdatphongLayout.createSequentialGroup()
+                        .addComponent(jLabel45, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(279, 279, 279))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tabdatphongLayout.createSequentialGroup()
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 681, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(21, 21, 21))
+                    .addGroup(tabdatphongLayout.createSequentialGroup()
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 588, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(tabdatphongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(bntdatdichvu, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
+                            .addComponent(btndoiphong, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btntraphong, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())))
         );
         tabdatphongLayout.setVerticalGroup(
             tabdatphongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tabdatphongLayout.createSequentialGroup()
-                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
+                .addContainerGap()
                 .addGroup(tabdatphongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(tabdatphongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(58, 58, 58))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tabdatphongLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(tabdatphongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnphgtrong)
+                            .addComponent(btntatcaphg)
+                            .addComponent(btnphongdangthue)
+                            .addComponent(btnphongdangsua)))
+                    .addGroup(tabdatphongLayout.createSequentialGroup()
+                        .addComponent(jLabel45, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 2, Short.MAX_VALUE)))
+                .addGroup(tabdatphongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(tabdatphongLayout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addComponent(btndoiphong, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(bntdatdichvu)
+                        .addGap(18, 18, 18)
+                        .addComponent(btntraphong, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(31, 31, 31))
         );
 
         tabletan.addTab("quản lý phòng", tabdatphong);
-
-        jPanel6.setBackground(new java.awt.Color(255, 233, 226));
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1208, Short.MAX_VALUE)
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 522, Short.MAX_VALUE)
-        );
-
-        tabletan.addTab("Thuê dịch vụ", jPanel6);
-
-        tablaphoadon.setBackground(new java.awt.Color(255, 233, 226));
-        tablaphoadon.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 0), 2));
-
-        jLabel2.setBackground(new java.awt.Color(255, 233, 226));
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(83, 58, 255));
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Thanh toán");
-
-        jScrollPane1.setBackground(new java.awt.Color(255, 255, 226));
-        jScrollPane1.setForeground(new java.awt.Color(0, 0, 255));
-
-        tblhoadon.setBackground(new java.awt.Color(255, 255, 226));
-        tblhoadon.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Mã hóa đơn", "Title 2"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Object.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        tblhoadon.setToolTipText("Bảng Thông tin mua bán");
-        jScrollPane1.setViewportView(tblhoadon);
-
-        javax.swing.GroupLayout tablaphoadonLayout = new javax.swing.GroupLayout(tablaphoadon);
-        tablaphoadon.setLayout(tablaphoadonLayout);
-        tablaphoadonLayout.setHorizontalGroup(
-            tablaphoadonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1204, Short.MAX_VALUE)
-            .addGroup(tablaphoadonLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        tablaphoadonLayout.setVerticalGroup(
-            tablaphoadonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(tablaphoadonLayout.createSequentialGroup()
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(61, 61, 61)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(205, Short.MAX_VALUE))
-        );
-
-        tabletan.addTab("Lập hóa đơn", tablaphoadon);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -974,7 +1002,7 @@ public class LeTanGUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 665, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
 
         setBounds(0, 0, 1229, 748);
@@ -983,12 +1011,118 @@ public class LeTanGUI extends javax.swing.JFrame {
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
 
     }//GEN-LAST:event_btnLogoutActionPerformed
-    private void btndatphongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndatphongActionPerformed
+
+    private void tabletanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabletanMouseClicked
         PhongGUI phgGUI = new PhongGUI();
-        if(!txtmakhdp.getText().isEmpty())
-        phgGUI.datphong(tblphong, Integer.valueOf(txtmakhdp.getText()));
-        else
-        ThongBao.noitice("Chưa chọn khách hàng!");
+        PhongBUS phgBUS = new PhongBUS();
+        phgGUI.LoadTable(tblphong, phgBUS.load());
+        try {
+            BUS.KhachHangBUS.LoadTablekhdp(tblkhdp, "1");
+        } catch (SQLException ex) {
+            Logger.getLogger(LeTanGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_tabletanMouseClicked
+
+    private void tabdatphongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabdatphongMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tabdatphongMouseClicked
+
+    private void btntraphongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntraphongActionPerformed
+        HoaDonBUS hd = new HoaDonBUS();
+        if (txtmakhdp.getText().length() == 0) {
+            ThongBao.noitice(" chưa chọn khách hàng nào.");
+        } else if (hd.gethoadonbymakh(Integer.valueOf(txtmakhdp.getText())) == null) {
+
+            ThongBao.noitice("chưa đặt phòng nào.");
+        } else {
+            this.setEnabled(false);
+            thanhtoan fr = new thanhtoan(this, true);
+            fr.setVisible(true);
+        }
+    }//GEN-LAST:event_btntraphongActionPerformed
+
+    private void bntdatdichvuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntdatdichvuActionPerformed
+        HoaDonBUS hd = new HoaDonBUS();
+        if (txtmakhdp.getText().length() == 0) {
+            ThongBao.noitice(" chưa chọn khách hàng nào.");
+        } else if (hd.gethoadonbymakh(Integer.valueOf(txtmakhdp.getText())) == null) {
+            ThongBao.noitice("chưa đặt phòng nào.");
+        } else {
+            this.setEnabled(false);
+            datdichvu fr = new datdichvu(this, true);
+            fr.setVisible(true);
+        }
+    }//GEN-LAST:event_bntdatdichvuActionPerformed
+
+    private void btndoiphongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndoiphongActionPerformed
+        BUS.PhongBUS.doiphong(tblphong, tbldanhsachdadat);
+    }//GEN-LAST:event_btndoiphongActionPerformed
+
+    private void btnphongdangsuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnphongdangsuaActionPerformed
+        // TODO add your handling code here:
+        PhongGUI phgGUI = new PhongGUI();
+        PhongBUS phgBUS = new PhongBUS();
+        phgGUI.LoadTable(tblphong, phgBUS.getphongdangsua());
+    }//GEN-LAST:event_btnphongdangsuaActionPerformed
+
+    private void tblphongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblphongMouseClicked
+        int row = tblphong.getSelectedRow();
+        int maphg = Integer.valueOf(tblphong.getValueAt(row, 0).toString());
+        Phong phg = PhongBUS.getphongbyma(maphg);
+        txtsophg.setText(String.valueOf(phg.getMaphg()));
+        txtloaiphg.setText(tblphong.getValueAt(row, 1).toString());
+        txtgia.setText(tblphong.getValueAt(row, 3).toString());
+        txtsophg.setEditable(false);
+        txtloaiphg.setEditable(false);
+        txtgia.setEditable(false);
+    }//GEN-LAST:event_tblphongMouseClicked
+
+    private void btnphongdangthueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnphongdangthueActionPerformed
+        // TODO add your handling code here:
+        PhongGUI phgGUI = new PhongGUI();
+        PhongBUS phgBUS = new PhongBUS();
+        phgGUI.LoadTable(tblphong, phgBUS.getphongdangchothue());
+    }//GEN-LAST:event_btnphongdangthueActionPerformed
+
+    private void btnphgtrongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnphgtrongActionPerformed
+        PhongGUI phgGUI = new PhongGUI();
+        PhongBUS phgBUS = new PhongBUS();
+        phgGUI.LoadTable(tblphong, phgBUS.getphongtrong());
+    }//GEN-LAST:event_btnphgtrongActionPerformed
+
+    private void btntatcaphgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntatcaphgActionPerformed
+        PhongGUI phgGUI = new PhongGUI();
+        PhongBUS phgBUS = new PhongBUS();
+        phgGUI.LoadTable(tblphong, phgBUS.load());
+    }//GEN-LAST:event_btntatcaphgActionPerformed
+
+    private void tblkhdpMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblkhdpMouseClicked
+        int row = tblkhdp.getSelectedRow();
+        int makh = Integer.valueOf(tblkhdp.getValueAt(row, 0).toString());
+        KhachHangBUS khbus = new KhachHangBUS();
+        KhachHang khdp = KhachHangBUS.getkhbyid(makh);
+        txtmakhdp.setText(String.valueOf(khdp.getMaKH()));
+        txthokhdp.setText(khdp.getHo());
+        txttenkhdp.setText(khdp.getTen());
+        txtsdtdp.setText(String.valueOf(khdp.getSoDienThoai()));
+        txtsophongdangdat.setText("1");
+        txtmakhdp.setEditable(false);
+        txthokhdp.setEditable(false);
+        txttenkhdp.setEditable(false);
+        txtsdtdp.setEditable(false);
+        PhongGUI.loadtblphongdangthue(tbldanhsachdadat, Integer.valueOf(txtmakhdp.getText()));
+    }//GEN-LAST:event_tblkhdpMouseClicked
+
+    private void txttimkhdpKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txttimkhdpKeyReleased
+        try {
+            BUS.KhachHangBUS.LoadTablekhdp(tblkhdp, txttimkhdp.getText());
+        } catch (SQLException ex) {
+            Logger.getLogger(LeTanGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_txttimkhdpKeyReleased
+
+    private void btndatphongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndatphongActionPerformed
+        BUS.PhongBUS.datphong(txtmakhdp, tblphong);
     }//GEN-LAST:event_btndatphongActionPerformed
 
 //    public void setTextFieldsuakh() {
@@ -1004,19 +1138,20 @@ public class LeTanGUI extends javax.swing.JFrame {
     private void tblkhMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblkhMouseClicked
 
         int row = tblkh.getSelectedRow();
-        int makh=Integer.valueOf(tblkh.getValueAt(row, 0).toString());  
-        KhachHangBUS  khbus=new KhachHangBUS();
+        int makh = Integer.valueOf(tblkh.getValueAt(row, 0).toString());
+        KhachHangBUS khbus = new KhachHangBUS();
         KhachHang kh = khbus.getkhbyid(makh);
         txtmakh.setText(String.valueOf(kh.getMaKH()));
         txthokhm.setText(kh.getHo());
         txttenkhm.setText(kh.getTen());
-        cmbgioitinhm.setSelectedItem(kh.getGioiTinh()+1); 
+        cmbgioitinhm.setSelectedItem(kh.getGioiTinh() + 1);
         txtsdtm.setText(String.valueOf(kh.getSoDienThoai()));
         txtemailm.setText(kh.getEmail());
         txtcmnnm.setText(String.valueOf(kh.getCMND()));
         txtquoctichm.setText(kh.getQuocTich());
         dcrngaysinhmoi.setDate(DateUtil.convert(kh.getNgaySinh()));
     }//GEN-LAST:event_tblkhMouseClicked
+
     private void txttimkienkhachhangKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txttimkienkhachhangKeyReleased
         try {
             BUS.KhachHangBUS.TimKiemkh(tblkh, txttimkienkhachhang.getText());
@@ -1024,6 +1159,7 @@ public class LeTanGUI extends javax.swing.JFrame {
             Logger.getLogger(LeTanGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_txttimkienkhachhangKeyReleased
+
     private void jButtonsuakhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonsuakhActionPerformed
         if (txthokhm.getText().length() == 0 || txthokhm.getText().length() > 28) {
             JOptionPane.showMessageDialog(null, "họ không hợp lệ", "Error", JOptionPane.ERROR_MESSAGE);
@@ -1070,6 +1206,7 @@ public class LeTanGUI extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_jButtonsuakhActionPerformed
+
     private void jButtonthemkhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonthemkhActionPerformed
 
         if (txthokh.getText().length() == 0 || txthokh.getText().length() > 28) {
@@ -1116,60 +1253,6 @@ public class LeTanGUI extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_jButtonthemkhActionPerformed
-
-    private void tblphongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblphongMouseClicked
-     int row = tblphong.getSelectedRow();
-        int maphg=Integer.valueOf(tblphong.getValueAt(row, 0).toString());  
-        PhongBUS  PhongBUS=new PhongBUS();
-        Phong phg = PhongBUS.getphgbyid(maphg);
-        txtsophg.setText(String.valueOf(phg.getMaphg()));
-        txtloaiphg.setText(tblphong.getValueAt(row, 1).toString());
-        txtgia.setText(tblphong.getValueAt(row, 3).toString());
-        txtsophg.setEditable(false);
-        txtloaiphg.setEditable(false);
-       txtgia.setEditable(false);
-    }//GEN-LAST:event_tblphongMouseClicked
-
-    private void txttimkhdpKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txttimkhdpKeyReleased
-       
-        
-        try {
-            BUS.KhachHangBUS.LoadTablekhdp(tblkhdp, txttimkhdp.getText());
-        } catch (SQLException ex) {
-            Logger.getLogger(LeTanGUI.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_txttimkhdpKeyReleased
-
-    private void tabdatphongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabdatphongMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tabdatphongMouseClicked
-
-    private void tabletanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabletanMouseClicked
-        PhongGUI phgGUI = new PhongGUI();
-        phgGUI.LoadTable(tblphong);
-        try {
-            BUS.KhachHangBUS.LoadTablekhdp(tblkhdp, "1");
-        } catch (SQLException ex) {
-            Logger.getLogger(LeTanGUI.class.getName()).log(Level.SEVERE, null, ex);
-        }
-             
-    }//GEN-LAST:event_tabletanMouseClicked
-
-    private void tblkhdpMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblkhdpMouseClicked
-       int row = tblkhdp.getSelectedRow();
-        int makh=Integer.valueOf(tblkhdp.getValueAt(row, 0).toString());  
-        KhachHangBUS  khbus=new KhachHangBUS();
-        KhachHang khdp=KhachHangBUS.getkhbyid(makh);
-        txtmakhdp.setText(String.valueOf(khdp.getMaKH()));
-        txthokhdp.setText(khdp.getHo());
-        txttenkhdp.setText(khdp.getTen());
-        txtsdtdp.setText(String.valueOf(khdp.getSoDienThoai()));
-        txtsophongdangdat.setText("1");
-        txtmakhdp.setEditable(false);
-        txthokhdp.setEditable(false);
-        txttenkhdp.setEditable(false);
-        txtsdtdp.setEditable(false);
-    }//GEN-LAST:event_tblkhdpMouseClicked
     public void AutomaticallyClosedMsgBox(long time, String text) {
         JOptionPane jop = new JOptionPane();
         jop.setMessageType(JOptionPane.INFORMATION_MESSAGE);
@@ -1188,7 +1271,8 @@ public class LeTanGUI extends javax.swing.JFrame {
 
         dialog.setVisible(true);
     }
-   /**
+
+    /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
@@ -1221,21 +1305,26 @@ public class LeTanGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bntdatdichvu;
     private javax.swing.JButton btnLogout;
     private javax.swing.JButton btndatphong;
+    private javax.swing.JButton btndoiphong;
+    private javax.swing.JButton btnphgtrong;
+    private javax.swing.JButton btnphongdangsua;
+    private javax.swing.JButton btnphongdangthue;
+    private javax.swing.JButton btntatcaphg;
+    private javax.swing.JButton btntraphong;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<String> cbbsonguoi;
     private javax.swing.JComboBox<String> cmbgioitinh;
     private javax.swing.JComboBox<String> cmbgioitinhm;
     private com.toedter.calendar.JDateChooser dcrngaysinh;
     private com.toedter.calendar.JDateChooser dcrngaysinhmoi;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonsuakh;
     private javax.swing.JButton jButtonthemkh;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
@@ -1243,7 +1332,6 @@ public class LeTanGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
@@ -1266,6 +1354,7 @@ public class LeTanGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel44;
+    private javax.swing.JLabel jLabel45;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -1277,18 +1366,15 @@ public class LeTanGUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JPanel tabdatphong;
-    private javax.swing.JPanel tablaphoadon;
     private javax.swing.JTabbedPane tabletan;
     private javax.swing.JPanel tabquanlykhachhang;
     private javax.swing.JTable tbldanhsachdadat;
-    private javax.swing.JTable tblhoadon;
     private javax.swing.JTable tblkh;
     private javax.swing.JTable tblkhdp;
     private javax.swing.JTable tblphong;

@@ -27,6 +27,8 @@ public class HoaDon
 		m_mahd = mahd;
 		m_makh = makh;
 		m_manv = manv;
+                
+                l_chitiet = new ArrayList<>();
 	}
 	
 	public int getMaHD()

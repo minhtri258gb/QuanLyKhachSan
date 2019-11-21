@@ -16,7 +16,7 @@ import DTO.PhieuThuePhong;
  */
 public class PhieuThuePhongDAO
 {
-	public PhieuThuePhong get(int maptp)
+	public static PhieuThuePhong get(int maptp)
 	{
 		Database DB = new Database();
 		DB.connect();
@@ -48,7 +48,7 @@ public class PhieuThuePhongDAO
 		return null;
 	}
 	
-	public void add(PhieuThuePhong ptp)
+	public static void add(PhieuThuePhong ptp)
 	{
 		Database DB = new Database();
 		DB.connect();
@@ -70,7 +70,7 @@ public class PhieuThuePhongDAO
 		DB.disconnect();
 	}
 
-	public void edit(PhieuThuePhong ptp)
+	public static void edit(PhieuThuePhong ptp)
 	{
 		Database DB = new Database();
 		DB.connect();
@@ -85,7 +85,7 @@ public class PhieuThuePhongDAO
 		DB.disconnect();
 	}
 	
-	public int getNewID()
+	public static int getNewID()
 	{
 		Database DB = new Database();
 		DB.connect();
