@@ -19,27 +19,24 @@ import Tools.DateUtil;
  *
  * @author Massan
  */
-public class HoaDonBUS
-{
-	public void traPhong(int makh)
-	{
+public class HoaDonBUS {
+
+	public void traPhong(int makh) {
 		HoaDonDAO hdDAO = new HoaDonDAO();
 		ChiTietHoaDonDAO cthdDAO = new ChiTietHoaDonDAO();
 		PhieuThuePhongDAO ptpDAO = new PhieuThuePhongDAO();
-		
+
 		HoaDon hd = hdDAO.getFromMaKH(makh);
 		hd.l_chitiet = cthdDAO.get(hd.getMaHD());
-		
-		for(ChiTietHoaDon cthd : hd.l_chitiet)
-		{
+
+		for (ChiTietHoaDon cthd : hd.l_chitiet) {
 			PhieuThuePhong ptp = cthd.getPhieuThuePhong();
 			ptp.setNgayDi(DateUtil.getCurDate());
 			ptpDAO.edit(ptp);
 		}
 	}
-	
-	public void thanhToan(int makh)
-	{
+
+	public void thanhToan(int makh) {
 //		HoaDonDAO hdDAO = new HoaDonDAO();
 //		ChiTietHoaDonDAO cthdDAO = new ChiTietHoaDonDAO();
 //		PhongDAO phgDAO = new PhongDAO();
@@ -64,5 +61,8 @@ public class HoaDonBUS
 //		
 //		hdDAO.edit(hd);
 	}
-	
+
+	public static HoaDon gethoadonbymakh(int makh) {
+		return HoaDonDAO.getFromMaKH(makh);
+	}
 }

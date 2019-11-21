@@ -70,7 +70,7 @@ public class PhongDAO
 		DB.disconnect();
 	}
 
-	public void edit(Phong phg)
+	public static void edit(Phong phg)
 	{
 		Database DB = new Database();
 		DB.connect();
@@ -82,6 +82,32 @@ public class PhongDAO
 		
 		DB.update(sql);
 		DB.disconnect();
+	}
+	public static Phong getphong(int maphong)
+	{
+		
+		Phong phg=new Phong(maphong);
+		Database DB = new Database();
+		DB.connect();
+		String sql="select * from phong where maphg='"+maphong+"'";
+		ResultSet rs=DB.execution(sql);
+		try
+		{
+			while(rs.next())
+			{
+
+				phg.setMaloaiphg(rs.getInt(2));
+				phg.setTinhtrang(rs.getString(3));
+			}
+		}
+		catch(SQLException e)
+		{
+			System.out.println("[PhongDAO:load] error sql: "+e);
+		}
+		DB.disconnect();
+		return phg;
+		
+		
 	}
 
 }

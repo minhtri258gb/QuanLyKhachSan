@@ -5,6 +5,10 @@
  */
 package BUS;
 
+import DAO.DichVuDAO;
+import DTO.DichVu;
+import java.util.ArrayList;
+
 /**
  *
  * @author Massan
@@ -45,4 +49,27 @@ public class DichVuBUS
 		// add phieu dich vu to database
 		// update cthd
 	}
+        public ArrayList<DichVu> getdv()
+        {
+            DichVuDAO dv=new DichVuDAO();
+            return dv.load();
+        }
+        public int getgiadvbyma(String name)
+    {
+        DichVuDAO dv =new DichVuDAO();
+        for(DichVu dvc:dv.load())
+        {
+            if(dvc.getTenDV().equals(name)){
+                return dvc.getGia();
+            }
+                
+            
+        }
+        return 0;
+    }
+        
+        public static DichVu getDichVu(int madv)
+        {
+            return DichVuDAO.getDichVu(madv);
+        }
 }

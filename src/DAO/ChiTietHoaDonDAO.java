@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import DTO.ChiTietHoaDon;
+import GUI.ThongBao;
 
 /**
  *
@@ -17,7 +18,7 @@ import DTO.ChiTietHoaDon;
  */
 public class ChiTietHoaDonDAO
 {
-	public ArrayList<ChiTietHoaDon> get(int mahd)
+	public static ArrayList<ChiTietHoaDon> load(int mahd)
 	{
 		ArrayList<ChiTietHoaDon> l_chitiet = new ArrayList<>();
 		ArrayList<Integer> l_maptp = new ArrayList<>();
@@ -47,38 +48,44 @@ public class ChiTietHoaDonDAO
 		
 		DB.disconnect();
 		
-		PhieuThuePhongDAO ptpDAO = new PhieuThuePhongDAO();
-		PhieuDichVuDAO pdvDAO = new PhieuDichVuDAO();
-		
 		int sizeArr = l_chitiet.size();
 		for(int i=0; i<sizeArr; i++)
 		{
 			int id = l_maptp.get(i);
 			if(id != 0)
-				l_chitiet.get(i).setPhieuThuePhong(ptpDAO.get(id));
+				l_chitiet.get(i).setPhieuThuePhong(PhieuThuePhongDAO.get(id));
 			
 			id = l_mapdv.get(i);
 			if(id != 0)
-				l_chitiet.get(i).setPhieuDichVu(pdvDAO.get(id));
+				l_chitiet.get(i).setPhieuDichVu(PhieuDichVuDAO.get(id));
 		}
 		
 		return l_chitiet;
 	}
 	
-	public void add(ChiTietHoaDon cthd, int mahd)
+	public static void add(ChiTietHoaDon cthd, int mahd)
 	{
 		Database DB = new Database();
 		DB.connect();
 		
-		String sql = "INSERT INTO ChiTietHoaDon (mahd, maptp, mapdv, thanhtien) VALUES ('";
-		sql += mahd+"', '";
-		sql += cthd.getPhieuThuePhong().getMaPTP()+"', '";
-		sql += cthd.getPhieuDichVu().getMaPDV()+"', '0');";               
-		DB.update(sql);
+                if (cthd.getPhieuDichVu() != null)
+                {
+                    String sql = "INSERT INTO chitiethoadon (mahd, maptp, mapdv, thanhtien) VALUES ('";
+                    sql += mahd+"', '";
+                    sql += cthd.getPhieuThuePhong().getMaPTP()+"', '";
+                    sql += cthd.getPhieuDichVu().getMaPDV()+"', '0');";
+                    DB.update(sql);
+                } else {
+                    String sql = "INSERT INTO chitiethoadon (mahd, maptp, thanhtien) VALUES ('";
+                    sql += mahd+"', '";
+                    sql += cthd.getPhieuThuePhong().getMaPTP()+"', '0');";
+                    DB.update(sql);
+                }
+                
 		DB.disconnect();
 	}
 
-	public void delete(int macthd)
+	public static void delete(int macthd)
 	{
 		Database DB = new Database();
 		DB.connect();
@@ -86,7 +93,7 @@ public class ChiTietHoaDonDAO
 		DB.disconnect();
 	}
 
-	public void edit(ChiTietHoaDon cthd)
+	public static void edit(ChiTietHoaDon cthd)
 	{
 		Database DB = new Database();
 		DB.connect();
@@ -101,7 +108,7 @@ public class ChiTietHoaDonDAO
 		DB.disconnect();
 	}
 	
-	public int getNewID()
+	public static int getNewID()
 	{
 		Database DB = new Database();
 		DB.connect();

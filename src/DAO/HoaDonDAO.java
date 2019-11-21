@@ -10,184 +10,167 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import DTO.HoaDon;
+import GUI.ThongBao;
 import Tools.DateUtil;
 
 /**
  *
  * @author Massan
  */
-public class HoaDonDAO
-{
-	public ArrayList<HoaDon> load()
-	{
+public class HoaDonDAO {
+
+	public ArrayList<HoaDon> load() {
 		ArrayList<HoaDon> l_hoadon = new ArrayList<>();
-		
+
 		Database DB = new Database();
 		DB.connect();
 
 		ResultSet rs = DB.execution("SELECT * FROM HoaDon");
-		
-		try
-		{
-			while(rs.next())
-			{
+
+		try {
+			while (rs.next()) {
 				HoaDon hd = new HoaDon(rs.getInt(1), rs.getInt(2), rs.getInt(3));
 
 				hd.setNgayLap(rs.getString(4));
 				hd.setTongtien(rs.getInt(5));
 				l_hoadon.add(hd);
 			}
+		} catch (SQLException e) {
+			System.out.println("[HoaDonDAO:load] error sql: " + e);
 		}
-		catch(SQLException e)
-		{
-			System.out.println("[HoaDonDAO:load] error sql: "+e);
-		}
-		
+
 		DB.disconnect();
-		
+
 		return l_hoadon;
 	}
-	
-	public void add(HoaDon hd)
-	{
+
+	public static void add(HoaDon hd) {
 		Database DB = new Database();
 		DB.connect();
-		
+
 		String sql = "INSERT INTO HoaDon (makh, manv, ngaylap, tongtien) VALUES ('";
-		sql += hd.getMaKH()+"', '";
-		sql += hd.getMaNV()+"', '";
-		sql += hd.getNgayLap()+"', '";
-		sql += hd.getTongtien()+"');";
+		sql += hd.getMaKH() + "', '";
+		sql += hd.getMaNV() + "', '";
+		sql += hd.getNgayLap() + "', '";
+		sql += hd.getTongtien() + "');";
 		DB.update(sql);
 		DB.disconnect();
 	}
 
-	public void delete(int mahd)
-	{
+	public void delete(int mahd) {
 		Database DB = new Database();
 		DB.connect();
-		DB.update("DELETE FROM HoaDon WHERE HoaDon.mahd="+mahd);
+		DB.update("DELETE FROM HoaDon WHERE HoaDon.mahd=" + mahd);
 		DB.disconnect();
 	}
 
-	public void edit(HoaDon hd)
-	{
+	public void edit(HoaDon hd) {
 		Database DB = new Database();
 		DB.connect();
-		
+
 		String sql = "UPDATE HoaDon SET ";
-		sql += "ngaylap='"					+hd.getNgayLap();
-		sql += "', tongtien='"					+hd.getTongtien();
-		sql += "' WHERE HoaDon.mahd = "		+hd.getMaHD()+";";
-		
+		sql += "ngaylap='" + hd.getNgayLap();
+		sql += "', tongtien='" + hd.getTongtien();
+		sql += "' WHERE HoaDon.mahd = " + hd.getMaHD() + ";";
+
 		DB.update(sql);
 		DB.disconnect();
 	}
-	
-	public int getNewID()
-	{
+
+	public static int getNewID() {
 		Database DB = new Database();
 		DB.connect();
 
 		ResultSet rs = DB.execution("SELECT MAX(mahd) FROM HoaDon");
-		
-		try
-		{
-			while(rs.next())
-			{
+
+		try {
+			while (rs.next()) {
 				int newid = rs.getInt(1) + 1;
 				DB.disconnect();
 				return newid;
 			}
+		} catch (SQLException e) {
+			System.out.println("[HoaDonDAO:getNewID] error sql: " + e);
 		}
-		catch(SQLException e)
-		{
-			System.out.println("[HoaDonDAO:getNewID] error sql: "+e);
-		}
-		
+
 		DB.disconnect();
-		
+
 		return -1;
 	}
-	
-	public HoaDon getFromMaKH(int makh)
-	{
+
+	public static HoaDon getFromMaKH(int makh) {
 		Database DB = new Database();
 		DB.connect();
 
-		ResultSet rs = DB.execution("SELECT * FROM HoaDon WHERE makh="+makh);
-		
+		ResultSet rs = DB.execution("SELECT * FROM HoaDon WHERE makh=" + makh);
+
 		ArrayList<HoaDon> l_hoadon = new ArrayList<>();
-		try
-		{
-			while(rs.next())
-			{
+		try {
+			while (rs.next()) {
 				HoaDon hd = new HoaDon(rs.getInt(1), rs.getInt(2), rs.getInt(3));
 				hd.setNgayLap(rs.getString(4));
 				hd.setTongtien(rs.getInt(5));
 				l_hoadon.add(hd);
 			}
+		} catch (SQLException e) {
+			System.out.println("[HoaDonDAO:load] error sql: " + e);
 		}
-		catch(SQLException e)
-		{
-			System.out.println("[HoaDonDAO:load] error sql: "+e);
-		}
-		
+
 		DB.disconnect();
-		
-		
+
 		// Tim hoa don lap gan nhat
 		HoaDon hd = null;
-		
-		for(HoaDon hdi : l_hoadon)
-			if(hd == null)
+
+		for (HoaDon hdi : l_hoadon) {
+			if (hd == null) {
 				hd = hdi;
-			else if(DateUtil.compare(hdi.getNgayLap(), hd.getNgayLap()) == 1)
+			} else if (DateUtil.compare(hdi.getNgayLap(), hd.getNgayLap()) == 1) {
 				hd = hdi;
-		
+			}
+		}
+
+		hd.l_chitiet = ChiTietHoaDonDAO.load(hd.getMaHD());
 		return hd;
 	}
-	
-	public HoaDon getFromMaPhg(int maphg)
-	{
+
+	public static HoaDon getFromMaPhg(int maphg) {
 		Database DB = new Database();
 		DB.connect();
 
 		String sql = "SELECT hd.* ";
 		sql += "FROM HoaDon hd, ChiTietHoaDon cthd, PhieuThuePhong ptp ";
-		sql += "WHERE hd.mahd=cthd.mahd AND cthd.maptp=ptp.maptp AND ptp.maphg="+maphg;
-		
+		sql += "WHERE hd.mahd=cthd.mahd AND cthd.maptp=ptp.maptp AND ptp.maphg=" + maphg;
+
 		ResultSet rs = DB.execution(sql);
-		
+
 		ArrayList<HoaDon> l_hoadon = new ArrayList<>();
-		try
-		{
-			while(rs.next())
-			{
+		try {
+			while (rs.next()) {
 				HoaDon hd = new HoaDon(rs.getInt(1), rs.getInt(2), rs.getInt(3));
 				hd.setNgayLap(rs.getString(4));
 				hd.setTongtien(rs.getInt(5));
 				l_hoadon.add(hd);
 			}
+		} catch (SQLException e) {
+			ThongBao.warning("[HoaDonDAO:getFromMaPhg] " + e);
 		}
-		catch(SQLException e)
-		{
-			System.out.println("[HoaDonDAO:load] error sql: "+e);
-		}
-		
+
 		DB.disconnect();
-		
-		
+
 		// Tim hoa don lap gan nhat
 		HoaDon hd = null;
-		
-		for(HoaDon hdi : l_hoadon)
-			if(hd == null)
+
+		for (HoaDon hdi : l_hoadon) {
+			if (hd == null) {
 				hd = hdi;
-			else if(DateUtil.compare(hdi.getNgayLap(), hd.getNgayLap()) == 1)
+			} else if (DateUtil.compare(hdi.getNgayLap(), hd.getNgayLap()) == 1) {
 				hd = hdi;
-		
+			}
+		}
+
+		if (hd != null)
+			hd.l_chitiet = ChiTietHoaDonDAO.load(hd.getMaHD());
 		return hd;
 	}
-	
+
 }

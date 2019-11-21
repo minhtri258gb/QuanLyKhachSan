@@ -110,5 +110,36 @@ public class DichVuDAO
 		
 		return 0;
 	}
+        
+	public static DichVu getDichVu(int madv)
+	{
+		Database DB = new Database();
+		DB.connect();
+
+		ResultSet rs = DB.execution("SELECT * FROM dichvu WHERE madv="+madv);
+		
+		try
+		{
+			while(rs.next())
+			{
+				DichVu dv = new DichVu(rs.getInt(1));
+
+				dv.setTenDV(rs.getString(2));
+				dv.setMoTa(rs.getString(3));
+				dv.setGia(rs.getInt(4));
+				DB.disconnect();
+                                
+                                return dv;
+			}
+		}
+		catch(SQLException e)
+		{
+			System.out.println("[DichVuDAO:load] error sql: "+e);
+		}
+		
+		DB.disconnect();
+		
+		return null;
+	}
 	
 }
