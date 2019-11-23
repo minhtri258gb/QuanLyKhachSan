@@ -54,11 +54,8 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="tabquanly" alignment="0" pref="1189" max="32767" attributes="0"/>
-              <Group type="102" alignment="1" attributes="0">
-                  <Component id="pnlTitle" pref="1179" max="32767" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-              </Group>
+              <Component id="tabquanly" alignment="0" pref="1187" max="32767" attributes="0"/>
+              <Component id="pnlTitle" alignment="0" pref="1187" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -66,7 +63,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <Component id="pnlTitle" min="-2" pref="94" max="-2" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
-                  <Component id="tabquanly" pref="529" max="32767" attributes="0"/>
+                  <Component id="tabquanly" pref="599" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -123,7 +120,7 @@
                               </Group>
                           </Group>
                       </Group>
-                      <EmptySpace pref="16" max="32767" attributes="0"/>
+                      <EmptySpace pref="15" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -220,7 +217,7 @@
                               <Component id="btnkhTim" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="srlkhData" pref="661" max="32767" attributes="0"/>
+                          <Component id="srlkhData" pref="657" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -366,7 +363,7 @@
                                   <Component id="lblkhFormQuocTich" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="txtkhFormQuocTich" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="148" max="32767" attributes="0"/>
+                              <EmptySpace pref="138" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -542,13 +539,13 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="pnlnvForm" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="btnnvSua" min="-2" pref="91" max="-2" attributes="0"/>
-                              <Component id="btnnvThem" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnnvTim" min="-2" pref="91" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="btnnvThem" max="32767" attributes="0"/>
+                              <Component id="btnnvSua" alignment="0" max="32767" attributes="0"/>
+                              <Component id="btnnvTim" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="srlnvData" pref="725" max="32767" attributes="0"/>
+                          <Component id="srlnvData" pref="719" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -568,7 +565,7 @@
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="srlnvData" pref="530" max="32767" attributes="0"/>
+                                  <Component id="srlnvData" pref="527" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
@@ -900,13 +897,13 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="pnltkForm" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="btntkTim" alignment="0" min="-2" pref="91" max="-2" attributes="0"/>
-                              <Component id="btntkThem" min="-2" max="-2" attributes="0"/>
-                              <Component id="btntkSua" min="-2" pref="91" max="-2" attributes="0"/>
+                              <Component id="btntkThem" max="32767" attributes="0"/>
+                              <Component id="btntkSua" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="srltkData" pref="715" max="32767" attributes="0"/>
+                          <Component id="srltkData" pref="711" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -928,7 +925,7 @@
                               <Group type="102" alignment="1" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="1" attributes="0">
-                                      <Component id="srltkData" pref="510" max="32767" attributes="0"/>
+                                      <Component id="srltkData" pref="507" max="32767" attributes="0"/>
                                       <Component id="pnltkForm" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
@@ -1255,20 +1252,30 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="lblpTitle" alignment="0" max="32767" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Group type="102" alignment="1" attributes="0">
-                                  <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                                   <Component id="pnlpForm" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="btnpThem" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="btnpSua" alignment="0" min="-2" pref="91" max="-2" attributes="0"/>
-                                          <Component id="btnpXoa" min="-2" pref="91" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Component id="btnpTheml" max="32767" attributes="0"/>
+                                              <Component id="btnpXoal" alignment="0" min="-2" pref="91" max="-2" attributes="0"/>
+                                              <Component id="btnpSual" alignment="0" max="32767" attributes="0"/>
+                                          </Group>
                                       </Group>
-                                      <Component id="btnpTheml" min="-2" max="-2" attributes="0"/>
-                                      <Component id="btnpSual" min="-2" pref="91" max="-2" attributes="0"/>
-                                      <Component id="btnpXoal" min="-2" pref="91" max="-2" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                          <Component id="btnpThem" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="btnpSua" alignment="1" min="-2" pref="93" max="-2" attributes="0"/>
+                                              <Component id="btnpXoa" alignment="1" min="-2" pref="93" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
                                   </Group>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
@@ -1280,11 +1287,12 @@
                                   <Component id="tbtpTang" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="srlpDatal" pref="663" max="32767" attributes="0"/>
-                              <Component id="srlpData" max="32767" attributes="0"/>
+                              <Component id="srlpData" pref="645" max="32767" attributes="0"/>
+                              <Component id="srlpDatal" max="32767" attributes="0"/>
                           </Group>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1690,7 +1698,7 @@
                               <Component id="btndvXoa" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="srldvData" pref="706" max="32767" attributes="0"/>
+                          <Component id="srldvData" pref="704" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -1948,7 +1956,7 @@
                           <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
                           <Component id="pnlhdForm" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="srlhdData" pref="829" max="32767" attributes="0"/>
+                          <Component id="srlhdData" pref="827" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -1960,7 +1968,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="pnlhdForm" max="32767" attributes="0"/>
-                              <Component id="srlhdData" pref="448" max="32767" attributes="0"/>
+                              <Component id="srlhdData" pref="516" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -2195,12 +2203,12 @@
                       <Layout>
                         <DimensionLayout dim="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <EmptySpace min="0" pref="1179" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="1177" max="32767" attributes="0"/>
                           </Group>
                         </DimensionLayout>
                         <DimensionLayout dim="1">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <EmptySpace min="0" pref="475" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="543" max="32767" attributes="0"/>
                           </Group>
                         </DimensionLayout>
                       </Layout>
@@ -2217,12 +2225,12 @@
                       <Layout>
                         <DimensionLayout dim="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <EmptySpace min="0" pref="1179" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="1177" max="32767" attributes="0"/>
                           </Group>
                         </DimensionLayout>
                         <DimensionLayout dim="1">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <EmptySpace min="0" pref="475" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="543" max="32767" attributes="0"/>
                           </Group>
                         </DimensionLayout>
                       </Layout>
@@ -2239,12 +2247,12 @@
                       <Layout>
                         <DimensionLayout dim="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <EmptySpace min="0" pref="1179" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="1177" max="32767" attributes="0"/>
                           </Group>
                         </DimensionLayout>
                         <DimensionLayout dim="1">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <EmptySpace min="0" pref="475" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="543" max="32767" attributes="0"/>
                           </Group>
                         </DimensionLayout>
                       </Layout>
@@ -2261,12 +2269,12 @@
                       <Layout>
                         <DimensionLayout dim="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <EmptySpace min="0" pref="1179" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="1177" max="32767" attributes="0"/>
                           </Group>
                         </DimensionLayout>
                         <DimensionLayout dim="1">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <EmptySpace min="0" pref="475" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="543" max="32767" attributes="0"/>
                           </Group>
                         </DimensionLayout>
                       </Layout>
@@ -2283,12 +2291,12 @@
                       <Layout>
                         <DimensionLayout dim="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <EmptySpace min="0" pref="1179" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="1177" max="32767" attributes="0"/>
                           </Group>
                         </DimensionLayout>
                         <DimensionLayout dim="1">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <EmptySpace min="0" pref="475" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="543" max="32767" attributes="0"/>
                           </Group>
                         </DimensionLayout>
                       </Layout>
@@ -2309,12 +2317,12 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="1184" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="1182" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="502" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="571" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>

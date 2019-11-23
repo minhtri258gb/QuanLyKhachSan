@@ -90,7 +90,7 @@ public class KhachHangDAO
 		return null;
 	}
 	
-	public void add(KhachHang kh)
+	public static void add(KhachHang kh)
 	{
 		Database DB = new Database();
 		DB.connect();
@@ -109,7 +109,7 @@ public class KhachHangDAO
 		DB.disconnect();
 	}
 
-	public void delete(int makh)
+	public static void delete(int makh)
 	{
 		Database DB = new Database();
 		DB.connect();
@@ -119,7 +119,7 @@ public class KhachHangDAO
 		DB.disconnect();
 	}
 
-	public void edit(KhachHang kh)
+	public static void edit(KhachHang kh)
 	{
 		Database DB = new Database();
 		DB.connect();
