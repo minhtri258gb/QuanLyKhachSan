@@ -53,6 +53,43 @@ public class KhachHangDAO
 		return listKhachHang;
 	}
 	
+	public static KhachHang getKhachHang(int makh)
+	{
+		Database DB = new Database();
+		DB.connect();
+
+		ResultSet rs = DB.execution("SELECT * FROM khachhang WHERE makh="+makh);
+		
+		try
+		{
+			while(rs.next())
+			{
+				KhachHang kh = new KhachHang(rs.getInt(1));
+
+				kh.setHo(rs.getString(2));
+				kh.setTen(rs.getString(3));
+				kh.setGioiTinh(rs.getInt(4));
+				kh.setNgaySinh(rs.getString(5));
+				kh.setSoDienThoai(rs.getInt(6));
+				kh.setEmail(rs.getString(7));
+				kh.setCMND(rs.getInt(8));
+				kh.setQuocTich(rs.getString(9));
+				
+				DB.disconnect();
+				
+				return kh;
+			}
+		}
+		catch(SQLException e)
+		{
+			System.out.println("[KhachHangDAO:find] error sql: "+e);
+		}
+		
+		DB.disconnect();
+		
+		return null;
+	}
+	
 	public void add(KhachHang kh)
 	{
 		Database DB = new Database();

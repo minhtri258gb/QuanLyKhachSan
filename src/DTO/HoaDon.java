@@ -19,7 +19,7 @@ public class HoaDon
 	private final int m_manv;
 	private String m_ngaylap;
 	private int m_tongtien;
-	public ArrayList<ChiTietHoaDon> l_chitiet;
+	public ArrayList<ChiTietHoaDon> l_chitiet = new ArrayList<>();
 	
 	
 	public HoaDon(int mahd, int makh, int manv)
@@ -27,8 +27,6 @@ public class HoaDon
 		m_mahd = mahd;
 		m_makh = makh;
 		m_manv = manv;
-                
-                l_chitiet = new ArrayList<>();
 	}
 	
 	public int getMaHD()

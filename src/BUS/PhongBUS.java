@@ -20,19 +20,41 @@ import Tools.DateUtil;
 import Tools.TableUtil;
 import java.util.ArrayList;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
  * @author Massan
  */
-public class PhongBUS {
+public class PhongBUS
+{
 
-    public ArrayList<Phong> load() {
-        PhongDAO phgDAO = new PhongDAO();
-        return phgDAO.load();
+	public static void init(JTable tbl, JTable tbll)
+	{
+		PhongBUS.updateTablebyTang(tbl, -1);
+		
+		ArrayList<LoaiPhong> lstlp = LoaiPhongDAO.load();
+		PhongBUS.uploadTableLP(tbll, lstlp);
+	}
+	
+    public ArrayList<Phong> load()
+	{
+        return PhongDAO.load();
     }
 
+	public static Phong getPhong(int maphg)
+	{
+		return PhongDAO.getPhong(maphg);
+	}
+
+    public ArrayList<LoaiPhong> loadLPhg()
+    {
+        return LoaiPhongDAO.load();
+    }
+    
     public ArrayList<Phong> getphongtrong() {
         ArrayList<Phong> listphongtrong = new ArrayList();
         for (Phong phongtrong : this.load()) {
@@ -64,49 +86,6 @@ public class PhongBUS {
             }
         }
         return listphongdangsua;
-    }
-
-    public ArrayList<LoaiPhong> loadLPhg() {
-        LoaiPhongDAO lphgDAO = new LoaiPhongDAO();
-        return lphgDAO.load();
-    }
-
-    public void datPhong(int makh, ArrayList<Integer> maphgs) {
-        // Tao hoa don
-        HoaDonDAO hdDAO = new HoaDonDAO();
-        int manv = TaiKhoanBUS.getUser().getMaNV();
-        int mahd = hdDAO.getNewID();
-        HoaDon hd = new HoaDon(mahd, makh, manv);
-        hd.setNgayLap(DateUtil.getCurDate());
-        hd.setTongtien(0);
-
-        // Tạo phiếu thuê phòng và chi tiết hóa đơn
-        PhieuThuePhongDAO ptpDAO = new PhieuThuePhongDAO();
-        ChiTietHoaDonDAO cthdDAO = new ChiTietHoaDonDAO();
-        int maptp = PhieuThuePhongDAO.getNewID();
-        int macthd = cthdDAO.getNewID();
-        for (int i = 0; i < maphgs.size(); i++) {
-            PhieuThuePhong ptp = new PhieuThuePhong(maptp + 1);
-            ptp.setMaPhg(maphgs.get(i));
-            ptp.setNgayDen(DateUtil.getCurDate());
-            ptp.setNgayDi("");
-            ptpDAO.add(ptp);
-            PhongDAO phgdao = new PhongDAO();
-            Phong phg = PhongDAO.getphong(maphgs.get(i));
-            phg.setTinhtrang("đang dùng");
-            phgdao.edit(phg);
-
-            ChiTietHoaDon cthd = new ChiTietHoaDon(macthd + 1);
-            cthd.setPhieuThuePhong(ptp);
-            cthd.setPhieuDichVu(null);
-            cthd.setThanhtien(0);
-            cthdDAO.add(cthd, mahd);
-
-            hd.l_chitiet.add(cthd);
-        }
-        hdDAO.add(hd);
-
-        ThongBao.noitice("Đặt phòng thành công");
     }
 
     public static void doiphong(JTable tblPo, JTable tblPn)
@@ -169,10 +148,10 @@ public class PhongBUS {
                 }
 				
 				// Update tinh trang phong
-				Phong updatephongdoi = PhongDAO.getphong(maphg_old);
+				Phong updatephongdoi = PhongDAO.getPhong(maphg_old);
 				updatephongdoi.setTinhtrang("ổn định");
 				PhongDAO.edit(updatephongdoi);
-				Phong updatephongdoi1 = PhongDAO.getphong(maphg_new);
+				Phong updatephongdoi1 = PhongDAO.getPhong(maphg_new);
 				updatephongdoi.setTinhtrang("đang dùng");
 				PhongDAO.edit(updatephongdoi1);
 				break;
@@ -205,11 +184,42 @@ public class PhongBUS {
         }
         return 0;
     }
-	public static Phong getphongbyma(int maphg)
+	
+	public void datPhong(int makh, ArrayList<Integer> maphgs)
 	{
-		return PhongDAO.getphong(maphg);
+		// Tao hoa don
+		HoaDonDAO hdDAO = new HoaDonDAO();
+		int manv = TaiKhoanBUS.getUser().getMaNV();
+		int mahd = hdDAO.getNewID();
+		HoaDon hd = new HoaDon(mahd, makh, manv);
+		hd.setNgayLap(DateUtil.getCurDate());
+		hd.setTongtien(0);
+		
+		// Tạo phiếu thuê phòng và chi tiết hóa đơn
+		PhieuThuePhongDAO ptpDAO = new PhieuThuePhongDAO();
+		ChiTietHoaDonDAO cthdDAO = new ChiTietHoaDonDAO();
+		int maptp = ptpDAO.getNewID();
+		int macthd = cthdDAO.getNewID();
+		ArrayList<PhieuThuePhong> l_ptp = new ArrayList<>();
+		for(int i=0;i<maphgs.size();i++)
+		{
+			PhieuThuePhong ptp = new PhieuThuePhong(maptp + i);
+			ptp.setMaPhg(maphgs.get(i));
+			ptp.setNgayDen(DateUtil.getCurDate());
+			ptp.setNgayDi("");
+			l_ptp.add(ptp);
+			
+			ChiTietHoaDon cthd = new ChiTietHoaDon(macthd + i);
+			cthd.setPhieuThuePhong(ptp);
+			cthd.setPhieuDichVu(null);
+			cthd.setThanhtien(0);
+			
+			hd.l_chitiet.add(cthd);
+		}
+		
+		ThongBao.noitice("Đặt phòng thành công");
 	}
-
+	
 	public static void datphong(JTextField formKHMa, JTable tblPhg)
 	{
 		// Kiem tra hoa don khach hang
@@ -234,7 +244,7 @@ public class PhongBUS {
 		int manv = TaiKhoanBUS.getUser().getMaNV();
 		
 		// Kiem tra dat phong
-		Phong phg = PhongDAO.getphong(maphg);
+		Phong phg = PhongDAO.getPhong(maphg);
 		if (!"ổn định".equals(phg.getTinhtrang()))
 		{
 			ThongBao.warning("Phòng đang bận");
@@ -283,6 +293,232 @@ public class PhongBUS {
 		// Thong bao
 		ThongBao.noitice("Đặt thành công");
 //		updateTable(tblPhg);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public static boolean addphong(JTable tblp, JTable tbllp, JTextField formSoP, JTextField formTT)
+	{
+		int sophg = 0;
+		if (!formSoP.getText().isEmpty())
+			sophg = Integer.valueOf(formSoP.getText());
+		
+		String tinhtrang = formTT.getText();
+		int malphg = TableUtil.getMaFromTable(tbllp);
+		
+		if (validateForm(sophg, malphg, tinhtrang))
+		{
+			Phong p = new Phong(sophg);
+			p.setMaloaiphg(malphg);
+			p.setTinhtrang(tinhtrang);
+			PhongDAO.add(p);
+			return true;
+		}
+		return false;
+	}
+	
+	public static boolean addloaiphong(JTextField formT, JTextField formG, JTextArea formMT)
+	{
+		int malphg = LoaiPhongDAO.getNewID();
+		
+		String tenl = formT.getText();
+		
+		int gia = 0;
+		if (!formG.getText().isEmpty())
+			gia = Integer.valueOf(formG.getText());
+		
+		String mota = formMT.getText();
+		
+		if (validateForm2(malphg, tenl, gia, mota))
+		{
+			LoaiPhong lp = new LoaiPhong(malphg);
+			lp.setTenloaiphg(tenl);
+			lp.setGia(gia);
+			lp.setMota(mota);
+			LoaiPhongDAO.add(lp);
+			return true;
+		}
+		return false;
+	}
+	
+	public static boolean editphong(JTable tblp, JTable tbllp, JTextField formSoP, JTextField formTT)
+	{
+		int sophg = 0;
+		if (!formSoP.getText().isEmpty())
+			sophg = Integer.valueOf(formSoP.getText());
+		
+		String tinhtrang = formTT.getText();
+		int malphg = TableUtil.getMaFromTable(tbllp);
+		
+		if (validateForm(sophg, malphg, tinhtrang))
+		{
+			Phong p = PhongDAO.getPhong(sophg);
+			p.setMaloaiphg(malphg);
+			p.setTinhtrang(tinhtrang);
+			PhongDAO.edit(p);
+			return true;
+		}
+		return false;
+	}
+	
+	public static boolean editloaiphong(JTable tbll, JTextField formT, JTextField formG, JTextArea formMT)
+	{
+		int malphg = TableUtil.getMaFromTable(tbll);
+		
+		String tenl = formT.getText();
+		
+		int gia = 0;
+		if (!formG.getText().isEmpty())
+			gia = Integer.valueOf(formG.getText());
+		
+		String mota = formMT.getText();
+		
+		if (validateForm2(malphg, tenl, gia, mota))
+		{
+			LoaiPhong lp = LoaiPhongDAO.getLoaiPhong(malphg);
+			lp.setTenloaiphg(tenl);
+			lp.setGia(gia);
+			lp.setMota(mota);
+			LoaiPhongDAO.edit(lp);
+			return true;
+		}
+		return false;
+	}
+	
+	public static void deletephong(JTable tblp)
+	{
+		int maphg = TableUtil.getMaFromTable(tblp);
+		if (maphg != 1)
+			PhongDAO.delete(maphg);
+	}
+	
+	public static void deleteloaiphong(JTable tbllp)
+	{
+		int malphg = TableUtil.getMaFromTable(tbllp);
+		if (malphg != 1)
+			PhongDAO.delete(malphg);
+	}
+	
+	public static void uploadTableP(JTable tbl, ArrayList<Phong> lst)
+	{
+		String[] columnNames = {"Số phòng","Tình trạng"};
+		Object[][] data = new Object[lst.size()][columnNames.length];
+		
+		int i = 0;
+		for (Phong p : lst)
+		{
+			data[i][0] = p.getMaphg();
+			data[i][1] = p.getTinhtrang();
+			i++;
+		}
+		TableModel tableModel = new DefaultTableModel(data, columnNames);
+		tbl.setModel(tableModel);
+	}
+	
+	public static void uploadTableLP(JTable tbl, ArrayList<LoaiPhong> lst)
+	{
+		String[] columnNames = {"mã", "Tên Loại","Giá", "Mô tả"};
+		Object[][] data = new Object[lst.size()][columnNames.length];
+		
+		int i = 0;
+		for (LoaiPhong lp : lst)
+		{
+			data[i][0] = lp.getMaLoaiPhg();
+			data[i][1] = lp.getTenLoaiPhg();
+			data[i][2] = lp.getGia();
+			data[i][3] = lp.getMota();
+			i++;
+		}
+		TableModel tableModel = new DefaultTableModel(data, columnNames);
+		tbl.setModel(tableModel);
+	}
+	
+	public static void updateTablebyTang(JTable tbl, int tang)
+	{
+		PhongDAO pDAO = new PhongDAO();
+		ArrayList<Phong> lstfull = pDAO.load();
+		
+		if (tang == -1)
+			uploadTableP(tbl, lstfull);
+		else
+		{
+			ArrayList<Phong> lst = new ArrayList<>();
+			for(Phong p : lstfull)
+				if (p.getMaphg() / 100 == tang)
+					lst.add(p);
+			uploadTableP(tbl, lst);
+		}
+	}
+	
+	public static void updateTableL(JTable tbl)
+	{
+		ArrayList<LoaiPhong> lst = LoaiPhongDAO.load();
+		uploadTableLP(tbl, lst);
+	}
+	
+	public static void loadInfo(JTable tblp, JTable tbllp, JTextField formSoP, JTextField formTT, JTextField formLP, JTextField formG, JTextArea formMT)
+	{
+		int sophg = TableUtil.getMaFromTable(tblp);
+		Phong phg = PhongDAO.getPhong(sophg);
+		int malphg = phg.getMaloaiphg();
+		LoaiPhong lphg = LoaiPhongDAO.getLoaiPhong(malphg);
+		
+		formSoP.setText(String.valueOf(phg.getMaphg()));
+		formTT.setText(phg.getTinhtrang());
+		formLP.setText(lphg.getTenLoaiPhg());
+		formG.setText(String.valueOf(lphg.getGia()));
+		formMT.setText(lphg.getMota());
+		
+		tbllp.setRowSelectionInterval(malphg-1, malphg-1);
+	}
+	
+	public static void loadInfo2(JTable tbllp, JTextField formT, JTextField formG, JTextArea formMT)
+	{
+		int malphg = TableUtil.getMaFromTable(tbllp);
+		LoaiPhong lphg = LoaiPhongDAO.getLoaiPhong(malphg);
+		
+		formT.setText(lphg.getTenLoaiPhg());
+		formG.setText(String.valueOf(lphg.getGia()));
+		formMT.setText(lphg.getMota());
+	}
+	
+	private static boolean validateForm(int sophg, int malphg, String tinhtrang)
+	{
+		if (sophg == 0 || sophg > 9999)
+			ThongBao.warning("So phong khong hop le");
+		else if (tinhtrang.isEmpty())
+			ThongBao.warning("Tinh trang phong khong hop le");
+		else if (malphg == -1 || LoaiPhongDAO.getLoaiPhong(malphg) == null)
+			ThongBao.warning("Loai phong khong hop le");
+		else
+			return true;
+		return false;
+	}
+	
+	private static boolean validateForm2(int malphg, String ten, int gia, String mota)
+	{
+		if (malphg == -1)
+			ThongBao.warning("Chưa chọn loại phòng");
+		else if (ten.isEmpty())
+			ThongBao.warning("Ten loai phong khong hop le");
+		else if (gia == 0)
+			ThongBao.warning("gia phong khong hop le");
+		else if (mota.isEmpty())
+			ThongBao.warning("mo ta khong hop le");
+		else
+			return true;
+		return false;
 	}
 	
 }

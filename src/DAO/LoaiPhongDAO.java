@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import DTO.LoaiPhong;
+import GUI.ThongBao;
 
 /**
  *
@@ -18,7 +19,7 @@ import DTO.LoaiPhong;
 public class LoaiPhongDAO
 {
 	
-	public ArrayList<LoaiPhong> load()
+	public static ArrayList<LoaiPhong> load()
 	{
 		ArrayList<LoaiPhong> l_loaiphong = new ArrayList<>();
 		
@@ -40,7 +41,7 @@ public class LoaiPhongDAO
 		}
 		catch(SQLException e)
 		{
-			System.out.println("[LoaiPhongDAO:load] error sql: "+e);
+			ThongBao.warning("[LoaiPhongDAO:load] "+e);
 		}
 		
 		DB.disconnect();
@@ -48,41 +49,97 @@ public class LoaiPhongDAO
 		return l_loaiphong;
 	}
 	
-	public void add(LoaiPhong phg)
+	public static LoaiPhong getLoaiPhong(int malphg)
+	{
+		Database DB = new Database();
+		DB.connect();
+
+		ResultSet rs = DB.execution("SELECT * FROM loaiphong WHERE maloaiphg='"+malphg+"'");
+		
+		try
+		{
+			while(rs.next())
+			{
+				LoaiPhong lphg = new LoaiPhong(rs.getInt(1));
+				lphg.setTenloaiphg(rs.getString(2));
+				lphg.setMota(rs.getString(3));
+				lphg.setGia(rs.getInt(4));
+				
+				DB.disconnect();
+				return lphg;
+			}
+		}
+		catch(SQLException e)
+		{
+			ThongBao.warning("[LoaiPhongDAO:getLoaiPhong] "+e);
+		}
+		
+		DB.disconnect();
+		
+		return null;
+	}
+	
+	public static void add(LoaiPhong lphg)
 	{
 		Database DB = new Database();
 		DB.connect();
 		
 		String sql = "INSERT INTO loaiphong (loaiphong, mota, gia) VALUES ('";
-		sql += phg.getTenLoaiPhg()+"', '";
-		sql += phg.getMota()+"', '";
-		sql += phg.getGia()+"');";
+		sql += lphg.getTenLoaiPhg()+"', '";
+		sql += lphg.getMota()+"', '";
+		sql += lphg.getGia()+"');";
 		
 		DB.update(sql);
 		DB.disconnect();
 	}
 
-	public void delete(int maloaiphg)
+	public static void delete(int maloaiphg)
 	{
 		Database DB = new Database();
 		DB.connect();
-		DB.update("DELETE FROM loaiphong WHERE loaiphong.maloaiphg="+maloaiphg);
+		DB.update("DELETE FROM loaiphong WHERE maloaiphg="+maloaiphg);
 		DB.disconnect();
 	}
 
-	public void edit(LoaiPhong lphg)
+	public static void edit(LoaiPhong lphg)
 	{
 		Database DB = new Database();
 		DB.connect();
 		
 		String sql = "UPDATE loaiphong SET ";
-		sql += "loaiphong='"                    +lphg.getTenLoaiPhg();
-		sql += "', mota='"                      +lphg.getMota();
-		sql += "', gia='"                       +lphg.getGia();
-		sql += "' WHERE loaiphong.maloaiphg = " +lphg.getMaLoaiPhg()+";";
+		sql += "loaiphong='"			+lphg.getTenLoaiPhg();
+		sql += "', mota='"				+lphg.getMota();
+		sql += "', gia='"				+lphg.getGia();
+		sql += "' WHERE maloaiphg = "	+lphg.getMaLoaiPhg()+";";
 		
 		DB.update(sql);
 		DB.disconnect();
 	}
 
+	public static int getNewID()
+	{
+		Database DB = new Database();
+		DB.connect();
+
+		ResultSet rs = DB.execution("SELECT MAX(maloaiphg) FROM loaiphong");
+		
+		try
+		{
+			while(rs.next())
+			{
+				int newid = rs.getInt(1) + 1;
+				DB.disconnect();
+				return newid;
+			}
+		}
+		catch(SQLException e)
+		{
+			System.out.println("[LoaiPhongDAO:getNewID] error sql: "+e);
+		}
+		
+		DB.disconnect();
+		
+		return -1;
+	}
+	
 }

@@ -5,6 +5,7 @@
  */
 package DAO;
 
+import GUI.ThongBao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -37,11 +38,16 @@ public class Database
 			
 			stmt = conn.createStatement();
 		}
-		catch(SQLException | ClassNotFoundException e)
+		catch(ClassNotFoundException e)
 		{
-			System.out.println("[error] MainDatabase: "+e);
+			ThongBao.error("[Database:connect] Thiếu thư viện tích hợp: "+e);
 			System.exit(1);
-        }
+		}
+		catch(SQLException e)
+		{
+			ThongBao.error("[Database:connect] Lỗi kết nối database:\n"+e);
+			System.exit(1);
+		}
 	}
 	
 	ResultSet execution(String sql)
@@ -52,8 +58,8 @@ public class Database
 		}
 		catch(SQLException e)
 		{
-			System.out.println("[error] Database: "+e);
-        }
+			ThongBao.warning("[Database:execution] "+e);
+		}
 		return rs;
 	}
 	
@@ -65,7 +71,7 @@ public class Database
 		}
 		catch(SQLException e)
 		{
-			System.out.println("[error] MainDatabase: "+e);
+			ThongBao.warning("[Database:update] "+e);
 		}
 	}
 	
@@ -80,7 +86,7 @@ public class Database
 		}
 		catch(SQLException e)
 		{
-			System.out.println("[error] MainDatabase: "+e);
+			ThongBao.warning("[Database:disconnect] "+e);
 		}
 	}
 

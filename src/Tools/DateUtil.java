@@ -24,6 +24,12 @@ public class DateUtil
 		return formatter.format(date);
 	}
 	
+	public static String toString(Date date)
+	{
+		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+		return formatter.format(date);
+	}
+	
 	public static int compare(String date1, String date2)
 	{
 		int num1 = getYear(date1);
@@ -67,14 +73,15 @@ public class DateUtil
 	{
 		return Integer.parseInt(date.substring(6, 10));
 	}
-        
-        public static Date convert(String date)
-        {
-            try {
-                return new SimpleDateFormat("dd-MM-yyyy").parse(date);
-            } catch (ParseException ex) {
-                Logger.getLogger(DateUtil.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            return null;
-        }
+	
+	public static Date convert(String date)
+	{
+		try {
+			return new SimpleDateFormat("dd-MM-yyyy").parse(date);
+		} catch (ParseException ex) {
+			Logger.getLogger(DateUtil.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		return null;
+	}
+	
 }
