@@ -10,7 +10,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import DTO.HoaDon;
-import GUI.ThongBao;
 import Tools.DateUtil;
 
 /**
@@ -19,7 +18,7 @@ import Tools.DateUtil;
  */
 public class HoaDonDAO {
 
-	public ArrayList<HoaDon> load() {
+	public static ArrayList<HoaDon> load() {
 		ArrayList<HoaDon> l_hoadon = new ArrayList<>();
 
 		Database DB = new Database();
@@ -57,14 +56,14 @@ public class HoaDonDAO {
 		DB.disconnect();
 	}
 
-	public void delete(int mahd) {
+	public static void delete(int mahd) {
 		Database DB = new Database();
 		DB.connect();
 		DB.update("DELETE FROM HoaDon WHERE HoaDon.mahd=" + mahd);
 		DB.disconnect();
 	}
 
-	public void edit(HoaDon hd) {
+	public static void edit(HoaDon hd) {
 		Database DB = new Database();
 		DB.connect();
 
@@ -129,7 +128,12 @@ public class HoaDonDAO {
 			}
 		}
 
-		hd.l_chitiet = ChiTietHoaDonDAO.load(hd.getMaHD());
+		if (hd == null) {
+			return null;
+		} else {
+			hd.l_chitiet = ChiTietHoaDonDAO.load(hd.getMaHD());
+		}
+
 		return hd;
 	}
 
@@ -152,7 +156,7 @@ public class HoaDonDAO {
 				l_hoadon.add(hd);
 			}
 		} catch (SQLException e) {
-			ThongBao.warning("[HoaDonDAO:getFromMaPhg] " + e);
+			System.out.println("[HoaDonDAO:load] error sql: " + e);
 		}
 
 		DB.disconnect();
@@ -168,8 +172,6 @@ public class HoaDonDAO {
 			}
 		}
 
-		if (hd != null)
-			hd.l_chitiet = ChiTietHoaDonDAO.load(hd.getMaHD());
 		return hd;
 	}
 
