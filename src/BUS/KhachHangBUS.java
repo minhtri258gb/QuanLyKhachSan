@@ -9,10 +9,15 @@ import java.util.ArrayList;
 
 import DTO.KhachHang;
 import DAO.KhachHangDAO;
+import Tools.DateUtil;
+import Tools.TableUtil;
+import com.toedter.calendar.JDateChooser;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
-import java.util.Vector;
+import javax.swing.JComboBox;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
@@ -24,41 +29,45 @@ public class KhachHangBUS
 {
 	public static ArrayList<KhachHang> m_listKhachHang;
 	
+	public static void init(JTable tbl)
+	{
+		ArrayList<KhachHang> dskh = KhachHangDAO.load();
+		LoadTable(tbl, dskh);
+	}
 
-	
 	public KhachHangBUS()
 	{
 		KhachHangDAO khDAO = new KhachHangDAO();
 		m_listKhachHang = khDAO.load();		
 	}
-        public static void LoadTable(JTable tbl, List list){
-        List<KhachHang> dskh = list;
-        String[] columnNames = {"Mã kh","Họ","Tên","Giới tính","Ngày sinh","SĐT","Email","CMNN","Quốc tịch"};
-        Object[][] data = new Object[dskh.size()][9];
-        int i = 0;
-        for (KhachHang kh : dskh) {
-            data[i][0] = kh.getMaKH();
-            data[i][1] = kh.getHo();
-            data[i][2] = kh.getTen();
-            if(kh.getGioiTinh()==0)
-            {
-                data[i][3] = "nam";
-            }
-            else{
-                data[i][3] = "nữ";
-            }
-            
-            data[i][4] = kh.getNgaySinh();
-            data[i][5] = kh.getSoDienThoai();
-            data[i][6] = kh.getEmail();
-            data[i][7] = kh.getCMND();
-            data[i][8] = kh.getQuocTich();
-            
-            i++;
-        }
-        TableModel tableModel = new DefaultTableModel(data, columnNames);
-        tbl.setModel(tableModel);
-    }
+	
+	public static void LoadTable(JTable tbl, List list)
+	{
+		List<KhachHang> dskh = list;
+		String[] columnNames = {"Mã kh","Họ","Tên","Giới tính","Ngày sinh","SĐT","Email","CMNN","Quốc tịch"};
+		Object[][] data = new Object[dskh.size()][columnNames.length];
+		int i = 0;
+		for (KhachHang kh : dskh)
+		{
+			data[i][0] = kh.getMaKH();
+			data[i][1] = kh.getHo();
+			data[i][2] = kh.getTen();
+			if(kh.getGioiTinh()==0)
+				data[i][3] = "nam";
+			else
+				data[i][3] = "nữ";
+
+			data[i][4] = kh.getNgaySinh();
+			data[i][5] = kh.getSoDienThoai();
+			data[i][6] = kh.getEmail();
+			data[i][7] = kh.getCMND();
+			data[i][8] = kh.getQuocTich();
+
+			i++;
+		}
+		TableModel tableModel = new DefaultTableModel(data, columnNames);
+		tbl.setModel(tableModel);
+	}
     
     public static void HienThongkh(JTable tbl) throws Exception {
         ArrayList<KhachHang> dskh = KhachHangDAO.load();
@@ -181,11 +190,29 @@ public class KhachHangBUS
         TableModel tableModel = new DefaultTableModel(data, columnNames);
         tbl.setModel(tableModel);
     }
-              public static KhachHang getkhbyid(int makh)
-        {
-            for(KhachHang kh:m_listKhachHang)
-                if(kh.getMaKH()==makh)
-                    return kh;
-            return null;
-        }
+		
+	public static KhachHang getkhbyid(int makh)
+	{
+		for(KhachHang kh:m_listKhachHang)
+			if(kh.getMaKH()==makh)
+				return kh;
+		return null;
+	}
+	
+	public static void loadInfo(JTable tblkhData, JTextField formMa, JTextField formHo,
+			JTextField formTen, JComboBox<String> formGt, JDateChooser formNS,
+			JTextField formSDT, JTextField formEmail, JTextField formCMND, JTextField formQT)
+	{
+		KhachHang kh = KhachHangDAO.getKhachHang(TableUtil.getMaFromTable(tblkhData));
+		formMa.setText(String.valueOf(kh.getMaKH()));
+		formHo.setText(kh.getHo());
+		formTen.setText(kh.getTen());
+		formGt.setSelectedIndex(kh.getGioiTinh());
+		formNS.setDate(DateUtil.convert(kh.getNgaySinh()));
+		formSDT.setText('0'+String.valueOf(kh.getSoDienThoai()));
+		formEmail.setText(kh.getEmail());
+		formCMND.setText(String.valueOf(kh.getCMND()));
+		formQT.setText(kh.getQuocTich());
+	}
+	
 }

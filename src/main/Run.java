@@ -15,7 +15,7 @@ public class Run
 	{
 //		DangNhapGUI dn=new DangNhapGUI("Quản lý khách sạn");
 //		dn.showWindow();
-		fastrun(false);
+		fastrun(true);
 	}
 	
 	private static void fastrun(boolean quanly)

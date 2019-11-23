@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import DTO.DichVu;
+import GUI.ThongBao;
 
 /**
  *
@@ -17,7 +18,7 @@ import DTO.DichVu;
  */
 public class DichVuDAO
 {
-	public ArrayList<DichVu> load()
+	public static ArrayList<DichVu> load()
 	{
 		ArrayList<DichVu> l_dichvu = new ArrayList<>();
 		
@@ -40,7 +41,7 @@ public class DichVuDAO
 		}
 		catch(SQLException e)
 		{
-			System.out.println("[DichVuDAO:load] error sql: "+e);
+			ThongBao.warning("[DichVuDAO:load] "+e);
 		}
 		
 		DB.disconnect();
@@ -48,7 +49,37 @@ public class DichVuDAO
 		return l_dichvu;
 	}
 	
-	public void add(DichVu dv)
+	public static DichVu getDichVu(int madv)
+	{
+		Database DB = new Database();
+		DB.connect();
+
+		ResultSet rs = DB.execution("SELECT * FROM dichvu WHERE madv="+madv);
+		
+		try
+		{
+			while(rs.next())
+			{
+				DichVu dv = new DichVu(rs.getInt(1));
+
+				dv.setTenDV(rs.getString(2));
+				dv.setMoTa(rs.getString(3));
+				dv.setGia(rs.getInt(4));
+				DB.disconnect();
+				return dv;
+			}
+		}
+		catch(SQLException e)
+		{
+			ThongBao.warning("[DichVuDAO:getDichVu] "+e);
+		}
+		
+		DB.disconnect();
+		
+		return null;
+	}
+	
+	public static void add(DichVu dv)
 	{
 		Database DB = new Database();
 		DB.connect();
@@ -62,7 +93,7 @@ public class DichVuDAO
 		DB.disconnect();
 	}
 
-	public void delete(int madv)
+	public static void delete(int madv)
 	{
 		Database DB = new Database();
 		DB.connect();
@@ -70,7 +101,7 @@ public class DichVuDAO
 		DB.disconnect();
 	}
 
-	public void edit(DichVu dv)
+	public static void edit(DichVu dv)
 	{
 		Database DB = new Database();
 		DB.connect();
@@ -110,36 +141,5 @@ public class DichVuDAO
 		
 		return 0;
 	}
-        
-	public static DichVu getDichVu(int madv)
-	{
-		Database DB = new Database();
-		DB.connect();
 
-		ResultSet rs = DB.execution("SELECT * FROM dichvu WHERE madv="+madv);
-		
-		try
-		{
-			while(rs.next())
-			{
-				DichVu dv = new DichVu(rs.getInt(1));
-
-				dv.setTenDV(rs.getString(2));
-				dv.setMoTa(rs.getString(3));
-				dv.setGia(rs.getInt(4));
-				DB.disconnect();
-                                
-                                return dv;
-			}
-		}
-		catch(SQLException e)
-		{
-			System.out.println("[DichVuDAO:load] error sql: "+e);
-		}
-		
-		DB.disconnect();
-		
-		return null;
-	}
-	
 }

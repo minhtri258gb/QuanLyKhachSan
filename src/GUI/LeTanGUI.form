@@ -36,7 +36,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanel3" alignment="1" pref="1213" max="32767" attributes="0"/>
+          <Component id="jPanel3" alignment="1" pref="1215" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -63,7 +63,7 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Component id="tabletan" alignment="0" pref="1213" max="32767" attributes="0"/>
-              <Component id="jPanel1" alignment="1" pref="1213" max="32767" attributes="0"/>
+              <Component id="jPanel1" alignment="1" pref="1215" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -419,7 +419,7 @@
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="jButtonthemkh" min="-2" pref="32" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace pref="19" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -546,7 +546,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="txtmakh" min="-2" pref="72" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jLabel26" pref="249" max="32767" attributes="0"/>
+                              <Component id="jLabel26" pref="252" max="32767" attributes="0"/>
                               <EmptySpace min="-2" pref="94" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">

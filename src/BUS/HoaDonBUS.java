@@ -6,10 +6,8 @@
 package BUS;
 
 import DAO.ChiTietHoaDonDAO;
-import DAO.DichVuDAO;
 import DAO.HoaDonDAO;
 import DAO.PhieuThuePhongDAO;
-import DAO.PhongDAO;
 import DTO.ChiTietHoaDon;
 import DTO.HoaDon;
 import DTO.PhieuThuePhong;
@@ -21,18 +19,15 @@ import Tools.DateUtil;
  */
 public class HoaDonBUS {
 
-	public void traPhong(int makh) {
-		HoaDonDAO hdDAO = new HoaDonDAO();
-		ChiTietHoaDonDAO cthdDAO = new ChiTietHoaDonDAO();
-		PhieuThuePhongDAO ptpDAO = new PhieuThuePhongDAO();
-
-		HoaDon hd = hdDAO.getFromMaKH(makh);
-		hd.l_chitiet = cthdDAO.get(hd.getMaHD());
+	public void traPhong(int makh)
+	{
+		HoaDon hd = HoaDonDAO.getFromMaKH(makh);
+		hd.l_chitiet = ChiTietHoaDonDAO.load(hd.getMaHD());
 
 		for (ChiTietHoaDon cthd : hd.l_chitiet) {
 			PhieuThuePhong ptp = cthd.getPhieuThuePhong();
 			ptp.setNgayDi(DateUtil.getCurDate());
-			ptpDAO.edit(ptp);
+			PhieuThuePhongDAO.edit(ptp);
 		}
 	}
 

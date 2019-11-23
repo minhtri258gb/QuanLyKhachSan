@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import DTO.TaiKhoan;
+import GUI.ThongBao;
 
 /**
  *
@@ -17,9 +18,9 @@ import DTO.TaiKhoan;
  */
 public class TaiKhoanDAO
 {
-	public ArrayList<TaiKhoan> load()
+	public static ArrayList<TaiKhoan> load()
 	{
-		ArrayList<TaiKhoan> l_TaiKhoan = new ArrayList<TaiKhoan>();
+		ArrayList<TaiKhoan> l_TaiKhoan = new ArrayList<>();
 		
 		Database DB = new Database();
 		DB.connect();
@@ -30,17 +31,16 @@ public class TaiKhoanDAO
 		{
 			while(rs.next())
 			{
-				TaiKhoan kh = new TaiKhoan();
-                                kh.setMaNV(rs.getInt(2));
-                                kh.set_tentk(rs.getString(3));
-				kh.setMatkhau(rs.getString(4));
-				kh.setQuyen( rs.getInt(5));
+				TaiKhoan kh = new TaiKhoan(rs.getString(2));
+				kh.setMaNV(rs.getInt(1));
+				kh.setMatkhau(rs.getString(3));
+				kh.setQuyen( rs.getInt(4));
 				l_TaiKhoan.add(kh);
 			}
 		}
 		catch(SQLException e)
 		{
-			System.out.println("[TaiKhoanDAO:load] error sql: "+e);
+			ThongBao.warning("[TaiKhoanDAO:load] error sql: "+e);
 		}
 		
 		DB.disconnect();
@@ -48,29 +48,31 @@ public class TaiKhoanDAO
 		return l_TaiKhoan;
 	}
 	
-	public static TaiKhoan get(String tentk,String mk)
+	public static TaiKhoan getTaiKhoan(String tentk)
 	{
 		Database DB = new Database();
 		DB.connect();
 
-		ResultSet rs = DB.execution("SELECT * FROM TaiKhoan WHERE tentk='"+tentk+"' and "+"matkhau='"+mk+"'");
+		ResultSet rs = DB.execution("SELECT * FROM taikhoan WHERE tentk='"+tentk+"'");
 		
 		try
 		{
 			while(rs.next())
 			{
-				TaiKhoan kh = new TaiKhoan();
-                                kh.setMaNV(rs.getInt(1));
-                                kh.set_tentk(rs.getString(2));
-				kh.setMatkhau(rs.getString(3));
-				kh.setQuyen( rs.getInt(4));
-				return kh;
+				TaiKhoan tk = new TaiKhoan(rs.getString(2));
+
+				tk.setMaNV(rs.getInt(1));
+				tk.setMatkhau(rs.getString(3));
+				tk.setQuyen(rs.getInt(4));
+				
+				DB.disconnect();
+				
+				return tk;
 			}
-                        DB.disconnect();
 		}
 		catch(SQLException e)
 		{
-			System.out.println("[TaiKhoanDAO:load] error sql: "+e);
+			ThongBao.error("[TaiKhoanDAO:getTaiKhoan] error sql: "+e);
 		}
 		
 		DB.disconnect();
@@ -78,12 +80,12 @@ public class TaiKhoanDAO
 		return null;
 	}
 	
-	public void add(TaiKhoan tk)
+	public static void add(TaiKhoan tk)
 	{
 		Database DB = new Database();
 		DB.connect();
 		
-		String sql = "INSERT INTO TaiKhoan (matkhau, manv, quyen) VALUES ('";
+		String sql = "INSERT INTO taokhoan (matkhau, manv, quyen) VALUES ('";
 		sql += tk.getMatkhau()+"', '";
 		sql += tk.getMaNV()+"', '";
 		sql += tk.getQuyen()+"');";
@@ -100,7 +102,7 @@ public class TaiKhoanDAO
 		DB.disconnect();
 	}
 
-	public void edit(TaiKhoan tk)
+	public static void edit(TaiKhoan tk)
 	{
 		Database DB = new Database();
 		DB.connect();
@@ -113,6 +115,85 @@ public class TaiKhoanDAO
 		
 		DB.update(sql);
 		DB.disconnect();
+	}
+
+	public ArrayList<TaiKhoan> find(String honv, String tennv, int sdt, String email, String chucvu)
+	{
+		ArrayList<TaiKhoan> l_taikhoan = new ArrayList<>();
+		
+		Database DB = new Database();
+		DB.connect();
+
+		String sql = "SELECT tk.* FROM taikhoan tk INNER JOIN nhanvien nv ON tk.manv = nv.manv WHERE ";
+		
+		if(!honv.isEmpty())
+			sql += "ho='" + honv + "' AND";
+		if(!tennv.isEmpty())
+			sql += "ten='" + tennv + "' AND";
+		if(sdt != 0)
+			sql += "sdt='" + sdt + "' AND";
+		if(!email.isEmpty())
+			sql += "email='" + email + "' AND";
+		if(!chucvu.isEmpty())
+			sql += "chucvu='" + chucvu + "' AND";
+		
+		sql = sql.substring(0, sql.length() - 4);
+		
+		ResultSet rs = DB.execution(sql);
+		
+		try
+		{
+			while(rs.next())
+			{
+				TaiKhoan tk = new TaiKhoan(rs.getString(2));
+				
+				tk.setMaNV(rs.getInt(1));
+				tk.setMatkhau(rs.getString(3));
+				tk.setQuyen(rs.getInt(4));
+				
+				l_taikhoan.add(tk);
+			}
+		}
+		catch(SQLException e)
+		{
+			GUI.ThongBao.error("[TaiKhoanDAO:find] error sql: "+e);
+		}
+		
+		DB.disconnect();
+		
+		return l_taikhoan;
+	}
+
+	public TaiKhoan find(String tentk)
+	{
+		Database DB = new Database();
+		DB.connect();
+
+		ResultSet rs = DB.execution("SELECT * FROM taikhoan WHERE tentk='"+tentk+"'");
+		
+		try
+		{
+			while(rs.next())
+			{
+				TaiKhoan tk = new TaiKhoan(rs.getString(2));
+				
+				tk.setMaNV(rs.getInt(1));
+				tk.setMatkhau(rs.getString(3));
+				tk.setQuyen(rs.getInt(4));
+				
+				DB.disconnect();
+				
+				return tk;
+			}
+		}
+		catch(SQLException e)
+		{
+			GUI.ThongBao.error("[TaiKhoanDAO:find] error sql: "+e);
+		}
+		
+		DB.disconnect();
+		
+		return null;
 	}
 
 }

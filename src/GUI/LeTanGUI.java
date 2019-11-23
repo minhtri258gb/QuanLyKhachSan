@@ -1068,7 +1068,7 @@ public class LeTanGUI extends javax.swing.JFrame {
     private void tblphongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblphongMouseClicked
         int row = tblphong.getSelectedRow();
         int maphg = Integer.valueOf(tblphong.getValueAt(row, 0).toString());
-        Phong phg = PhongBUS.getphongbyma(maphg);
+        Phong phg = PhongBUS.getPhong(maphg);
         txtsophg.setText(String.valueOf(phg.getMaphg()));
         txtloaiphg.setText(tblphong.getValueAt(row, 1).toString());
         txtgia.setText(tblphong.getValueAt(row, 3).toString());

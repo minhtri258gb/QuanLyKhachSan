@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import DTO.Phong;
+import GUI.ThongBao;
 
 /**
  *
@@ -18,14 +19,14 @@ import DTO.Phong;
 public class PhongDAO
 {
 	
-	public ArrayList<Phong> load()
+	public static ArrayList<Phong> load()
 	{
 		ArrayList<Phong> l_dichvu = new ArrayList<>();
 		
 		Database DB = new Database();
 		DB.connect();
 
-		ResultSet rs = DB.execution("SELECT * FROM Phong");
+		ResultSet rs = DB.execution("SELECT * FROM phong");
 		
 		try
 		{
@@ -41,7 +42,7 @@ public class PhongDAO
 		}
 		catch(SQLException e)
 		{
-			System.out.println("[PhongDAO:load] error sql: "+e);
+			ThongBao.warning("[PhongDAO:load] "+e);
 		}
 		
 		DB.disconnect();
@@ -49,24 +50,55 @@ public class PhongDAO
 		return l_dichvu;
 	}
 	
-	public void add(Phong phg)
+	public static Phong getPhong(int maphg)
+	{
+		Database DB = new Database();
+		DB.connect();
+
+		ResultSet rs = DB.execution("SELECT * FROM phong WHERE maphg='"+maphg+"'");
+		
+		try
+		{
+			while(rs.next())
+			{
+				Phong phg = new Phong(rs.getInt(1));
+
+				phg.setMaloaiphg(rs.getInt(2));
+				phg.setTinhtrang(rs.getString(3));
+				
+				DB.disconnect();
+				return phg;
+			}
+		}
+		catch(SQLException e)
+		{
+			ThongBao.warning("[PhongDAO:getPhong] "+e);
+		}
+		
+		DB.disconnect();
+		
+		return null;
+	}
+	
+	public static void add(Phong phg)
 	{
 		Database DB = new Database();
 		DB.connect();
 		
-		String sql = "INSERT INTO Phong (maloaiphg, tinhtrang) VALUES ('";
+		String sql = "INSERT INTO Phong (maphg, maloaiphg, tinhtrang) VALUES ('";
+		sql += phg.getMaphg()+"', '";
 		sql += phg.getMaloaiphg()+"', '";
-		sql += phg.getTinhtrang()+"', '";
+		sql += phg.getTinhtrang()+"')";
 		
 		DB.update(sql);
 		DB.disconnect();
 	}
 
-	public void delete(int maphg)
+	public static void delete(int maphg)
 	{
 		Database DB = new Database();
 		DB.connect();
-		DB.update("DELETE FROM Phong WHERE Phong.maphg="+maphg);
+		DB.update("DELETE FROM phong WHERE maphg="+maphg);
 		DB.disconnect();
 	}
 
@@ -75,39 +107,13 @@ public class PhongDAO
 		Database DB = new Database();
 		DB.connect();
 		
-		String sql = "UPDATE Phong SET ";
+		String sql = "UPDATE phong SET ";
 		sql += "maloaiphg='"				+phg.getMaloaiphg();
 		sql += "', tinhtrang='"			+phg.getTinhtrang();
-		sql += "' WHERE Phong.maphg = "	+phg.getMaphg()+";";
+		sql += "' WHERE maphg = "			+phg.getMaphg()+";";
 		
 		DB.update(sql);
 		DB.disconnect();
-	}
-	public static Phong getphong(int maphong)
-	{
-		
-		Phong phg=new Phong(maphong);
-		Database DB = new Database();
-		DB.connect();
-		String sql="select * from phong where maphg='"+maphong+"'";
-		ResultSet rs=DB.execution(sql);
-		try
-		{
-			while(rs.next())
-			{
-
-				phg.setMaloaiphg(rs.getInt(2));
-				phg.setTinhtrang(rs.getString(3));
-			}
-		}
-		catch(SQLException e)
-		{
-			System.out.println("[PhongDAO:load] error sql: "+e);
-		}
-		DB.disconnect();
-		return phg;
-		
-		
 	}
 
 }

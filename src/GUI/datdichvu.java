@@ -38,7 +38,7 @@ public class datdichvu extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         DichVuBUS dvbus = new DichVuBUS();
-        for (DichVu dv : dvbus.getdv()) {
+        for (DichVu dv : dvbus.load()) {
             cbbcacdichvu.addItem(dv.getTenDV());
         }
         this.pack();
@@ -366,7 +366,7 @@ public class datdichvu extends javax.swing.JDialog {
 //            System.out.println(selected);
             txtgiadv.setText("");
         } else {
-            dvbus.getdv().forEach((dvc) -> {
+            dvbus.load().forEach((dvc) -> {
                 if (selected == dvc.getMaDV()) {
                     txtgiadv.setText(String.valueOf(dvc.getGia()));
                 }

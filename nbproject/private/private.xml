@@ -3,7 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/tuan%20gh/Documents/NetBeansProjects/QuanLyKhachSan/src/GUI/datdichvu.java</file>
+            <file>file:/D:/Project/QuanLyKhachSan/src/GUI/QuanLyGUI.java</file>
+            <file>file:/D:/Project/QuanLyKhachSan/src/BUS/DichVuBUS.java</file>
+            <file>file:/D:/Project/QuanLyKhachSan/src/GUI/PhongGUI.java</file>
+            <file>file:/D:/Project/QuanLyKhachSan/src/main/Run.java</file>
+            <file>file:/D:/Project/QuanLyKhachSan/src/BUS/HoaDonBUS.java</file>
+            <file>file:/D:/Project/QuanLyKhachSan/src/BUS/PhongBUS.java</file>
+            <file>file:/D:/Project/QuanLyKhachSan/src/GUI/LeTanGUI.java</file>
         </group>
     </open-files>
 </project-private>

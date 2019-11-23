@@ -17,18 +17,15 @@ public class TaiKhoan
 	private int m_quyen;
 
 	
-	public TaiKhoan()
+	public TaiKhoan(String tentk)
 	{
+		m_tentk = tentk;
 	}
 
 	public String getTenTK()
 	{
 		return m_tentk;
 	}
-        public void set_tentk(String tentk)
-        {
-            this.m_tentk=tentk;
-        }
 
 	public String getMatkhau()
 	{

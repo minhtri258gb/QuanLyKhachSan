@@ -5,15 +5,6 @@
  */
 package GUI;
 
-import BUS.ChiTietHoaDonBUS;
-import BUS.HoaDonBUS;
-import BUS.KhachHangBUS;
-import BUS.NhanVienBUS;
-import BUS.PhieuThuePhongBUS;
-import BUS.PhongBUS;
-import DAO.HoaDonDAO;
-
-
 /**
  *
  * @author Massan

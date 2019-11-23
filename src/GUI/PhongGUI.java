@@ -6,16 +6,13 @@
 package GUI;
 
 import BUS.HoaDonBUS;
-import BUS.PhieuThuePhongBUS;
 import BUS.PhongBUS;
 import DTO.ChiTietHoaDon;
 import DTO.HoaDon;
 import DTO.LoaiPhong;
 import DTO.Phong;
 import java.util.ArrayList;
-import javax.swing.JComboBox;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
@@ -85,9 +82,9 @@ public class PhongGUI
         for (ChiTietHoaDon cthd : listcthd)
         {                           
             data[i][0] = cthd.getPhieuThuePhong().getMaPHG();      
-            data[i][1] =PhongBUS.getTenLPhg(PhongBUS.getphongbyma(cthd.getPhieuThuePhong().getMaPHG()).getMaloaiphg()) ;
+            data[i][1] =PhongBUS.getTenLPhg(PhongBUS.getPhong(cthd.getPhieuThuePhong().getMaPHG()).getMaloaiphg()) ;
             data[i][2] = hoadonkh.getNgayLap();
-            data[i][3] =PhongBUS.getGiaLPhg(PhongBUS.getphongbyma(cthd.getPhieuThuePhong().getMaPHG()).getMaloaiphg());           
+            data[i][3] =PhongBUS.getGiaLPhg(PhongBUS.getPhong(cthd.getPhieuThuePhong().getMaPHG()).getMaloaiphg());           
             i++;
         }
         TableModel tableModel = new DefaultTableModel(data, columnNames);
