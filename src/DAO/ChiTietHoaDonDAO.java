@@ -10,6 +10,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import DTO.ChiTietHoaDon;
+import DTO.PhieuDichVu;
+import DTO.PhieuThuePhong;
 import GUI.ThongBao;
 
 /**
@@ -57,12 +59,38 @@ public class ChiTietHoaDonDAO
 			
 			id = l_mapdv.get(i);
 			if(id != 0)
-				l_chitiet.get(i).setPhieuDichVu(PhieuDichVuDAO.get(id));
+				l_chitiet.get(i).setPhieuDichVu(null);
 		}
 		
 		return l_chitiet;
 	}
-	
+	public  static ChiTietHoaDon getcthdbypdv(PhieuDichVu pdv)
+	{
+		Database DB = new Database();
+		DB.connect();
+		String sql="select cthd.macthd,cthd.mahd,cthd.maptp,cthd.mapdv, cthd.thanhtien\n" +
+					"from PhieuDichVu pdv,chitiethoadon cthd\n" +
+					"where pdv.macthd=cthd.macthd and pdv.mapdv='"+pdv.getMaPDV()+"' ";
+		ResultSet rs = DB.execution(sql);
+		try
+		{
+			while(rs.next())
+			{
+				ChiTietHoaDon cthd = new ChiTietHoaDon(rs.getInt(1));
+				PhieuThuePhong ptp=PhieuThuePhongDAO.get(rs.getInt(3));
+				cthd.setPhieuDichVu(null);
+				cthd.setPhieuThuePhong(ptp);
+				cthd.setThanhtien(rs.getInt(5));
+				return cthd;
+				
+			}
+		}
+		catch(SQLException e)
+		{
+			System.out.println("[ChiTietHoaDonDAO:get] error sql: "+e);
+		}
+		return null;
+	}
 	public static void add(ChiTietHoaDon cthd, int mahd)
 	{
 		Database DB = new Database();
@@ -100,7 +128,7 @@ public class ChiTietHoaDonDAO
 		
 		String sql = "UPDATE ChiTietHoaDon SET ";
 		sql += "maptp='"							+cthd.getPhieuThuePhong().getMaPTP();
-		sql += "', mapdv='"						+cthd.getPhieuDichVu().getMaPDV();
+		sql += "', mapdv='-1";
 		sql += "', thanhtien='"					+cthd.getThanhtien();
 		sql += "' WHERE ChiTietHoaDon.macthd = "	+cthd.getMaCTHD()+";";
 		

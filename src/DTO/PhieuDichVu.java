@@ -15,6 +15,15 @@ public class PhieuDichVu
 	private final int m_madv;
 	private String m_ngaydat;
 	private int m_soluong;
+	private int m_machitiethoadon;
+
+	public void setM_machitiethoadon(int m_machitiethoadon) {
+		this.m_machitiethoadon = m_machitiethoadon;
+	}
+
+	public int getM_machitiethoadon() {
+		return m_machitiethoadon;
+	}
 	
 	
 	public PhieuDichVu(int mapdv, int madv)

@@ -52,5 +52,12 @@ public class RegexExpression {
     }
     static boolean isValidemail(String email) {
       String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
-      return email.matches(regex);}
+      return email.matches(regex);
+	}
+
+	public static boolean issoluong(String soluong)
+	{
+		String regex="^\\d{1}$";
+		return soluong.matches(regex);
+	}
 }

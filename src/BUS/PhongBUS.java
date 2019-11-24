@@ -185,40 +185,40 @@ public class PhongBUS
         return 0;
     }
 	
-	public void datPhong(int makh, ArrayList<Integer> maphgs)
-	{
-		// Tao hoa don
-		HoaDonDAO hdDAO = new HoaDonDAO();
-		int manv = TaiKhoanBUS.getUser().getMaNV();
-		int mahd = hdDAO.getNewID();
-		HoaDon hd = new HoaDon(mahd, makh, manv);
-		hd.setNgayLap(DateUtil.getCurDate());
-		hd.setTongtien(0);
-		
-		// Tạo phiếu thuê phòng và chi tiết hóa đơn
-		PhieuThuePhongDAO ptpDAO = new PhieuThuePhongDAO();
-		ChiTietHoaDonDAO cthdDAO = new ChiTietHoaDonDAO();
-		int maptp = ptpDAO.getNewID();
-		int macthd = cthdDAO.getNewID();
-		ArrayList<PhieuThuePhong> l_ptp = new ArrayList<>();
-		for(int i=0;i<maphgs.size();i++)
-		{
-			PhieuThuePhong ptp = new PhieuThuePhong(maptp + i);
-			ptp.setMaPhg(maphgs.get(i));
-			ptp.setNgayDen(DateUtil.getCurDate());
-			ptp.setNgayDi("");
-			l_ptp.add(ptp);
-			
-			ChiTietHoaDon cthd = new ChiTietHoaDon(macthd + i);
-			cthd.setPhieuThuePhong(ptp);
-			cthd.setPhieuDichVu(null);
-			cthd.setThanhtien(0);
-			
-			hd.l_chitiet.add(cthd);
-		}
-		
-		ThongBao.noitice("Đặt phòng thành công");
-	}
+//	public void datPhong(int makh, ArrayList<Integer> maphgs)
+//	{
+//		// Tao hoa don
+//		HoaDonDAO hdDAO = new HoaDonDAO();
+//		int manv = TaiKhoanBUS.getUser().getMaNV();
+//		int mahd = hdDAO.getNewID();
+//		HoaDon hd = new HoaDon(mahd, makh, manv);
+//		hd.setNgayLap(DateUtil.getCurDate());
+//		hd.setTongtien(0);
+//		
+//		// Tạo phiếu thuê phòng và chi tiết hóa đơn
+//		PhieuThuePhongDAO ptpDAO = new PhieuThuePhongDAO();
+//		ChiTietHoaDonDAO cthdDAO = new ChiTietHoaDonDAO();
+//		int maptp = ptpDAO.getNewID();
+//		int macthd = cthdDAO.getNewID();
+//		ArrayList<PhieuThuePhong> l_ptp = new ArrayList<>();
+//		for(int i=0;i<maphgs.size();i++)
+//		{
+//			PhieuThuePhong ptp = new PhieuThuePhong(maptp + i);
+//			ptp.setMaPhg(maphgs.get(i));
+//			ptp.setNgayDen(DateUtil.getCurDate());
+//			ptp.setNgayDi("");
+//			l_ptp.add(ptp);
+//			
+//			ChiTietHoaDon cthd = new ChiTietHoaDon(macthd + i);
+//			cthd.setPhieuThuePhong(ptp);
+//			cthd.setPhieuDichVu(null);
+//			cthd.setThanhtien(0);
+//			
+//			hd.l_chitiet.add(cthd);
+//		}
+//		
+//		ThongBao.noitice("Đặt phòng thành công");
+//	}
 	
 	public static void datphong(JTextField formKHMa, JTable tblPhg)
 	{
@@ -252,11 +252,26 @@ public class PhongBUS
 		}
 		
 		HoaDon hd = HoaDonDAO.getFromMaKH(makh);
-		if (hd.getTongtien() != 0)
+		if (hd==null)
 		{
 			// Tao hoa don moi
 			hd = new HoaDon(HoaDonDAO.getNewID(), makh, manv);
+			hd.setNgayLap(DateUtil.getCurDate());
+			PhieuThuePhong ptp = new PhieuThuePhong(PhieuThuePhongDAO.getNewID());
+			ptp.setMaPhg(maphg);
+			ptp.setNgayDen(DateUtil.getCurDate());
+			ptp.setNgayDi("");
+			ChiTietHoaDon cthdm=new ChiTietHoaDon(ChiTietHoaDonDAO.getNewID());
+			cthdm.setPhieuThuePhong(ptp);
+			cthdm.setThanhtien(0);
+			cthdm.setPhieuDichVu(null);
+			PhieuThuePhongDAO.add(ptp);
+			ChiTietHoaDonDAO.add(cthdm, hd.getMaHD());
 			HoaDonDAO.add(hd);
+			phg.setTinhtrang("đang dùng");
+		    PhongDAO.edit(phg);
+			ThongBao.noitice("Đặt thành công");
+			return;
 		}
 		
 		// Them phieu thue phong

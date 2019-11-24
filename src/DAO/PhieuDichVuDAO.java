@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import DTO.PhieuDichVu;
+import java.util.ArrayList;
 
 /**
  *
@@ -16,30 +17,30 @@ import DTO.PhieuDichVu;
  */
 public class PhieuDichVuDAO {
 
-	public static PhieuDichVu get(int mapdv) {
+	public static ArrayList<PhieuDichVu> get(int macthd) {
 		Database DB = new Database();
 		DB.connect();
-
-		ResultSet rs = DB.execution("SELECT * FROM PhieuDichVu WHERE mapdv=" + mapdv);
-
+		ArrayList<PhieuDichVu> l_phieudv=new ArrayList();
+		String sql="SELECT * FROM PhieuDichVu WHERE macthd=" + macthd;
+		ResultSet rs = DB.execution(sql);
 		try {
 			while (rs.next()) {
 				PhieuDichVu pdv = new PhieuDichVu(rs.getInt(1), rs.getInt(2));
 
 				pdv.setNgayDat(rs.getString(3));
 				pdv.setSoLuong(rs.getInt(4));
-
-				DB.disconnect();
-
-				return pdv;
+				pdv.setM_machitiethoadon(rs.getInt(5));
+				l_phieudv.add(pdv);							
 			}
+			
 		} catch (SQLException e) {
 			System.out.println("[PhieuDichVuDAO:get] error sql: " + e);
+			return null;
 		}
 
 		DB.disconnect();
 
-		return null;
+		return l_phieudv;
 	}
 	public static void edit(PhieuDichVu pdv)
 	{
@@ -71,11 +72,11 @@ public class PhieuDichVuDAO {
 		Database DB = new Database();
 		DB.connect();
 
-		String sql = "INSERT INTO phieudichvu (madv, ngaydat, soluong) VALUES ('";
+		String sql = "INSERT INTO phieudichvu (madv, ngaydat, soluong,macthd) VALUES ('";
 		sql += pdv.getMaDV() + "', '";
 		sql += pdv.getNgayDat() + "', '";
-		sql += pdv.getSoLuong() + "');";
-
+		sql += pdv.getSoLuong() + "','";
+		sql += pdv.getM_machitiethoadon()+ "');";
 		DB.update(sql);
 		DB.disconnect();
 	}
