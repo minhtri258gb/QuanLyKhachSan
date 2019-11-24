@@ -45,33 +45,15 @@ public class PhongGUI
         tbl.setModel(tableModel);
     }
     
-    public void datphong(JTable tbl, int makh)
-    {
-        PhongBUS phgBUS = new PhongBUS();
-        ArrayList<Integer> maphgs = new ArrayList<>();
-        TableModel mdl = tbl.getModel();
-        int[] selectedRows = tbl.getSelectedRows(); 
-        int i = 0;
-        for(int row : selectedRows)
-        {
-            int maphg=Integer.valueOf(String.valueOf(mdl.getValueAt(row, 0)));            
-            i++;
-           maphgs.add(maphg);
-        }    
-        phgBUS.datPhong(makh, maphgs);
-    }
     public static void  loadtblphongdangthue(JTable tbl,int makh)
-    {
-        PhongBUS phgBUS = new PhongBUS();
+    {       
         ArrayList<ChiTietHoaDon> listcthd;
         HoaDon hoadonkh=HoaDonBUS.gethoadonbymakh(makh);
-		System.out.println(hoadonkh.getMaHD());
         if(hoadonkh==null)
         {
             String[] columnNames = {"Số phòng","Loại phòng", "ngày đặt", "Giá"};
-             Object[][] data = new Object[1][1];
-             data[0][0]="trống";
-            TableModel tableModel = new DefaultTableModel(data, columnNames);
+             
+            TableModel tableModel = new DefaultTableModel(null, columnNames);
             tbl.setModel(tableModel);
             
         }else{

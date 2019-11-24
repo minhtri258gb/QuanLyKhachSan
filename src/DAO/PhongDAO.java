@@ -48,8 +48,7 @@ public class PhongDAO
 		DB.disconnect();
 		
 		return l_dichvu;
-	}
-	
+	}		
 	public static Phong getPhong(int maphg)
 	{
 		Database DB = new Database();

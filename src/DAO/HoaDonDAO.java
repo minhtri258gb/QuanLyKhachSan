@@ -119,13 +119,16 @@ public class HoaDonDAO {
 
 		// Tim hoa don lap gan nhat
 		HoaDon hd = null;
-
+		
 		for (HoaDon hdi : l_hoadon) {
-			if (hd == null) {
-				hd = hdi;
-			} else if (DateUtil.compare(hdi.getNgayLap(), hd.getNgayLap()) == 1) {
-				hd = hdi;
-			}
+			if(hdi.getTongtien()==0)
+				hd=hdi;
+			
+//			if (hd == null) {
+//				hd = hdi;
+//			} else if (DateUtil.compare(hdi.getNgayLap(), hd.getNgayLap()) == 1) {
+//				hd = hdi;
+//			}
 		}
 
 		if (hd == null) {
@@ -170,8 +173,10 @@ public class HoaDonDAO {
 			} else if (DateUtil.compare(hdi.getNgayLap(), hd.getNgayLap()) == 1) {
 				hd = hdi;
 			}
+			
 		}
-
+		if(hd==null)
+			return null;
 		return hd;
 	}
 

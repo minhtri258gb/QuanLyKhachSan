@@ -55,7 +55,16 @@ public class LeTanGUI extends javax.swing.JFrame {
             System.out.println("Error in LeTanGUI: " + ex.getMessage());
         }
     }
-
+	public void updatetblphongdat(int makh)
+	{
+		PhongGUI.loadtblphongdangthue(tbldanhsachdadat,makh );
+	}
+	public void updatetblphong()
+	{
+		PhongGUI phgGUI = new PhongGUI();
+        PhongBUS phgBUS = new PhongBUS();
+        phgGUI.LoadTable(tblphong, phgBUS.load());
+	}
     public void enabledFrame() {
         this.setEnabled(true);
     }
@@ -178,7 +187,6 @@ public class LeTanGUI extends javax.swing.JFrame {
         setBackground(new java.awt.Color(255, 195, 191));
         setFocusable(false);
         setName("frmLeTan"); // NOI18N
-        setPreferredSize(new java.awt.Dimension(1189, 629));
         setResizable(false);
 
         jPanel3.setBackground(new java.awt.Color(255, 233, 226));
@@ -1009,7 +1017,12 @@ public class LeTanGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
-
+		
+		
+		AutomaticallyClosedMsgBox(2000, "Đang đăng xuất.\nXin hãy đợi...");
+        this.dispose();
+        DangNhapGUI dn = new DangNhapGUI("Quản lý khách sạn");
+        dn.showWindow();
     }//GEN-LAST:event_btnLogoutActionPerformed
 
     private void tabletanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabletanMouseClicked
@@ -1045,7 +1058,7 @@ public class LeTanGUI extends javax.swing.JFrame {
         HoaDonBUS hd = new HoaDonBUS();
         if (txtmakhdp.getText().length() == 0) {
             ThongBao.noitice(" chưa chọn khách hàng nào.");
-        } else if (hd.gethoadonbymakh(Integer.valueOf(txtmakhdp.getText())) == null) {
+        } else if (tbldanhsachdadat.getSelectedRow()==-1) {
             ThongBao.noitice("chưa đặt phòng nào.");
         } else {
             this.setEnabled(false);
@@ -1123,6 +1136,10 @@ public class LeTanGUI extends javax.swing.JFrame {
 
     private void btndatphongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndatphongActionPerformed
         BUS.PhongBUS.datphong(txtmakhdp, tblphong);
+		PhongGUI.loadtblphongdangthue(tbldanhsachdadat,Integer.valueOf(txtmakhdp.getText()) );
+		 PhongGUI phgGUI = new PhongGUI();
+        PhongBUS phgBUS = new PhongBUS();
+        phgGUI.LoadTable(tblphong, phgBUS.load());
     }//GEN-LAST:event_btndatphongActionPerformed
 
 //    public void setTextFieldsuakh() {
@@ -1140,7 +1157,7 @@ public class LeTanGUI extends javax.swing.JFrame {
         int row = tblkh.getSelectedRow();
         int makh = Integer.valueOf(tblkh.getValueAt(row, 0).toString());
         KhachHangBUS khbus = new KhachHangBUS();
-        KhachHang kh = khbus.getkhbyid(makh);
+        KhachHang kh = KhachHangBUS.getkhbyid(makh);
         txtmakh.setText(String.valueOf(kh.getMaKH()));
         txthokhm.setText(kh.getHo());
         txttenkhm.setText(kh.getTen());

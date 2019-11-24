@@ -5,6 +5,12 @@
  */
 package GUI;
 
+import DAO.ChiTietHoaDonDAO;
+import DAO.PhieuDichVuDAO;
+import DTO.ChiTietHoaDon;
+import DTO.PhieuDichVu;
+import java.util.ArrayList;
+
 /**
  *
  * @author Massan
@@ -15,7 +21,7 @@ public class Test {
   
 public static void main(String[] args) {  
  
-    System.out.println(BUS.DichVuBUS.getDichVu(1).getGia());
+	 System.out.println(ChiTietHoaDonDAO.getNewID());
     
 }
 }
