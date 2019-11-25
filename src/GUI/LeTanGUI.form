@@ -977,10 +977,10 @@
                               <Component id="jScrollPane6" min="-2" pref="188" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
-                                  <Component id="btndoiphong" min="-2" pref="28" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="bntdatdichvu" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="btndoiphong" min="-2" pref="35" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="bntdatdichvu" min="-2" pref="30" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="btntraphong" min="-2" pref="37" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -1473,7 +1473,7 @@
                 </Component>
                 <Component class="javax.swing.JButton" name="btntraphong">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Tr&#x1ea3; Ph&#xf2;ng"/>
+                    <Property name="text" type="java.lang.String" value="xem chi ti&#x1ebf;t"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btntraphongActionPerformed"/>
