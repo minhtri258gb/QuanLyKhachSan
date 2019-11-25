@@ -909,7 +909,7 @@ public class LeTanGUI extends javax.swing.JFrame {
             }
         });
 
-        btntraphong.setText("Trả Phòng");
+        btntraphong.setText("xem chi tiết");
         btntraphong.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btntraphongActionPerformed(evt);
@@ -976,10 +976,10 @@ public class LeTanGUI extends javax.swing.JFrame {
                     .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(tabdatphongLayout.createSequentialGroup()
                         .addGap(15, 15, 15)
-                        .addComponent(btndoiphong, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(bntdatdichvu)
-                        .addGap(18, 18, 18)
+                        .addComponent(btndoiphong, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(bntdatdichvu, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btntraphong, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(22, 22, 22))
         );
