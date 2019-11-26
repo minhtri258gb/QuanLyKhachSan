@@ -20,7 +20,10 @@ import DTO.KhachHang;
 import DTO.PhieuDichVu;
 import DTO.PhieuThuePhong;
 import DTO.Phong;
+import static GUI.BillPrintable.getPageFormat;
 import Tools.DateUtil;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -550,12 +553,24 @@ void btninhoadon(boolean  checkout)
 		String makh = LeTanGUI.it.getmakhdatphong();
 		HoaDon hoadonkh = HoaDonBUS.gethoadonbymakh(Integer.valueOf(makh));
 		hoadonkh.setTongtien(tongtien);
-		HoaDonDAO.edit(hoadonkh);
-		LeTanGUI.it.enabledFrame();
+		
 		this.dispose();
 		LeTanGUI.it.updatetblphongdat(Integer.valueOf(LeTanGUI.it.getmakhdatphong()));
 		LeTanGUI.it.updatetblphong();
+		LeTanGUI.it.enabledFrame();
+		//in hóa đơn
+		PrinterJob pj = PrinterJob.getPrinterJob(); 
+        pj.setPrintable(new BillPrintable(HoaDonDAO.getFromMaKH(Integer.valueOf(makh)),tongtien),getPageFormat(pj));
+		try {
+             pj.print();
+          
+        }
+         catch (PrinterException ex) {
+        }
+		
+		HoaDonDAO.edit(hoadonkh);
 		}
+		
     }//GEN-LAST:event_btninhoadonActionPerformed
 
 	/**

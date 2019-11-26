@@ -57,7 +57,7 @@ public class LeTanGUI extends javax.swing.JFrame {
     }
 	public void updatetblphongdat(int makh)
 	{
-		PhongGUI.loadtblphongdangthue(tbldanhsachdadat,makh );
+		PhongGUI.loadtblphongdangthue(tbldanhsachdadat,makh);
 	}
 	public void updatetblphong()
 	{
@@ -1420,5 +1420,9 @@ public class LeTanGUI extends javax.swing.JFrame {
     private javax.swing.JTextField txttimkhdp;
     private javax.swing.JTextField txttimkienkhachhang;
     // End of variables declaration//GEN-END:variables
+
+	void updatetblphongdat() {
+		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	}
 
 }

@@ -108,7 +108,10 @@ public class PhongBUS
 		
         for (ChiTietHoaDon cthd : hd.l_chitiet)
 		{
-            PhieuThuePhong ptp = cthd.getPhieuThuePhong();
+            PhieuThuePhong ptp = cthd.getPhieuThuePhong();	
+			System.out.println(">> "+ptp.getMaPHG());
+			System.out.println(">> "+maphg_new);
+			System.out.println(">> "+maphg_old);
             if (ptp != null && ptp.getMaPHG() == maphg_old)
 			{
                 if (DateUtil.compare(ptp.getNgayDen(), DateUtil.getCurDate()) == 1)
