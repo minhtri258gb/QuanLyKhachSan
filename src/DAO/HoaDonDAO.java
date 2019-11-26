@@ -177,6 +177,7 @@ public class HoaDonDAO {
 		}
 		if(hd==null)
 			return null;
+		hd.l_chitiet = ChiTietHoaDonDAO.load(hd.getMaHD());
 		return hd;
 	}
 
