@@ -47,43 +47,7 @@ public class thanhtoan extends javax.swing.JDialog {
 		loadkh();
 		loadtblphongdat();
 		loadtbldichvudat();
-		String makh = LeTanGUI.it.getmakhdatphong();
-		HoaDon hoadonkh = HoaDonBUS.gethoadonbymakh(Integer.valueOf(makh));	
-		
-//        ArrayList<ChiTietHoaDon> listcthd=hoadonkh.l_chitiet;
-//		ArrayList<PhieuDichVu> listpdv=new ArrayList<>();
-//		int tienphong=0;
-//		int tiendv=0;
-//		int tongtien=0;
-//		for(ChiTietHoaDon ct:hoadonkh.l_chitiet)
-//		{
-//			if(PhieuDichVuDAO.get(ct.getMaCTHD())!=null)
-//			{
-//				
-//			listpdv.addAll(PhieuDichVuDAO.get(ct.getMaCTHD()));
-//			}
-//			ct.getPhieuThuePhong()
-//		}
-//		
-//		for(PhieuDichVu pdvtt:listpdv)
-//		{
-//			tiendv +=pdvtt.getSoLuong()*DichVuDAO.getDichVu(pdvtt.getMaDV()).getGia();
-//		}
-
-		//HoaDon hd=;
-	}
-void btninhoadon(boolean  checkout)
-{
-	if(checkout==false)
-		{
-			btninhoadon.setEnabled(false);
-		}
-		if(checkout==true)
-		{
-			btninhoadon.setEnabled(true);
-		}
-}
-		
+	}		
 	void loadkh() {
 		int makh = Integer.valueOf(LeTanGUI.it.getmakhdatphong());
 		KhachHang kh = KhachHangBUS.getkhbyid(makh);
@@ -108,7 +72,6 @@ void btninhoadon(boolean  checkout)
 		ArrayList<ChiTietHoaDon> listcthd;
 		int makh = Integer.valueOf(LeTanGUI.it.getmakhdatphong());
 		HoaDon hoadonkh = HoaDonBUS.gethoadonbymakh(makh);
-
 		listcthd = hoadonkh.l_chitiet;
 		String[] columnNames = {"Số phòng", "Loại phòng", "ngày đặt", "ngày trả", "Giá"};
 		Object[][] data = new Object[listcthd.size()][columnNames.length];
@@ -131,14 +94,12 @@ void btninhoadon(boolean  checkout)
 		ArrayList<PhieuDichVu> listphv = new ArrayList<>();
 		int makh = Integer.valueOf(LeTanGUI.it.getmakhdatphong());
 		HoaDon hoadonkh = HoaDonBUS.gethoadonbymakh(makh);
-
 		String[] columnNames = {"Mã Phòng", "Tên dịch vụ", "Ngày đặt", "số lượng", "giá"};
 		for (ChiTietHoaDon ct : hoadonkh.l_chitiet) {
 			if (PhieuDichVuDAO.get(ct.getMaCTHD()) != null) {
 				listphv.addAll(PhieuDichVuDAO.get(ct.getMaCTHD()));
 			}
 		}
-
 		Object[][] data = new Object[listphv.size()][columnNames.length];
 		int i = 0;
 		for (PhieuDichVu pdvd : listphv) {
@@ -494,12 +455,12 @@ void btninhoadon(boolean  checkout)
 		String makh = LeTanGUI.it.getmakhdatphong();
 		HoaDon hoadonkh = HoaDonBUS.gethoadonbymakh(Integer.valueOf(makh));
 		ArrayList<ChiTietHoaDon> listcthd = hoadonkh.l_chitiet;
-		ArrayList<PhieuDichVu> listpdv = new ArrayList<>();
-		int tiendv=0;
-		int tienphg=0;
+		ArrayList<PhieuDichVu> listpdv = new ArrayList<>();	
 		int tongtien=0;
 		
 		for (ChiTietHoaDon ct : listcthd) {
+			int tienphg=0;
+			int tiendv=0;
 			if (PhieuDichVuDAO.get(ct.getMaCTHD()) != null) {
 
 				listpdv.addAll(PhieuDichVuDAO.get(ct.getMaCTHD()));
@@ -509,8 +470,10 @@ void btninhoadon(boolean  checkout)
 			
 		}
 			PhieuThuePhong ptpupdate=ct.getPhieuThuePhong();
+			if("".equals(ptpupdate.getNgayDi())){
 			ptpupdate.setNgayDi(DateUtil.getCurDate());
-			PhieuThuePhongDAO.edit(ptpupdate);	
+			PhieuThuePhongDAO.edit(ptpupdate);}
+			//tính tiên phong
 			if(DateUtil.getDay(DateUtil.getCurDate())==DateUtil.getDay(ct.getPhieuThuePhong().getNgayDen()))
 			{
 				tienphg +=PhongBUS.getGiaLPhg(PhongBUS.getPhong(ct.getPhieuThuePhong().getMaPHG()).getMaloaiphg());
@@ -521,21 +484,18 @@ void btninhoadon(boolean  checkout)
 			}
 			int temp=tienphg+tiendv;
 			ct.setThanhtien(temp);
+			//updadte hoa don
 			ChiTietHoaDonDAO.edit(ct);
-			tongtien +=tiendv+tienphg;
+			tongtien +=temp;
 			Phong traphg=PhongBUS.getPhong(ct.getPhieuThuePhong().getMaPHG());
 			traphg.setTinhtrang("ổn định");
 			PhongDAO.edit(traphg);
 			
 		}
 		txttongtien.setText(String.valueOf(tongtien));
-		//hoadonkh.setTongtien(tongtien);
-		//HoaDonDAO.edit(hoadonkh);
 		this.tongtien=tongtien;
-		btninhoadon(true);
-		
-		
 		ThongBao.noitice("checkout thành công.");
+		
 		loadtblphongdat();
 		
 		
@@ -544,7 +504,6 @@ void btninhoadon(boolean  checkout)
 
     private void btninhoadonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btninhoadonActionPerformed
         
-		//xaut hoa don
 		if(txttongtien.getText().isEmpty()==true){
 			ThongBao.noitice("chưa checkout");
 		}
@@ -553,9 +512,8 @@ void btninhoadon(boolean  checkout)
 		String makh = LeTanGUI.it.getmakhdatphong();
 		HoaDon hoadonkh = HoaDonBUS.gethoadonbymakh(Integer.valueOf(makh));
 		hoadonkh.setTongtien(tongtien);
-		
 		this.dispose();
-		LeTanGUI.it.updatetblphongdat(Integer.valueOf(LeTanGUI.it.getmakhdatphong()));
+		LeTanGUI.it.updatetblphongdat();
 		LeTanGUI.it.updatetblphong();
 		LeTanGUI.it.enabledFrame();
 		//in hóa đơn

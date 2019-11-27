@@ -227,7 +227,7 @@ public class QuanLyGUI extends javax.swing.JFrame {
         setTitle("Quản lý khách sạn");
         setBackground(new java.awt.Color(255, 195, 191));
         setFocusable(false);
-        setName("frmNhanVien"); // NOI18N
+        setName("frmquanly"); // NOI18N
         setResizable(false);
 
         pnlMain.setBackground(new java.awt.Color(255, 207, 132));
@@ -470,7 +470,7 @@ public class QuanLyGUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(tabKhachHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(tabKhachHangLayout.createSequentialGroup()
-                        .addGap(119, 119, 119)
+                        .addGap(134, 134, 134)
                         .addComponent(btnkhTim, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(39, 39, 39)
                         .addComponent(btnkhThem, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -894,17 +894,17 @@ public class QuanLyGUI extends javax.swing.JFrame {
                 .addComponent(lbltkTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(tabTaiKhoanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(tabTaiKhoanLayout.createSequentialGroup()
-                        .addGap(103, 103, 103)
+                        .addGap(79, 79, 79)
                         .addComponent(btntkTim, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btntkThem, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btntkSua, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(322, Short.MAX_VALUE))
                     .addGroup(tabTaiKhoanLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(tabTaiKhoanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(srltkData, javax.swing.GroupLayout.DEFAULT_SIZE, 507, Short.MAX_VALUE)
+                            .addComponent(srltkData)
                             .addComponent(pnltkForm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(20, 20, 20))))
         );

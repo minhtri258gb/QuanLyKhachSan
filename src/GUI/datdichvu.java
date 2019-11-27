@@ -457,6 +457,8 @@ public class datdichvu extends javax.swing.JDialog {
 		}
 		else{
 		DichVuBUS.thue(l_dichvu,l_soluong,ma_phg,hd.getMaHD());
+		l_dichvu.removeAll(l_dichvu);
+		l_soluong.removeAll(l_soluong);
 		LeTanGUI.it.enabledFrame();
 		this.dispose();
 		}

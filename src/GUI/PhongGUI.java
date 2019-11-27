@@ -51,14 +51,14 @@ public class PhongGUI
         HoaDon hoadonkh=HoaDonBUS.gethoadonbymakh(makh);
         if(hoadonkh==null)
         {
-            String[] columnNames = {"Số phòng","Loại phòng", "ngày đặt", "Giá"};
+            String[] columnNames = {"Số phòng","Loại phòng", "ngày đặt","ngày trả", "Giá"};
              
             TableModel tableModel = new DefaultTableModel(null, columnNames);
             tbl.setModel(tableModel);
             
         }else{
             listcthd=hoadonkh.l_chitiet;
-        String[] columnNames = {"Số phòng","Loại phòng", "ngày đặt", "Giá"};
+        String[] columnNames = {"Số phòng","Loại phòng", "ngày đặt","ngày trả", "Giá"};
         Object[][] data = new Object[listcthd.size()][columnNames.length];
         int i=0;
         for (ChiTietHoaDon cthd : listcthd)
@@ -66,7 +66,8 @@ public class PhongGUI
             data[i][0] = cthd.getPhieuThuePhong().getMaPHG();      
             data[i][1] =PhongBUS.getTenLPhg(PhongBUS.getPhong(cthd.getPhieuThuePhong().getMaPHG()).getMaloaiphg()) ;
             data[i][2] = hoadonkh.getNgayLap();
-            data[i][3] =PhongBUS.getGiaLPhg(PhongBUS.getPhong(cthd.getPhieuThuePhong().getMaPHG()).getMaloaiphg());           
+			data[i][3]=cthd.getPhieuThuePhong().getNgayDi();
+            data[i][4] =PhongBUS.getGiaLPhg(PhongBUS.getPhong(cthd.getPhieuThuePhong().getMaPHG()).getMaloaiphg());           
             i++;
         }
         TableModel tableModel = new DefaultTableModel(data, columnNames);
