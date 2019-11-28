@@ -79,6 +79,27 @@ public class DichVuDAO
 		return null;
 	}
 	
+	public static int getNewID() {
+		Database DB = new Database();
+		DB.connect();
+
+		ResultSet rs = DB.execution("SELECT MAX(madv) FROM dichvu");
+
+		try {
+			while (rs.next()) {
+				int newid = rs.getInt(1) + 1;
+				DB.disconnect();
+				return newid;
+			}
+		} catch (SQLException e) {
+			ThongBao.warning("[DichVuDAO:getNewID] " + e);
+		}
+
+		DB.disconnect();
+
+		return -1;
+	}
+
 	public static void add(DichVu dv)
 	{
 		Database DB = new Database();

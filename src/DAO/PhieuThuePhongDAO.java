@@ -9,6 +9,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import DTO.PhieuThuePhong;
+import GUI.ThongBao;
+import java.util.ArrayList;
 
 /**
  *
@@ -16,6 +18,39 @@ import DTO.PhieuThuePhong;
  */
 public class PhieuThuePhongDAO
 {
+	
+	public static ArrayList<PhieuThuePhong> load()
+	{
+		ArrayList<PhieuThuePhong> dsptp = new ArrayList<>();
+		
+		Database DB = new Database();
+		DB.connect();
+
+		ResultSet rs = DB.execution("SELECT * FROM PhieuThuePhong");
+		
+		try
+		{
+			while(rs.next())
+			{
+				PhieuThuePhong ptp = new PhieuThuePhong(rs.getInt(1));
+				
+				ptp.setMaPhg(rs.getInt(2));
+				ptp.setNgayDen(rs.getString(3));
+				ptp.setNgayDi(rs.getString(4));
+				
+				dsptp.add(ptp);
+			}
+		}
+		catch(SQLException e)
+		{
+			ThongBao.warning("[PhieuThuePhongDAO:load] "+e);
+		}
+		
+		DB.disconnect();
+		
+		return dsptp;
+	}
+	
 	public static PhieuThuePhong get(int maptp)
 	{
 		Database DB = new Database();

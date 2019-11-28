@@ -456,7 +456,7 @@ public class thanhtoan extends javax.swing.JDialog {
 		HoaDon hoadonkh = HoaDonBUS.gethoadonbymakh(Integer.valueOf(makh));
 		ArrayList<ChiTietHoaDon> listcthd = hoadonkh.l_chitiet;
 		ArrayList<PhieuDichVu> listpdv = new ArrayList<>();	
-		int tongtien=0;
+		int tongtien = 0;
 		
 		for (ChiTietHoaDon ct : listcthd) {
 			int tienphg=0;
@@ -466,9 +466,8 @@ public class thanhtoan extends javax.swing.JDialog {
 				listpdv.addAll(PhieuDichVuDAO.get(ct.getMaCTHD()));
 			}
 			for (PhieuDichVu pdvtt : listpdv) {
-			tiendv += pdvtt.getSoLuong() * DichVuDAO.getDichVu(pdvtt.getMaDV()).getGia();
-			
-		}
+				tiendv += pdvtt.getSoLuong() * DichVuDAO.getDichVu(pdvtt.getMaDV()).getGia();
+			}
 			PhieuThuePhong ptpupdate=ct.getPhieuThuePhong();
 			if("".equals(ptpupdate.getNgayDi())){
 			ptpupdate.setNgayDi(DateUtil.getCurDate());

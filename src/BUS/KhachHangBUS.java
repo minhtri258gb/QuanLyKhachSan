@@ -13,7 +13,6 @@ import Tools.DateUtil;
 import Tools.TableUtil;
 import com.toedter.calendar.JDateChooser;
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.List;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
