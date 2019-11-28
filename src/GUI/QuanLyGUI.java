@@ -289,7 +289,7 @@ public class QuanLyGUI extends javax.swing.JFrame {
                         .addGroup(pnlTitleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(jLabel25))))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         tabquanly.setBackground(new java.awt.Color(255, 233, 226));
@@ -1484,13 +1484,13 @@ public class QuanLyGUI extends javax.swing.JFrame {
 
         tblhdData.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
         tblhdData.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1502,26 +1502,26 @@ public class QuanLyGUI extends javax.swing.JFrame {
 
         tblhdData1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
         srlhdData1.setViewportView(tblhdData1);
 
         tblhdData2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
         srlhdData2.setViewportView(tblhdData2);
@@ -1582,17 +1582,17 @@ public class QuanLyGUI extends javax.swing.JFrame {
         tabThuNhap.setLayout(tabThuNhapLayout);
         tabThuNhapLayout.setHorizontalGroup(
             tabThuNhapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(tabThuNhapLayout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tabThuNhapLayout.createSequentialGroup()
+                .addContainerGap(343, Short.MAX_VALUE)
                 .addComponent(chrtkTN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(276, 276, 276))
         );
         tabThuNhapLayout.setVerticalGroup(
             tabThuNhapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tabThuNhapLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(35, 35, 35)
                 .addComponent(chrtkTN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(146, Short.MAX_VALUE))
         );
 
         tabThongKeCon.addTab("Thu nhập", tabThuNhap);
@@ -1617,17 +1617,17 @@ public class QuanLyGUI extends javax.swing.JFrame {
         tabTanSuatDV.setLayout(tabTanSuatDVLayout);
         tabTanSuatDVLayout.setHorizontalGroup(
             tabTanSuatDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(tabTanSuatDVLayout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tabTanSuatDVLayout.createSequentialGroup()
+                .addContainerGap(320, Short.MAX_VALUE)
                 .addComponent(chrtkDV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(299, 299, 299))
         );
         tabTanSuatDVLayout.setVerticalGroup(
             tabTanSuatDVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tabTanSuatDVLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(73, 73, 73)
                 .addComponent(chrtkDV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(108, Short.MAX_VALUE))
         );
 
         tabThongKeCon.addTab("Tần suất dùng dịch vụ", tabTanSuatDV);
@@ -1653,16 +1653,16 @@ public class QuanLyGUI extends javax.swing.JFrame {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(289, 289, 289)
                 .addComponent(chrtkDS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(609, Short.MAX_VALUE))
+                .addContainerGap(330, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(94, Short.MAX_VALUE)
                 .addComponent(chrtkDS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(170, Short.MAX_VALUE))
+                .addGap(87, 87, 87))
         );
 
         tabThongKeCon.addTab("Doanh số", jPanel4);
@@ -1685,7 +1685,7 @@ public class QuanLyGUI extends javax.swing.JFrame {
         pnlMainLayout.setHorizontalGroup(
             pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(tabquanly, javax.swing.GroupLayout.DEFAULT_SIZE, 1189, Short.MAX_VALUE)
-            .addComponent(pnlTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 1189, Short.MAX_VALUE)
+            .addComponent(pnlTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 1187, Short.MAX_VALUE)
         );
         pnlMainLayout.setVerticalGroup(
             pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1711,7 +1711,11 @@ public class QuanLyGUI extends javax.swing.JFrame {
 
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
-        
+
+		AutomaticallyClosedMsgBox(2000, "Đang đăng xuất.\nXin hãy đợi...");
+        this.dispose();
+        DangNhapGUI dn = new DangNhapGUI("Quản lý khách sạn");
+        dn.showWindow();        
     }//GEN-LAST:event_btnLogoutActionPerformed
 
     private void btnkhSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnkhSuaActionPerformed
