@@ -49,6 +49,49 @@ public class DichVuBUS {
 		return 0;
 	}
 
+	public static void add(JTable tbl, JTextField fTen, JTextField fGia, JTextArea fMT)
+	{
+		int gia = 0;
+		if (!fGia.getText().isEmpty())
+			gia = Integer.valueOf(fGia.getText());
+		
+		DichVu dv = new DichVu(DichVuDAO.getNewID());
+		dv.setTenDV(fTen.getText());
+		dv.setGia(gia);
+		dv.setMoTa(fMT.getText());
+		DichVuDAO.add(dv);
+		
+		ThongBao.noitice("Thêm thành công");
+	}
+	
+	public static void edit(JTable tbl, JTextField fMa, JTextField fTen, JTextField fGia, JTextArea fMT)
+	{
+		int madv = TableUtil.getMaFromTable(tbl);
+		if (madv == -1)
+			return;
+		
+		int gia = 0;
+		if (!fGia.getText().isEmpty())
+			gia = Integer.valueOf(fGia.getText());
+		
+		DichVu dv = DichVuDAO.getDichVu(madv);
+		dv.setTenDV(fTen.getText());
+		dv.setGia(gia);
+		dv.setMoTa(fMT.getText());
+		DichVuDAO.edit(dv);
+		
+		ThongBao.noitice("Sửa thành công");
+	}
+	
+	public static void delete(JTable tbl)
+	{
+		int madv = TableUtil.getMaFromTable(tbl);
+		if (madv == -1)
+			return;
+		DichVuDAO.delete(madv);
+		ThongBao.noitice("Xóa thành công");
+	}
+	
 	public static void thue(ArrayList<DichVu> l_dichvu, ArrayList<Integer> l_soluong, int ma_phg, int mahd) {
 		int ma_cthd = -1;
 		for (ChiTietHoaDon cthd : ChiTietHoaDonDAO.load(mahd)) {

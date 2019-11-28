@@ -45,7 +45,7 @@ public class ChiTietHoaDonDAO
 		}
 		catch(SQLException e)
 		{
-			System.out.println("[ChiTietHoaDonDAO:get] error sql: "+e);
+			ThongBao.warning("[ChiTietHoaDonDAO:load] "+e);
 		}
 		
 		DB.disconnect();
@@ -64,7 +64,8 @@ public class ChiTietHoaDonDAO
 		
 		return l_chitiet;
 	}
-	public  static ChiTietHoaDon getcthdbypdv(PhieuDichVu pdv)
+	
+	public static ChiTietHoaDon getcthdbypdv(PhieuDichVu pdv)
 	{
 		Database DB = new Database();
 		DB.connect();
@@ -81,16 +82,18 @@ public class ChiTietHoaDonDAO
 				cthd.setPhieuDichVu(null);
 				cthd.setPhieuThuePhong(ptp);
 				cthd.setThanhtien(rs.getInt(5));
+				DB.disconnect();
 				return cthd;
-				
 			}
 		}
 		catch(SQLException e)
 		{
-			System.out.println("[ChiTietHoaDonDAO:get] error sql: "+e);
+			ThongBao.warning("[ChiTietHoaDonDAO:getcthdbypdv] "+e);
 		}
+		DB.disconnect();
 		return null;
 	}
+	
 	public static void add(ChiTietHoaDon cthd, int mahd)
 	{
 		Database DB = new Database();
@@ -154,7 +157,7 @@ public class ChiTietHoaDonDAO
 		}
 		catch(SQLException e)
 		{
-			System.out.println("[ChiTietHoaDonDAO:getNewID] error sql: "+e);
+			ThongBao.warning("[ChiTietHoaDonDAO:getNewID] "+e);
 		}
 		
 		DB.disconnect();

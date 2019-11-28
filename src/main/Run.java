@@ -1,6 +1,7 @@
 package main;
 
 import BUS.TaiKhoanBUS;
+import GUI.DangNhapGUI;
 import GUI.LeTanGUI;
 import GUI.QuanLyGUI;
 import java.sql.SQLException;
@@ -13,9 +14,9 @@ public class Run
 {
     public static void main(String[] args)
 	{
-//		DangNhapGUI dn=new DangNhapGUI("Quản lý khách sạn");
-//		dn.showWindow();
-		fastrun(false);
+		DangNhapGUI dn=new DangNhapGUI("Quản lý khách sạn");
+		dn.showWindow();
+//		fastrun(true);
 	}
 	
 	private static void fastrun(boolean quanly)

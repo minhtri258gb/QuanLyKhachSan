@@ -10,15 +10,18 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import DTO.HoaDon;
+import GUI.ThongBao;
 import Tools.DateUtil;
 
 /**
  *
  * @author Massan
  */
-public class HoaDonDAO {
+public class HoaDonDAO
+{
 
-	public static ArrayList<HoaDon> load() {
+	public static ArrayList<HoaDon> load()
+	{
 		ArrayList<HoaDon> l_hoadon = new ArrayList<>();
 
 		Database DB = new Database();
@@ -35,12 +38,63 @@ public class HoaDonDAO {
 				l_hoadon.add(hd);
 			}
 		} catch (SQLException e) {
-			System.out.println("[HoaDonDAO:load] error sql: " + e);
+			ThongBao.warning("[HoaDonDAO:load] " + e);
 		}
 
 		DB.disconnect();
 
 		return l_hoadon;
+	}
+
+	public static ArrayList<HoaDon> load(int makh)
+	{
+		ArrayList<HoaDon> l_hoadon = new ArrayList<>();
+
+		Database DB = new Database();
+		DB.connect();
+
+		ResultSet rs = DB.execution("SELECT * FROM hoadon WHERE makh="+makh);
+
+		try {
+			while (rs.next()) {
+				HoaDon hd = new HoaDon(rs.getInt(1), rs.getInt(2), rs.getInt(3));
+
+				hd.setNgayLap(rs.getString(4));
+				hd.setTongtien(rs.getInt(5));
+				l_hoadon.add(hd);
+			}
+		} catch (SQLException e) {
+			ThongBao.warning("[HoaDonDAO:load] " + e);
+		}
+
+		DB.disconnect();
+
+		return l_hoadon;
+	}
+	
+	public static HoaDon getHoaDon(int mahd)
+	{
+		Database DB = new Database();
+		DB.connect();
+
+		String sql = "SELECT * FROM HoaDon WHERE mahd=" + mahd;
+		ResultSet rs = DB.execution(sql);
+
+		try {
+			while (rs.next()) {
+				HoaDon hd = new HoaDon(rs.getInt(1), rs.getInt(2), rs.getInt(3));
+				hd.setNgayLap(rs.getString(4));
+				hd.setTongtien(rs.getInt(5));
+				DB.disconnect();
+				hd.l_chitiet = ChiTietHoaDonDAO.load(hd.getMaHD());
+				return hd;
+			}
+		} catch (SQLException e) {
+			ThongBao.warning("[HoaDonDAO:load] " + e);
+		}
+
+		DB.disconnect();
+		return null;
 	}
 
 	public static void add(HoaDon hd) {
@@ -89,7 +143,7 @@ public class HoaDonDAO {
 				return newid;
 			}
 		} catch (SQLException e) {
-			System.out.println("[HoaDonDAO:getNewID] error sql: " + e);
+			ThongBao.warning("[HoaDonDAO:getNewID] " + e);
 		}
 
 		DB.disconnect();
@@ -112,7 +166,7 @@ public class HoaDonDAO {
 				l_hoadon.add(hd);
 			}
 		} catch (SQLException e) {
-			System.out.println("[HoaDonDAO:load] error sql: " + e);
+			ThongBao.warning("[HoaDonDAO:getFromMaKH] " + e);
 		}
 
 		DB.disconnect();
@@ -122,13 +176,10 @@ public class HoaDonDAO {
 		
 		for (HoaDon hdi : l_hoadon) {
 			if(hdi.getTongtien()==0)
+			{
 				hd=hdi;
-			
-//			if (hd == null) {
-//				hd = hdi;
-//			} else if (DateUtil.compare(hdi.getNgayLap(), hd.getNgayLap()) == 1) {
-//				hd = hdi;
-//			}
+				break;
+			}
 		}
 
 		if (hd == null) {
@@ -181,4 +232,55 @@ public class HoaDonDAO {
 		return hd;
 	}
 
+	public static ArrayList<HoaDon> find(int makh, int manv, String ngaylap, int gia1, int gia2, int maphg, int madv)
+	{
+		ArrayList<HoaDon> l_hoadon = new ArrayList<>();
+
+		Database DB = new Database();
+		DB.connect();
+
+		String dk1 = "", dk2 = "", dk3 = "", dk4 = "", dk5 = "", dk6 = "";
+		
+		
+		String sql = "SELECT hd.* FROM hoadon hd, chitiethoadon ct";
+		sql += " LEFT JOIN phieuthuephong tp on ct.maptp = tp.maptp";
+		sql += " LEFT JOIN phieudichvu dv on ct.mapdv = dv.mapdv";
+		sql += " WHERE hd.mahd = ct.mahd";
+		if (makh != 0)
+			sql += " AND hd.makh="+makh;
+		if (manv != 0)
+			sql += " AND hd.manv="+manv;
+		if (!ngaylap.isEmpty())
+			sql += " AND hd.ngaylap="+ngaylap;
+		if (gia1 != 0)
+		{
+			if (gia2 == 0)
+				sql += " AND hd.tongtien="+gia1;
+			else
+				sql += " AND (hd.tongtien BETWEEN "+gia1+" AND "+gia2+")";
+		}
+		if (maphg != 0)
+			sql += " AND tp.maphg="+maphg;
+		if (madv != 0)
+			sql += " AND dv.maphg="+madv;
+		
+		ResultSet rs = DB.execution(sql);
+		
+		try {
+			while (rs.next()) {
+				HoaDon hd = new HoaDon(rs.getInt(1), rs.getInt(2), rs.getInt(3));
+
+				hd.setNgayLap(rs.getString(4));
+				hd.setTongtien(rs.getInt(5));
+				l_hoadon.add(hd);
+			}
+		} catch (SQLException e) {
+			ThongBao.warning("[HoaDonDAO:find] " + e);
+		}
+
+		DB.disconnect();
+
+		return l_hoadon;
+	}
+	
 }
